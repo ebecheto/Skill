@@ -9,8 +9,9 @@ I still do not know how to handle package for skill function properly. Something
 ab*.il files are not mine obviously, but since i use them once in a while i added them here to keep my scripts functionnal
 
 
-''' lisp
+``` lisp
 ;; syntax coloring test for lisp like on github
+
 (foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
 
-'''
+```
