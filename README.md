@@ -11,7 +11,14 @@ ab*.il files are not mine obviously, but since i use them once in a while i adde
 
 ``` lisp
 ;; syntax coloring test for lisp like on github
-
 (foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
 
 ```
+
+``` clojure
+(foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
+``` 
+
+``` scheme
+(foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
+``` 
