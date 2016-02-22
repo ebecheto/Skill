@@ -16,9 +16,11 @@ ab*.il files are not mine obviously, but since i use them once in a while i adde
 ```
 
 ``` clojure
+;; syntax coloring test for clojure like on github
 (foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
 ``` 
 
 ``` scheme
+;; syntax coloring test for scheme like on github
 (foreach mapcar x  logRg(1e-15 1e+15 1.0/3) aelSuffixNotation(x))
 ``` 
