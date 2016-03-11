@@ -1,56 +1,29 @@
 ;; copyleft ebecheto
-;  load("~/../ebecheto/Skill/menu.il")
-;  load("~/../ebechetoil/Skill/menu.il")
-;  load("~/../../edouard.bechetoille/home/Skill/menu.il")
-;  load("~/../../edouard.bechetoille/home/Skill/menu.il")
-;  load("/afs/in2p3.fr/group/micrhau/CADENCE/Skill/menu.il")
 
-
-;__vv__ the only thing TODO for new user : __vv__
+;___vv___ the only thing TODO for new user : ___vv___
 ; export SKILLDIR=~/Skill
-;__^^__ the only thing TODO for new user : __^^__
+; chose to do :
+; in ~/.bashrc : 
+; export SKILLDIR=$HOME/Skill
+; or
+; in ~/.cdsinit_personnal :
+; setShellEnvVar(strcat("SKILLDIR=" getShellEnvVar("HOME") "/Skill"))
+;___^^___ the only thing TODO for new user : ___^^___
 
-; ie export SKILLDIR=/afs/in2p3.fr/group/micrhau/CADENCE/Skill
-; or setShellEnvVar("SKILLDIR=/afs/in2p3.fr/group/micrhau/CADENCE/Skill")
-
-let((dir) 
-if(dir=getShellEnvVar("SKILLDIR") 
-when(not(rexMatchList(dir getSkillPath())) setSkillPath(cons(dir getSkillPath())))
+let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
+dirs=list(skdir strcat(skdir "/ab") )
+dir=skdir
+foreach(mapcar dir  dirs
+when(system(strcat("ls " dir ">/dev/null" ))==0
+when(not(rexMatchList(dir getSkillPath())) setSkillPath(cons(dir getSkillPath()))
 printf("[SKILL] Adding %s in getSkillPath()\n" dir||"nilDir?")
-))
-
-let((dir);=> should allow site dependent easyness
-cond(; juste rajouter dir="chemin/../..."
-; (isFile("/afs/in2p3.fr/group/micrhau/CADENCE/Skill/.skillDir.il") loadi("/afs/in2p3.fr/group/micrhau/CADENCE/Skill/.skillDir.il"))
-(isFile("~/../../edouard.bechetoille/home/.skillDir.il") loadi("~/../../edouard.bechetoille/home/.skillDir.il"))
-(isFile(".skillDir.il"   ) loadi(".skillDir.il"))
-(isFile("../.skillDir.il") loadi("../.skillDir.il"))
-(isFile("../ebechetoil/.skillDir.il") loadi("../ebechetoil/.skillDir.il"))
-(isFile("~/.skillDir.il" ) loadi("~/.skillDir.il"))
-(t  dir="~/../ebecheto/Skill")
-);end cond add dir to skillPath
-printf("\n__IPNL menu purpose__\n" dir)
-printf("%s\nADDeD to the skill PATH\n" dir)
-when(not(rexMatchList(dir getSkillPath())) setSkillPath(cons(dir getSkillPath())))
-)
+))))
 
 defun(menu () loadi("menu.il"))
+;load("emacs_ipcPipe.il");<== in the menu or not ...
 load("ineed.il")
-load("noiseSummary.il")
-load("prettyPrint.il")
-
-
-unless(fboundp('RmBannerItemByName) ;define the function when not defined
-;; remove possible previously loaded menu
-(procedure RmBannerItemByName(l_menuName @optional (window_id window(1)))
-(if (length member( l_menuName hiGetBannerMenus(window_id)) )
-(hiDeleteBannerMenu window_id (difference
-(length hiGetBannerMenus(window_id) )
-(length  member(l_menuName hiGetBannerMenus(window_id)))))))
-)
-
+ineed('(noiseSummary prettyPrint RmBannerItemByName))
 RmBannerItemByName('trEdPulldownMenu)
-
 
 files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit")
 cazfiles=foreach(mapcar file files ;file=car(files)
@@ -83,7 +56,7 @@ cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_IPNL_menu" ?cal
 cazPin     = hiCreateMenuItem(?name 'cazPin ?itemText "pin2label" ?callback "load(\"pin2label_v2.il\") pin2label()")
 cazText    = hiCreateMenuItem(?name 'cazText ?itemText "pgText" ?callback "load(\"pgText.il\") pgText()")
 cazMarkers = hiCreateMenuItem(?name 'cazMarkers ?itemText "displayMarkers" ?callback "load(\"displayMarkers.il\"")
-cazEmacs   = hiCreateMenuItem(?name 'cazEmacs ?itemText "emacs ipc" ?callback "load(\"emacs_ipc.il\") ipcBeginProcess(\"emacs ~/../ebecheto/Skill/my-log.txt\" \"\" 'socketHandler) printf(\"Try something like :\\n\\t\\tControl-c-v\")" )
+cazEmacs   = hiCreateMenuItem(?name 'cazEmacs ?itemText "emacs_ipc" ?callback "load(\"emacs_ipcPipe.il\")" )
 cazRegion  = hiCreateMenuItem(?name 'cazRegion ?itemText "regionSat" ?callback "load(\"regionSat.il\") regionSat()"  )
 cazMos2Fet = hiCreateMenuItem(?name 'cazMos2Fet ?itemText "mos2fet" ?callback "load \"mos2fet.il\"" )
 cazGnuplot = hiCreateMenuItem(?name 'cazGnuplot ?itemText "vt2gnuplot" ?callback "load(\"gnuplotVT.il\") dataToGnuplot()" )
