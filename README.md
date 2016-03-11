@@ -2,9 +2,9 @@ Given 'as is',
 from icfb 5141 to virtuoso 615, here is a bunch of skill function written over the years.
 Some function where written in the beginning and so less 'clean'.
 
-1) in ~/.bashrc : export SKILLDIR=$HOME/Skill
-2) copy skillMode.el in ~/.emacs.d/
-3) add load("~/.emacs.d/skillMode.el") in ~/.emacs
+1. in ~/.bashrc : export SKILLDIR=$HOME/Skill
+2. copy skillMode.el in ~/.emacs.d/
+3. add load("~/.emacs.d/skillMode.el") in ~/.emacs
 
 Since i created the funcion (file) named 'ineed' (ineed.il), I used the convention : one function, one file.
 
