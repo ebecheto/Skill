@@ -9,8 +9,9 @@
 ; in ~/.cdsinit_personnal :
 ; setShellEnvVar(strcat("SKILLDIR=" getShellEnvVar("HOME") "/Skill"))
 ;___^^___ the only thing TODO for new user : ___^^___
-
+;; TODO : make a second menu "__ defun _2"
 let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
+unless(skdir skdir="/home/validmgr/ebecheto/Skill") ;<== hardcode default location if any
 dirs=list(skdir strcat(skdir "/ab") )
 dir=skdir
 foreach(mapcar dir  dirs
@@ -25,7 +26,7 @@ load("ineed.il")
 ineed('(noiseSummary prettyPrint RmBannerItemByName))
 RmBannerItemByName('trEdPulldownMenu)
 
-files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit")
+files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit" "shout")
 cazfiles=foreach(mapcar file files ;file=car(files)
 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file )))
 concat('caz file))
@@ -52,11 +53,11 @@ cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "p
 cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "prettyPrint()")
 cazResize  = hiCreateMenuItem(?name 'cazResize ?itemText "Resize" ?callback "hiResizeWindow( window(1) list(0:0 500:500))")
 cazResize2 = hiCreateMenuItem(?name 'cazResize2 ?itemText "Resize higher" ?callback "hiResizeWindow( window(1) list(0:0 500:900))")
-cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_IPNL_menu" ?callback "load(\"menu.il\")" )
+cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_menu" ?callback "load(\"menu.il\")" )
 cazPin     = hiCreateMenuItem(?name 'cazPin ?itemText "pin2label" ?callback "load(\"pin2label_v2.il\") pin2label()")
 cazText    = hiCreateMenuItem(?name 'cazText ?itemText "pgText" ?callback "load(\"pgText.il\") pgText()")
 cazMarkers = hiCreateMenuItem(?name 'cazMarkers ?itemText "displayMarkers" ?callback "load(\"displayMarkers.il\"")
-cazEmacs   = hiCreateMenuItem(?name 'cazEmacs ?itemText "emacs_ipc" ?callback "load(\"emacs_ipcPipe.il\")" )
+cazEmacs   = hiCreateMenuItem(?name 'cazEmacs ?itemText "emacs_ipcPipe" ?callback "load(\"emacs_ipcPipe.il\")" )
 cazRegion  = hiCreateMenuItem(?name 'cazRegion ?itemText "regionSat" ?callback "load(\"regionSat.il\") regionSat()"  )
 cazMos2Fet = hiCreateMenuItem(?name 'cazMos2Fet ?itemText "mos2fet" ?callback "load \"mos2fet.il\"" )
 cazGnuplot = hiCreateMenuItem(?name 'cazGnuplot ?itemText "vt2gnuplot" ?callback "load(\"gnuplotVT.il\") dataToGnuplot()" )
