@@ -33,6 +33,13 @@ concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
+; __ menu __ defun __--> too crowded => second one
+files2='("rexFindCell")
+cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
+
+hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)
+cazDeroule2 = hiCreateSliderMenuItem( ?name 'cazDeroule2 ?itemText "__ defun() bis-->" ?subMenu trSubMenuDefun2)
+
 
 ; buttons of the first Menu
 filesOne='("Functions")
@@ -50,7 +57,7 @@ cazMyFunction = hiCreateMenuItem(?name 'cazMyFunction ?itemText "Save noise"
    ); end of created Menu item
 
 cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "print noise" ?callback "noiseResult()")
-cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "prettyPrint()")
+cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "printf(\"prettyPrint()\nprettyPrintH()\")")
 cazResize  = hiCreateMenuItem(?name 'cazResize ?itemText "Resize" ?callback "hiResizeWindow( window(1) list(0:0 500:500))")
 cazResize2 = hiCreateMenuItem(?name 'cazResize2 ?itemText "Resize higher" ?callback "hiResizeWindow( window(1) list(0:0 500:900))")
 cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_menu" ?callback "load(\"menu.il\")" )
@@ -81,7 +88,7 @@ cmd=sprintf(nil \"echo cd %s\" hiGetCurrentWindow()->cellView->fileName) system(
 
 
 
-IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazResize cazResize2 cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
+IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazDeroule2 cazResize cazResize2 cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
 
 ;;; inserting the pulldown menu in the CIW
 hiCreatePulldownMenu(    'trEdPulldownMenu    "IPNL"   IPNLmenuList    )
