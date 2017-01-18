@@ -1,4 +1,7 @@
 ;; copyleft ebecheto
+;; buggy code, just for the sake of an axample to generate code from string
+;; does not handle multiple output of a signle instance ...
+
 
 ; load("CntUcnt.il")
 when(or( !fboundp('bBoxWidth) !fboundp('bBoxHeight) !fboundp('getInstTermPoint) ) load("padRing.proc.il") )

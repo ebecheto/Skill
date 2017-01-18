@@ -1,14 +1,15 @@
 ;; copyleft ebecheto
 
-(procedure prettyPrint(@optional (imprimante "lprdcrv"))
+(procedure prettyPrint(@optional (cvId nil) (imprimante nil) (hierarchy nil))
 let( (cmd cvId i pt filename eko disp)
+unless(imprimante imprimante = "lprdcrv")
 cmd=sprintf(nil "if grep \"^%s|\" ~/.cdsplotinit; then echo yes; else echo \"%s|default: :type=postscript2: :resolution#600: :maximumPages#30: :paperSize=\\\"A4\\\" 4810 6330 172 132:\n\" >> ~/.cdsplotinit; fi" imprimante imprimante)
 (system cmd)
 ;; eko=sprintf(nil "%s" cmd)
 eko=sprintf(nil "echo Using printer \"%s\"" imprimante)
 (system eko)
 
-cvId=geGetWindowCellView()
+(unless cvId cvId=geGetWindowCellView())
 ;; when(not(cvId)||not(cvId~>libName)||not(cvId~>cellName)||not(cvId~>viewName) return(1)) ;<= return only from progb
 ;schematic or symbol plot
 if( member(cvId~>viewName list("schematic" "schematic_smallSig" "cmos_sch" "symbol")) then pt="sch" else pt="le" ) i=0;
@@ -28,6 +29,10 @@ eval(concat(pt "PlotOptions"))->outputfile=filename
 eval(concat(pt "PlotOptions"))->plotter=imprimante
 ;eval(concat(pt "PlotOptions"))->fullarea=t
 
+when(hierarchy
+eval(concat(pt "PlotOptions"))->ignorelibs=buildString(remove(geGetWindowCellView()~>libName ddGetLibList()~>name) " ")
+eval(concat(pt "PlotOptions"))->hierarchy = t
+)
 
 ; plot schematic or layout
 ;; schPlot() || lePlot()
@@ -48,7 +53,9 @@ cmd=sprintf(nil "%s;gs -I/usr/lib/ -dNOPAUSE -sDEVICE=png16m -dGraphicsAlphaBits
 cmd=sprintf(nil "%s;convert %s.gs.png -trim -matte -transparent 'rgb(255,255,255)' %s.t_ps.png" cmd  filename filename )
 ;; cmd=sprintf(nil "%s;convert -trim -rotate 90 %s.sed_bw.ps %s_bw.png" cmd  filename filename )
 cmd=sprintf(nil "%s;rm %s.sed.ps  %s.gs.png %s.png" cmd  filename filename filename  ) ;; %s.sed_bw.ps On GARDE ;filename
+unless(hierarchy
 (system cmd)
+)
 printf("%s" cmd)
 
 when(LIBPATH_OLD setShellEnvVar(strcat("LIBPATH=" LIBPATH_OLD)))
@@ -79,4 +86,48 @@ printf("(system %L)"  sprintf(nil "echo \"%s\"" sprintf(nil "lp %s/%s.sed_bw.ps"
 );proc
 
 
+printf("prettyPrint(@optional (cvId nil) (imprimante nil) (hierarchy nil))\n")
+printf("prettyPrint(); == prettyPrint(nil nil nil);<==defaul\n")
+printf("prettyPrint(nil nil t);<== prints the whole hierachy of the current cell & sub cells in the current library\n")
+
 ;filename="TDC-phase_detect-schematic_4.ps"
+
+; hierarchy [TODO]
+; ls *@*.ps
+
+;; cmd=""
+;; cmd=strcat(cmd sprintf(nil "for file in %s-*ps;do epsBetterLine.sh $file;done\n" cvId~>libName ))
+;; cmd=strcat(cmd sprintf(nil "gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -sOutputFile=TOP.pdf %s-*.ps" cvId~>libName ))
+;; printf(cmd)
+
+;; cmd="function helloWolrd(){ echo \"Prompt> \" $1; }"
+;; cmd="function helloWolrd(){ echo 'Prompt> ' $1; }"
+;; cmd="helloWolrd(){ echo 'Prompt> ' $1; }"
+;; (system cmd)
+;; cmd="helloWolrd YOUHOU"
+;; (system cmd)
+;; ;; ;[OK]
+;; ;; cmd="helloWolrd(){ echo 'Prompt> ' $@; }; helloWolrd after shell dies function dies"
+;; ;; (system cmd)
+;; ;[OK]
+
+;; cmd="helloWolrd(){ echo 'Prompt> ' ${1%.*}; }; helloWolrd after.sh"
+;; (system cmd)
+
+; [TODO] : insert this funciton inside prettyPrint()
+defun( prettyPrintH (@optional (cvId nil) (imprimante nil))
+(unless cvId cvId=geGetWindowCellView())
+(unless imprimante imprimante = "printers_ipnl")
+prettyPrint(cvId imprimante t)
+cmd="epsBetterLine(){ cat $1|sed 's/1 setlinewidth/5 setlinewidth/;s/lineBlue *exch def/lineBlue 0 def/;s/lineGreen exch def/lineGreen 0 def/;s/lineRed *exch def/lineRed 0 def/' > _${1%.*}.ps 2>/dev/null; gs -dBATCH -dNOPAUSE -sDEVICE=ps2write -dPDFFitPage -sOutputFile=${1%.*}.ps  -c \"/Courier findfont 12 scalefont setfont 50 765 moveto (${1%.*}) show\" -f _${1%.*}.ps 2>/dev/null; rm _${1%.*}.ps; }; "
+cmd=strcat(cmd sprintf(nil "for file in %s-*ps;do epsBetterLine $file 2>/dev/null;done\n" cvId~>libName ))
+cmd=strcat(cmd sprintf(nil "echo '[TOP.pdf]'\n"))
+cmd=strcat(cmd sprintf(nil "gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -sOutputFile=TOP.pdf %s-*.ps" cvId~>libName ))
+system(cmd)
+system("echo $PWD/TOP.pdf")
+)
+
+printf("\n\nprettyPrintH() ;<== prints the HIERARCHY")
+
+;; cmd=sprintf(nil "for file in %s-*ps;do echo $file;done\n" geGetWindowCellView()~>libName )
+;; system(cmd)

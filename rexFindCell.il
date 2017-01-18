@@ -18,6 +18,9 @@ if(rexMatchp(pattern cadr(lib_cell)) then lib_cell else nil)
 
 ;; _USAGE_
 ;; rexFindCell(".*_sim")
-;; rexFindCell("mos" '("PRIMLIB" "analogLib"))
+;; rexFindCell("^mos" '("PRIMLIB" "analogLib"))
 ;; rexFindCell("cap$"  "analogLib")
 ;; rexFindCell("^simu_" )
+printf("rexFindCell(\"^mos\" '(\"PRIMLIB\" \"analogLib\"));<== search in lib for cells starting by nmos")
+printf("rexFindCell(\"^simu\"));<== search cells starting with simu in all libraries")
+printf("rexFindCell(\"cap$\"  \"analogLib\");<== searching in one lib for cell ending with name cap")

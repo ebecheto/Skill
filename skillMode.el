@@ -139,26 +139,25 @@
   (setq mode-name "SKILL")
   (run-hooks 'skill-mode-hook))
 
-(provide 'skill-mode)
 
 
 ; (setq require-final-newline t)
 
 ;; ed modif for emacs2icfb
 
-(if (version< emacs-version "22")
- (defun write2icfb (beg end &optional stuff ) (unless stuff (setq stuff ""))
-  (write-region beg end "~/.emacs2icfb.il")
-  (write-region (format "\n") t "~/.emacs2icfb.il" t) ; last t means append=tru
-  (send-string-to-terminal (format "load(\"%s\") eval(t) " "~/.emacs2icfb.il"))
- )
+;; (if (version< emacs-version "22")
+;;  (defun write2icfb (beg end &optional stuff ) (unless stuff (setq stuff ""))
+;;   (write-region beg end "~/.emacs2icfb.il")
+;;   (write-region (format "\n") t "~/.emacs2icfb.il" t) ; last t means append=tru
+;;   (send-string-to-terminal (format "load(\"%s\") eval(t) " "~/.emacs2icfb.il"))
+;;  )
  (defun write2icfb (beg end &optional stuff ) (unless stuff (setq stuff ""))
   (write-region beg end "~/.emacs2icfb.il")
   (write-region (format "\n") t "~/.emacs2icfb.il" t) ; last t means append=tru
 ;<= ^^ prevent : *WARNING* (reader): too few right parentheses, (')' added at EOF ;<== when load a fine with a function => force load vs read
   (shell-command-to-string (format "echo '%sEOF' > /tmp/ipcPipe2CAT_%s " stuff user-login-name))
  )
-); if emacs>22 requires an intermediate script to create pipe to stdout
+;); if emacs>22 requires an intermediate script to create pipe to stdout
 
 
 (defun send-buffer-to-icfb () "" (interactive) (write2icfb (point-min) (point-max)))
@@ -170,8 +169,11 @@
 	(forward-line 1)
 )
 
-(defun send-function-from-icfb-insert () "" (interactive) 
-    (newline) (forward-line -1)
+
+(defun send-function-from-icfb-insert () "" (interactive)
+;    (newline) (forward-line -1)
+; versus
+    (move-end-of-line 1)
     (push-mark)  (insert ";=> ") 
     (insert-file-contents "~/.virtuoso2emacs.txt")
     (end-of-line) (exchange-point-and-mark)
@@ -190,6 +192,7 @@
 (set-variable 'lisp-function-doc-command "help %s\n")   ;<== i do not use it either, just for a reminder
 
 ; vv__ does work! __vv
+;(shell-command-to-string (format "echo '(4+4)EOF' > /tmp/ipcPipe2CAT_%s " user-login-name))
 ;(shell-command-to-string (format "echo '123' > /tmp/ipcPipe2CAD_%s " user-login-name))
 ; sometime ipcBeginProcess does not get all string
 ; PB due probably to async read of ~/Skill/ipcSocketDefun.il
@@ -199,3 +202,6 @@
 
 ; getShellEnvVar("SKILLDIR") 
 ; (shell-command-to-string (format "echo \"%s\n\" > /tmp/ipcPipe2CAT_%s " "TATA" user-login-name))
+
+(provide 'skill-mode)
+;(provide 'skillMode)

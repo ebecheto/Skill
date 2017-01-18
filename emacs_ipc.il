@@ -35,4 +35,9 @@ printf("\n")
 ))
 ; ipcBeginProcess("emacs ~/../ebecheto/Skill/my-log.txt" "" 'socketHandler)
 
+; ipcBeginProcess(\"emacs ~/../ebecheto/Skill/my-log.txt\" \"\" 'socketHandler) printf(\"Try something like :\\n\\t\\tControl-c-v\")"
 
+ipcBeginProcess(\"emacs ~/../ebecheto/Skill/my-log.txt\" \"\" 'socketHandler) 
+printf("Try something like :\\n\\t\\tControl-c-v")
+printf("get the result back with :\\n\\t\\tControl-c-s")
+printf("send region with :\\n\\t\\tControl-c-r")

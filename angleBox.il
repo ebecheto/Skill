@@ -3,6 +3,9 @@
 ; ineed('(addCell));<= addCell pour la fonction ibBox ; danger loop de ineed ?
 ineed('ibBox)
 
+unless(fboundp('centerBox) 
+defun(centerBox (bBox) list(caadr(bBox) - caar(bBox) cadadr(bBox)-cadar(bBox))))
+
 
 defun( angleSectionr (XY @optional (teta acos(-1)/2)) ;<= marche aussi
 let((phi X Y pi Xr Yr) X=car(XY) Y=cadr(XY) pi=acos(-1)
@@ -38,7 +41,8 @@ Y1 = cadadr(bBox)
 teta=atan((Y1-Y0)/abs(X1-X0))
 ;printf("xy%L centr%L teta%L\n" XY centerBox(bBox) teta/acos(-1)*180)
 ;; angleSection(rodSubPoints(XY centerBox(bBox)) teta)
-angleSectionr(rodSubPoints(XY centerBox(bBox)) teta)
+angleSectionr(mapcar('difference XY centerBox(bBox) ) teta)
+;angleSectionr(rodSubPoints(XY centerBox(bBox)) teta)
 ))
 
 ;; angleBox('())
