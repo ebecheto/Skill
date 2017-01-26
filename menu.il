@@ -34,7 +34,7 @@ concat('caz file))
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
 ; __ menu __ defun __--> too crowded => second one
-files2='("rexFindCell")
+files2='("rexFindCell" "whereIncludeCell")
 cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)
