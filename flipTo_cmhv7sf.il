@@ -179,7 +179,7 @@ then list(car(fp) cadr(fp) caddr(fp) append(cadddr(fp) '(("adjust" (0.0 0.1875) 
 flip=foreach(mapcar fp flip if(and(or(car(fp)=="nmos4" car(fp)=="pmos4") length(fp)>=3) then 
 list(car(fp) cadr(fp) caddr(fp) append(cadddr(fp) '(("adjust" (0.0625 0.0) )))) else fp))
 
-flip=foreach(mapcar fp flip if(and(or( rexMatchp("cmim" cadr(fp)) ) length(fp)>=3) then ; very little adjustement to try to center the offset between the two symbols
+flip=foreach(mapcar fp flip if(and(or( rexMatchp("cmim" cadr(fp)||"") ) length(fp)>=3) then ; very little adjustement to try to center the offset between the two symbols
 list(car(fp) cadr(fp) caddr(fp) append(cadddr(fp) '(("adjust" ( 0.0 -0.0625) )))) else fp))
 
 ;; ;; for DIGITAL cells, PRIMLIB output is named Q but cmos8rf output is named Z  ;not true for cmhv7sf

@@ -3,6 +3,9 @@
 
 ineed('netMakeBus)
 
+unless(fboundp('a2s) ineed('itos) alias(a2s itos))
+
+
 defun(bus2flat (@optional (net "Q<1:10>"))
 let((netb)
 netb=parseString(net ":<>" )

@@ -8,6 +8,7 @@
 * + change property type enable                   *
 ***************************************************/
 
+;; TODO : rename the function in : symbolSwap or something
 ;; TODO : scale w/l ratio for transistor when scaled down... 350n => 65n 
 ;; TODO : re-code alphaNum to work without sort (multi list for multy parttern name '(INV21 INV23 NOR33 INV22 ...)
 ;; DONE : adapt flip list to existing symbol in the cellView => shorten the foreach( flip) loop rplaca or something

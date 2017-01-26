@@ -23,7 +23,7 @@ printf("[SKILL] Adding %s in getSkillPath()\n" dir||"nilDir?")
 defun(menu () loadi("menu.il"))
 ;load("emacs_ipcPipe.il");<== in the menu or not ...
 load("ineed.il")
-ineed('(noiseSummary prettyPrint RmBannerItemByName))
+ineed('(noiseSummary RmBannerItemByName))
 RmBannerItemByName('trEdPulldownMenu)
 
 files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit" "shout")
@@ -57,7 +57,7 @@ cazMyFunction = hiCreateMenuItem(?name 'cazMyFunction ?itemText "Save noise"
    ); end of created Menu item
 
 cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "print noise" ?callback "noiseResult()")
-cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "printf(\"prettyPrint()\nprettyPrintH()\")")
+cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "ineed('prettyPrint)")
 cazResize  = hiCreateMenuItem(?name 'cazResize ?itemText "Resize" ?callback "hiResizeWindow( window(1) list(0:0 500:500))")
 cazResize2 = hiCreateMenuItem(?name 'cazResize2 ?itemText "Resize higher" ?callback "hiResizeWindow( window(1) list(0:0 500:900))")
 cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_menu" ?callback "load(\"menu.il\")" )

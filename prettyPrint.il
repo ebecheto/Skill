@@ -127,7 +127,7 @@ system(cmd)
 system("echo $PWD/TOP.pdf")
 )
 
-printf("\n\nprettyPrintH() ;<== prints the HIERARCHY")
+printf("\nprettyPrintH() ;<== prints the HIERARCHY\n")
 
 ;; cmd=sprintf(nil "for file in %s-*ps;do echo $file;done\n" geGetWindowCellView()~>libName )
 ;; system(cmd)
