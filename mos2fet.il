@@ -8,6 +8,7 @@
 * + change property type enable                   *
 ***************************************************/
 
+;; TODO : move the cell out ouf bBox and back to xy, to force the redraw of th wire (if in route mode)
 ;; TODO : rename the function in : symbolSwap or something
 ;; TODO : scale w/l ratio for transistor when scaled down... 350n => 65n 
 ;; TODO : re-code alphaNum to work without sort (multi list for multy parttern name '(INV21 INV23 NOR33 INV22 ...)
@@ -103,7 +104,7 @@ transform=list(inst~>xy orient inst~>mag)
 
 ; printf("dbTransformPoint('%L '%L)\n" getMasterTermPoint(B pB) transform)
 when(mPoint=getMasterTermPoint(B pB) mvB=dbTransformPoint(mPoint transform))
-when(verb  printf("pB:%s_mPoint:%L\n" pB mPoint) )
+when(verb  printf("pB:%L_mPoint:%L\n" pB mPoint) )
 
 ; printf("%L%LmvA=%L...mvB=%L\t" pA pB mvA mvB)
 when(and(mvA!=mvB netName=getInstNetName(inst pA)) ;get net name connected to inst "S" ie. => "net079"
@@ -146,6 +147,9 @@ printf("load(\"flipTo_cmhv7sf.il\")     ;<= defines flipList amsc35->amsh18\n")
 printf("load(\"flipTo_cmrf8sf_t18.il\") ;<= defines flipList ibm130->tower180\n")
 printf("c35toc18\n");
 printf("translateLib(\"T2K_V5\") ;=> create T2K_V5_TRANSLATE")
+printf("flipList='((\"mem_1cell\" \"mem_1cell_modif\" \"xtract_ed\" ((\"flipPin\" ((\"read_cell\" \"READ\")(\"phi\" \"WRITE\"))))))\n")
+printf("c35toc18(flipList);;<== those two lines will change the symbol into another, addapting pin nodifications:read_cell into READ...\n")
+
 
 ;; schStretch(list(inst) list(rodSubPoints(dbTransformPoint(rodAddPoints('(-0.0625 0.0)  inst~>xy) list('(0.0 0.0) inst~>orient inst~>mag )) inst~>xy ) "R0"))
 ;;fp='("pmos4" "pfet" "cmrf8sf" (("flipProp" (("w" "wf")  ("wtot" "wt")  ("ng" "nf")   )            )        ))
