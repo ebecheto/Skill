@@ -17,9 +17,21 @@ hDir=strcat("/" buildString(reverse(cdr(reverse(parseString( car(ddGetObj(cv~>li
 printf("hDir=%s\n" hDir)
 cellDirL=foreach(mapcan dir ls(hDir) when(rexMatchp("state" dir) list(strcat(hDir dir)) )) ; will take things like /spectre_state1 /UltraSim_state1 ...
 
+adexldir=foreach(mapcan dir ls(hDir) when(rexMatchp("adexl" dir) 
+foreach(mapcan subdir ls(strcat(hDir dir "/test_states"))
+when(not(rexMatchp("^\\." subdir))
+list(strcat(hDir dir "/test_states/" subdir)) ))))
+
+simAdexlDir=foreach(mapcan x adexldir list(strcat(x  "/" cv~>cellName)));<== adexl/test_states/lib/cell/
+simAdexlDirs=foreach(mapcan dir simAdexlDir foreach(mapcan subdir ls(dir)
+when(not(rexMatchp("^\\." subdir)) list(strcat(dir "/" subdir))))) ;<== append "/spectre" or "ams"
+simAdexlDirss=foreach(mapcan dir simAdexlDirs foreach(mapcan subdir ls(dir)
+when(not(rexMatchp("^\\." subdir)) list(strcat(dir "/" subdir))))) ;<== append "/blabla_Interactivxx"
+;; [DONE] TODO got to subdir adexl[i]/test_states/lib/cell/spectre/lib:cell:history[i]/
+
 ; cellDir=sprintf(nil "%s/%s/%s/spectre_state1/" pwd() cv~>libName cv~>cellName)
 ; cellDir could be addapted to get cds.lib pwd. and going through all cellviews. is that necessary ?
-dirList=append(artDirL cellDirL)
+dirList=append(append(artDirL cellDirL) simAdexlDirss)
 printf("Looking throught %L\n" dirList)
 foreach( simDir dirList
 when(isDir(simDir) printf("DIR:%s\n" simDir)
