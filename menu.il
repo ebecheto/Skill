@@ -34,7 +34,7 @@ concat('caz file))
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
 ; __ menu __ defun __--> too crowded => second one
-files2='("rexFindCell" "whereIncludeCell")
+files2='("rexFindCell" "whereIncludeCell" "categorySet")
 cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)
@@ -91,7 +91,7 @@ cmd=sprintf(nil \"echo cd %s\" hiGetCurrentWindow()->cellView->fileName) system(
 IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazDeroule2 cazResize cazResize2 cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
 
 ;;; inserting the pulldown menu in the CIW
-hiCreatePulldownMenu(    'trEdPulldownMenu    "IPNL"   IPNLmenuList    )
+hiCreatePulldownMenu(    'trEdPulldownMenu    "MICRHAU"   IPNLmenuList    )
 hiInsertBannerMenu( window(1) trEdPulldownMenu 666 );<== 666 so it would be the last one on the right presumably
 
 

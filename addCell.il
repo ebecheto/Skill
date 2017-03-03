@@ -49,7 +49,7 @@ xy=list(car(xy)+xup cadr(xy)+yup)
 ;; cells=foreach(mapcar pat ibmpat strcat("XOR2_" pat))
 
 ;; addCell(cells)
-printf("addCell('(%L %L %L %L))\n" "gnd" "vdc" "vdd" "noConn")
+printf("addCell('(%L %L %L %L %L %L %L))\n" "gnd" "vdc" "vdd" "noConn" "vbit" "vpulse" "vsin")
 printf("addCell('(%L %L %L))\n" "DFF_E" "DFF_H" "DFF_K")
 printf("addCell%L\n" '("XOR2_A" "XOR2_B" "XOR2_C" "XOR2_D" "XOR2_E" "XOR2_F" "XOR2_H" "XOR2_I" "XOR2_J" "XOR2_K" "XOR2_L"))
 

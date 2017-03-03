@@ -5,17 +5,17 @@
 ;(setq libNames ddGetLibList()~>name)
 ;(setq libNames '("analogLib"))
 
-defun(rexFindCell (@optional (pattern ".*_sim") (libNames ddGetLibList()~>name))
+defun(rexFindCell (@optional (pattern ".*_sim") (libNames ddGetLibList()~>name) (insensitive nil))
 " commentary "
 let( (ddLibs)
 unless(listp(libNames) libNames=list(libNames))
 ddLibs=setof(dd ddGetLibList() member(dd~>name libNames))
-
 assocLib=foreach(mapcan dd ddLibs foreach(mapcan cc dd~>cells list(list(dd~>name cc~>name))))
-
 ; lib_cell=nth(3 assocLib);=> ("analogLib" "xfmr")
 remove(nil foreach(mapcar lib_cell assocLib
-if(rexMatchp(pattern cadr(lib_cell)) then lib_cell else nil)
+cellName=cadr(lib_cell)
+if(insensitive then pattern=lowerCase(pattern) cellName=lowerCase(cellName))
+if(rexMatchp(pattern cellName) then lib_cell else nil)
 ))))
 
 ;; _USAGE_
@@ -26,3 +26,4 @@ if(rexMatchp(pattern cadr(lib_cell)) then lib_cell else nil)
 printf("rexFindCell(\"^mos\" '(\"PRIMLIB\" \"analogLib\"));<== search in lib for cells starting by nmos\n")
 printf("rexFindCell(\"^simu\"));<== search cells starting with simu in all libraries\n")
 printf("rexFindCell(\"cap$\"  \"analogLib\");<== searching in one lib for cell ending with name cap\n")
+printf("rexFindCell(\"or\" \"CORELIB\" t);<= find pattern 'or', with case insensitivity\n")

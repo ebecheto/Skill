@@ -27,6 +27,7 @@ eval(concat(pt "PlotOptions"))->bBox=geGetWindowBox( hiGetCurrentWindow())
 eval(concat(pt "PlotOptions"))->viewlist=eval(cvId~>viewName)
 eval(concat(pt "PlotOptions"))->outputfile=filename
 eval(concat(pt "PlotOptions"))->plotter=imprimante
+eval(concat(pt "PlotOptions"))->cv=cvId
 ;eval(concat(pt "PlotOptions"))->fullarea=t
 
 when(hierarchy
