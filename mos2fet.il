@@ -4,6 +4,7 @@
 * copyleft: ebecheto  IPNL (IN2P3-CNRS / UCBL )       *
 * Version : 0.4   january 2011                        *
 * History :  Adding specific function to mos2fet.proc *
+*     0.4 : add moveBackAndForth option          *
 *     0.3 : function adaptable to other kit      *
 * + change property type enable                   *
 ***************************************************/
@@ -23,13 +24,15 @@ load("mos2fet.proc.il")   ;<= defines additional procedures and flipList
 ; flip=removeInFlip(flip '("subc"))
 load("flipTo_cmhv7sf.il")    ;<= defines flipList amsc35->amsh18
 ; loadi("flipTo_cmrf8sf_t18.il")  ;<= defines flipList ibm130->tower180
+ineed('(moveBackAndForth))
 
-procedure(c35toc18(@optional (flip flip) (cv geGetWindowCellView()) (verb t) )
+
+procedure(c35toc18(@optional (flip flip) (cv nil) (verb t) (replaceWire nil) )
 let((inst A B sA sB Axy newName newLib oldProp newProp flipProp aPoint bPoint special flipPin pA pB pAB mvA mvB netName carPoint mvPoints sideWay transform orient adjust tmp tmp2 samePin doSideWay rmDouble f instList cvNets mPoint)
 sideWay='(("R0" "MY")("R90" "MYR90")("R180" "MX")("R270" "MXR90"))
 sideWay=append(sideWay foreach(mapcar x sideWay list(cadr(x) car(x)))); and the way around
 when(!flip load("flipTo_cmos8rf.il")) ;<= defines flipList
-
+unless(cv cv=geGetWindowCellView())
 ;; adapt flip List to only existing elements assoc List will be even better than : foreach(mapcar fp flip ..) ?
 rmDouble=nil instList=nil
 flip=remove(nil  foreach(mapcar cvi cv~>instances ;printf("f:%L\n" f)  
@@ -137,6 +140,10 @@ adjust=cadr(special)
 xform=list(rodSubPoints(inst~>xy dbTransformPoint(adjust inst~>transform)) "R0" 1)
 schStretch(list(inst) dbConcatTransform(dbConcatTransform(list(mapcar('minus inst~>xy) "R0" 1) xform) list(inst~>xy "R0" 1)))
 ))) ;adjust => prettier view, this is just tunning, is avoided when not sepcified in the input list flip
+
+;TODO : move out of bBox and put it back (should ask a better net wireing 
+when(replaceWire moveBackAndForth(inst))
+
 ); when(inst~>cellName==car(fp) ...)
 ;  (); foreach(mapcar fp flip) 
 ) t ;end foreach instances in cellView
@@ -149,6 +156,12 @@ printf("c35toc18\n");
 printf("translateLib(\"T2K_V5\") ;=> create T2K_V5_TRANSLATE")
 printf("flipList='((\"mem_1cell\" \"mem_1cell_modif\" \"xtract_ed\" ((\"flipPin\" ((\"read_cell\" \"READ\")(\"phi\" \"WRITE\"))))))\n")
 printf("c35toc18(flipList);;<== those two lines will change the symbol into another, addapting pin nodifications:read_cell into READ...\n")
+
+printf("; Simple USAGE :\n")
+
+printf("flipList='((\"INVD4\" \"INVD12\" \"tcb013ghp\" ));<== define change cells INVD4 with INVD12 from tcb013ghp lib\n")
+printf("c35toc18(flipList nil t t);<= viewing cellView is afected\n")
+
 
 
 ;; schStretch(list(inst) list(rodSubPoints(dbTransformPoint(rodAddPoints('(-0.0625 0.0)  inst~>xy) list('(0.0 0.0) inst~>orient inst~>mag )) inst~>xy ) "R0"))
@@ -186,3 +199,11 @@ printf("c35toc18(flipList);;<== those two lines will change the symbol into anot
 
 ; translateLib("T2K_V5") ;=> will create a transformed lib : T2K_V5_TRSLT, using declared variable : flip defined in load("flipTo_cmhv7sf.il")
 ; translateLib("T2K_V5" flip "TOTO" ) ;=> will create a transformed lib : TOTO , using declared variable : flip defined in load("flipTo_cmhv7sf.il")
+
+;; could be use to modify only one symbol cell in selected cellview, that has other pinNames
+;; flipList='(("mem_1cell" "mem_1cell_modif" "xtract_ed" (("flipPin" (("read_cell" "READ")("phi" "WRITE"))))))
+;; c35toc18(flipList)
+
+;; flipList='(("INVD4" "INVD12" "tcb013ghp" ))
+;; c35toc18(flipList nil t t);<= oki, moveBackAndForth work properly
+
