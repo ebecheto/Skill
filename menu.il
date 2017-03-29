@@ -59,7 +59,6 @@ cazMyFunction = hiCreateMenuItem(?name 'cazMyFunction ?itemText "Save noise"
 cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "print noise" ?callback "noiseResult()")
 cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "ineed('prettyPrint)")
 cazResize  = hiCreateMenuItem(?name 'cazResize ?itemText "Resize" ?callback "hiResizeWindow( window(1) list(0:0 500:500))")
-cazResize2 = hiCreateMenuItem(?name 'cazResize2 ?itemText "Resize higher" ?callback "hiResizeWindow( window(1) list(0:0 500:900))")
 cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_menu" ?callback "load(\"menu.il\")" )
 cazPin     = hiCreateMenuItem(?name 'cazPin ?itemText "pin2label" ?callback "load(\"pin2label_v2.il\") pin2label()")
 cazText    = hiCreateMenuItem(?name 'cazText ?itemText "pgText" ?callback "load(\"pgText.il\") pgText()")
@@ -67,7 +66,7 @@ cazMarkers = hiCreateMenuItem(?name 'cazMarkers ?itemText "displayMarkers" ?call
 cazEmacs   = hiCreateMenuItem(?name 'cazEmacs ?itemText "emacs_ipcPipe" ?callback "load(\"emacs_ipcPipe.il\")" )
 cazRegion  = hiCreateMenuItem(?name 'cazRegion ?itemText "regionSat" ?callback "load(\"regionSat.il\") regionSat()"  )
 cazMos2Fet = hiCreateMenuItem(?name 'cazMos2Fet ?itemText "mos2fet" ?callback "load \"mos2fet.il\"" )
-cazGnuplot = hiCreateMenuItem(?name 'cazGnuplot ?itemText "vt2gnuplot" ?callback "load(\"gnuplotVT.il\") dataToGnuplot()" )
+cazGnuplot = hiCreateMenuItem(?name 'cazGnuplot ?itemText "gnuplotVT" ?callback "load(\"gnuplotVT.il\") dataToGnuplot()" )
 cazFixAMS = hiCreateMenuItem(?name 'cazFixAMS ?itemText "fixState" ?callback "load(\"fixState.il\") fixState()" )
 cazTuto   = hiCreateMenuItem(?name 'cazTuto ?itemText "Tuto_menu" ?callback "load(\"menu.il.tutorial.il\")" )
 cazFreeLCK   = hiCreateMenuItem(?name 'cazFreeLCK ?itemText "freeLCK" ?callback "load(\"freeLCK.il\")" )
@@ -88,7 +87,7 @@ cmd=sprintf(nil \"echo cd %s\" hiGetCurrentWindow()->cellView->fileName) system(
 
 
 
-IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazDeroule2 cazResize cazResize2 cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
+IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazDeroule2 cazResize cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
 
 ;;; inserting the pulldown menu in the CIW
 hiCreatePulldownMenu(    'trEdPulldownMenu    "MICRHAU"   IPNLmenuList    )

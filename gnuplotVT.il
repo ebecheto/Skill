@@ -181,7 +181,8 @@ nb=1
 cmd=sprintf(nil "%s\n echo -n \"splot \" >> %s" cmd GP)
 foreach(OUTED OUTEDs
 printf("Treating %L\n" OUTED)
-cmd=sprintf(nil "%s\n echo -n \" '%s/%s' with lines %d\" >> %s" cmd pwd OUTED nb GP)
+;cmd=sprintf(nil "%s\n echo -n \" '%s/%s' with lines %d\" >> %s" cmd pwd OUTED nb GP)
+cmd=sprintf(nil "%s\n echo -n \" '%s/%s' with lines \" >> %s" cmd pwd OUTED GP)
 when(nb!=length(OUTEDs) cmd=sprintf(nil "%s\necho -n \",\" >> %s" cmd GP))
 nb=nb+1) 
 cmd=sprintf(nil "%s\n echo \"\nset grid\nset xlabel '%s';set ylabel '%s';set zlabel '%s' offset 4,4;replot\npause -1 'pressReturn'\n\" >> %s" cmd nth(1 XYZ) nth(2 XYZ) nth(3 XYZ) GP)

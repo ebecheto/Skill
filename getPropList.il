@@ -1,5 +1,5 @@
 ;; copyleft ebecheto
-
+ineed('getInstTermPoint)
 defun(getPropList (@optional (inst css()))
 list(inst~>cellName foreach(mapcar coin mapcar('car getInstTermPoint(inst)) con=car(setof(conn inst~>conns conn~>name==coin)) con~>net~>name) foreach(mapcar pp inst~>prop list(pp~>name pp~>valueType pp~>value))))
 

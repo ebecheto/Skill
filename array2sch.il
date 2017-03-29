@@ -1,7 +1,7 @@
 ;; copyleft ebecheto
-ineed('(terminalPinsMap) )
+ineed('(terminalPinsMap addCell terminal2pin) )
 
-defun(array2sch (@optional (xline 'test)(libName 'ibm)(cellName nil)(pinList nil)(dx 0.4)(dy 0.4)(verb nil)(open t)(aw "w")(xy '(0 0)))
+defun(array2sch (@optional (xline 'test)(libName nil)(cellName nil)(pinList nil)(dx 0.4)(dy 0.4)(verb nil)(open t)(aw "w")(xy '(0 0)))
 (let (x y x0 patt cv inst box yup xup grid) ;xors list used only for naming cellName 
 x=car(xy) y=cadr(xy)
 x0=x
@@ -16,7 +16,7 @@ cond(
 (libName==nil libName=geGetWindowCellView()~>libName)
 )
 printf("libName%L??\n" libName)
-when(cellName=='cv cellName=geGetWindowCellView()~>cellName)
+unless(cellName cellName=geGetWindowCellView()~>cellName)
 unless(member(libName ddGetLibList()~>name) printf("Warning %s lib does not exist\n" libName))
 unless(cellName cellName=strcat("gen_" caaar(xline)))
 noteLabel=sprintf(nil "Generated @ %s by array2sch(.....)" getCurrentTime() )
@@ -56,6 +56,7 @@ array2sch(xline cv~>libName cv~>cellName pins 0.4 0.4 nil nil "a" xy)
 ;; array2sch('test)
 ;; array2sch('test 'ibm "unNom" 'test 0.4 0.4 nil t "w" )
 
+; ineed('terminal2pin)
 ; terminalGen('("pin1" "pin2" "pin3") 1 1 t t nil nil t nil t)
 ; terminalGen('("pin1" "pin2" "pin3") 1 1 t t nil nil cv)
 
@@ -70,3 +71,4 @@ array2sch(xline cv~>libName cv~>cellName pins 0.4 0.4 nil nil "a" xy)
 
 
 ; getPropList();=> ("vpwl" ("gnd!" "net01") (("vdc" "string" "0") ("td" "string" "300p") ("t1" "string" "1n") ("t2" "string" "1.1n") ("v2" "string" "1.2")))
+
