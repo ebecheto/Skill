@@ -25,7 +25,7 @@ Remove existing lock that belongs to you (that you have the right to delete). Op
 --------------------------
 Take, or generate for your needs a list with the cellName and its input and output incremanted (or notà names. Then is creates an array of cells with net and labels on top in the opened schematic cellView.
 
-    <pre>
+<pre>
 <span style="color: #b22222; font-weight: bold;">; array2sch tutorial USAGE
 ; semi-automatic schematic generate
 </span>
@@ -52,7 +52,6 @@ Take, or generate for your needs a list with the cellName and its input and outp
 ))
 <span style="color: #b22222; font-weight: bold;">;=&gt; ((("phase_detector_Rst_simu" ("S&lt;1&gt;" "F&lt;1&gt;" "PD_1&lt;1&gt;" "Rst")) ...("phase_detector_Rst_simu" ("S&lt;9&gt;" "F&lt;9&gt;" "PD_9&lt;9&gt;" "Rst"))))
 </span>
-
 <span style="color: #b22222; font-weight: bold;">;EXECUTION OF THE GENERATION FONCTION
 </span>array2sch(cells <span style="color: #0000ff; font-weight: bold; text-decoration: underline;">nil</span> <span style="color: #0000ff; font-weight: bold; text-decoration: underline;">nil</span>)
 <span style="color: #b22222; font-weight: bold;">; OPTIONNAL =&gt; add input and output pins
@@ -60,8 +59,6 @@ Take, or generate for your needs a list with the cellName and its input and outp
 <span style="color: #b22222; font-weight: bold;">;=&gt; ("PD_1&lt;1:9&gt;" "PD_2&lt;1:9&gt;" "PD_3&lt;1:9&gt;" "PD_4&lt;1:9&gt;" "PD_5&lt;1:9&gt;" "PD_6&lt;1:9&gt;" "PD_7&lt;1:9&gt;" "PD_8&lt;1:9&gt;" "PD_9&lt;1:9&gt;")
 </span>ineed('terminalGen <span style="color: #0000ff; font-weight: bold; text-decoration: underline;">t</span>)
 terminalGen(<span style="color: #a020f0; font-weight: bold;">reverse</span>(PD_pins))
-
-
 </pre>
 
 
