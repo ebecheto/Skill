@@ -23,7 +23,16 @@ Remove existing lock that belongs to you (that you have the right to delete). Op
 
 *array2sch* function example
 --------------------------
-Take, or generate for your needs a list with the cellName and its input and output incremanted (or notà names. Then is creates an array of cells with net and labels on top in the opened schematic cellView.
+Take, or generate for your needs, a list with the cellName and its input and output incremanted (or not) names. Then is creates an array of cells with net and labels on top in the opened schematic cellView.
 
 
 ![example array2sch](./array2sch.png)
+
+
+
+*schematic2symbol* function example
+--------------------------
+From an open schematic with pins, generate a rectangle symbol with the pins at the same location distance of the schematic.
+For practical simplicity, i use named label to put pins in a nearby area.
+
+![example](./schematic2symbol.png)
