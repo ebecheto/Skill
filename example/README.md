@@ -63,7 +63,29 @@ rexFindCell("^mos" )	   	;<== search everywhere a cell starting with 'mos'
 ;=>(("ahdlLib" "mos_tft") 
     ("ahdlLib" "mos_level1"));<== answer
 
-
 ![example](./rexFindCell.png)
 
 
+*whereIncludeCell* function example
+--------------------------
+When i don't remember where i have used a cell in my design, i search with : 'whereIncludeCell'. (Warning a bit long to search in all the libraries. 
+
+whereIncludeCell( "ampli");<= search in all libs where i put my_amplier or so.
+
+;=> (("functional" "libContents" "amplifier") ...
+ ("my_lib" "simu_mem_2cell" "hold_amplifier")) ;<= answer
+
+whereIncludeCell( "inv_cor" "CORELIB");<== search where inv_core is used in the CORELIB
+
+;=> (("CORELIB" "JKS3" "inv_core") ...) ;<== answers (...too many lines to print for this example)
+
+![example](./whereIncludeCell.png)
+
+
+*prettyPrint* function example
+--------------------------
+print the postscript of the viewing cell, and convert it on the go with ghostscript, with a slightly wider pen size (setlinewidth=5 instead of 1). In order to havec better contrast of the lines.
+
+![example](./prettyPrint.png)
+Example of generated definition view. Normally it's better for presentation.
+![example](./my_lib-my-cell-schematic_0.png)
