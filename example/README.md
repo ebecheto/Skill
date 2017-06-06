@@ -23,7 +23,8 @@ Remove existing lock that belongs to you (that you have the right to delete). Op
 
 *array2sch* function example
 --------------------------
-Take, or generate for your needs, a list with the cellName and its input and output incremanted (or not) names. Then is creates an array of cells with net and labels on top in the opened schematic cellView.
+Take, or generate for your needs, a list with the cellName and its input and output incremanted (or not) names. Then is creates an array of cells with net and labels on top in the opened schematic cellView. 
+See [array2sch_tuto.il](./array2sch_tuto.il) example file.
 
 
 ![example array2sch](./array2sch.png)
@@ -87,5 +88,18 @@ whereIncludeCell( "inv_cor" "CORELIB");<== search where inv_core is used in the 
 print the postscript of the viewing cell, and convert it on the go with ghostscript, with a slightly wider pen size (setlinewidth=5 instead of 1). In order to havec better contrast of the lines.
 
 ![example](./prettyPrint.png)
-Example of generated definition view. Normally it's better for presentation.
+
+VV See below an example of generated definition view. Normally it's better for presentation. VV
+
 ![example](./my_lib-my-cell-schematic_0.png)
+
+
+*updateCellviews* function example
+--------------------------
+
+When a copy was done without checking by mistake the button "[] Update Instances: Of new copies Only", or when a collegue send you a library but some cells are defined from another library, but a copy is present in the current library. Then this script goes and search if a cell is defined in the current cell and affect it to the instance (technically, its the master of the instance that is updated).
+
+
+![example](./updateCellviews.png)
+![example](./updateCellviews_after.png)
+
