@@ -71,7 +71,7 @@ rexFindCell("^mos" )	   	;<== search everywhere a cell starting with 'mos'
 --------------------------
 When i don't remember where i have used a cell in my design, i search with : 'whereIncludeCell'. (Warning a bit long to search in all the libraries. 
 
-whereIncludeCell( "ampli");<= search in all libs where i put my_amplier or so.
+whereIncludeCell( "ampli");<= search in all libs where i put my_amplifier or so.
 
 ;=> (("functional" "libContents" "amplifier") ...
  ("my_lib" "simu_mem_2cell" "hold_amplifier")) ;<= answer
@@ -89,7 +89,7 @@ print the postscript of the viewing cell, and convert it on the go with ghostscr
 
 ![example](./prettyPrint.png)
 
-VV See below an example of generated definition view. Normally it's better for presentation. VV
+__VV__ See below an example of generated image view. Normally it's the best definition you could get for a presentation or a technical document. __VV__
 
 ![example](./my_lib-my-cell-schematic_0.png)
 
@@ -102,4 +102,23 @@ When a copy was done without checking by mistake the button "[] Update Instances
 
 ![example](./updateCellviews.png)
 ![example](./updateCellviews_after.png)
+In the example, the buffer is not present in the library, so it cannot be updated. This function works also for Layout : updateCellviewsL(). But in Layout, there is a predefined function : Tools->remaster_Instances that does the job allready.
+
+
+
+
+
+*mos2fet* function example
+--------------------------
+update a schematic with all the symbol to be modified. Could be looped easily on the entire library. Update net position except if the net does not touch the center of the pin.
+could be used to translate a design to another techno.
+
+![example](./mos2fet.png)
+The cell 'buffer_HM...' does not exist in the library, an so, is not updated.
+
+
+*genBox* function example
+--------------------------
+From the core schematic level, it takes the pins in the existing cellview and generate a template file for the padRing function, and execute this template. It means that it generate schematic, symbol and layout pad rings with conner abuted with the default value. The template permits to adapt the size, and the space of the diod cells. This is functionnal off-the-shelf with AMS035 and IBM130 by default. Should be adapted with other technos. (change spacing metal name, IO lib names etc.)
+![example](./genBox.png)
 
