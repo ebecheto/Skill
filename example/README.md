@@ -119,6 +119,10 @@ The cell 'buffer_HM...' does not exist in the library, an so, is not updated.
 
 *genBox* function example
 --------------------------
-From the core schematic level, it takes the pins in the existing cellview and generate a template file for the padRing function, and execute this template. It means that it generate schematic, symbol and layout pad rings with conner abuted with the default value. The template permits to adapt the size, and the space of the diod cells. This is functionnal off-the-shelf with AMS035 and IBM130 by default. Should be adapted with other technos. (change spacing metal name, IO lib names etc.)
+From the core schematic level, it takes the pins in the existing cellview and generate a template file for the padRing function, and execute this template. It means that it generates schematic, symbol and layout pad rings with conner abuted with the default value. The template permits to adapt the size, and the space of the diod cells. This is functionnal off-the-shelf with AMS035 and IBM130 by default. Should be adapted with other technos. (change spacing metal name, IO lib names etc.) 
+pinName list order start from bottom left and are posed one by one in the counter clockwise order.
 ![example](./genBox.png)
+Here is another example. The parameter xn specifies the number of pad in X row. [omited=> square]. The first two optional number are for X and Y spacing between pads. It is usable if spacer cells exist with multiple size. A long time ago, i used to create a pCell spacer, so that i could stretch the spacer easily, but i gave up.
+procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()~>libName) (cellname getEditRep()~>cellName)  @rest rest)
+![example](./genBox2.png)
 
