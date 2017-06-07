@@ -126,3 +126,8 @@ Here is another example. The parameter xn specifies the number of pad in X row. 
 procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()\~>libName) (cellname getEditRep()\~>cellName)  @rest rest)
 ![example](./genBox2.png)
 
+
+*generateAllPins* function example
+--------------------------
+When placing the instance manually in a layout, i generally don't want to place the pins manually. So the script loop on the pins of the schematic, and created the layout pin rectangle and label where the should be on the layout instance.
+![example](./generateAllPins.png)
