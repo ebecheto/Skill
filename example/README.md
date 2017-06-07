@@ -123,6 +123,6 @@ From the core schematic level, it takes the pins in the existing cellview and ge
 pinName list order start from bottom left and are posed one by one in the counter clockwise order.
 ![example](./genBox.png)
 Here is another example. The parameter xn specifies the number of pad in X row. [omited=> square]. The first two optional number are for X and Y spacing between pads. It is usable if spacer cells exist with multiple size. A long time ago, i used to create a pCell spacer, so that i could stretch the spacer easily, but i gave up.
-procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()~>libName) (cellname getEditRep()~>cellName)  @rest rest)
+procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()\~>libName) (cellname getEditRep()\~>cellName)  @rest rest)
 ![example](./genBox2.png)
 
