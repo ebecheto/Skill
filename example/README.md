@@ -89,7 +89,7 @@ print the postscript of the viewing cell, and convert it on the go with ghostscr
 
 ![example](./prettyPrint.png)
 
-__VV__ See below an example of generated image view. Normally it's the best definition you could get for a presentation or a technical document. __VV__
+\_\_VV\_\_ See below an example of generated image view. Normally it's the best definition you could get for a presentation or a technical document. \_\_VV\_\_
 
 ![example](./my_lib-my-cell-schematic_0.png)
 
@@ -114,6 +114,7 @@ update a schematic with all the symbol to be modified. Could be looped easily on
 could be used to translate a design to another techno.
 
 ![example](./mos2fet.png)
+See [mos2fet_tuto.il](./mos2fet_tuto.il) example file.
 The cell 'buffer_HM...' does not exist in the library, an so, is not updated.
 
 
