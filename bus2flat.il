@@ -1,5 +1,6 @@
 ;; copyleft ebecheto
 
+;; TODO : correct bus2flat("MULT<3:0>") see instBusMatch  MSB_first variant
 
 ineed('netMakeBus)
 
@@ -9,7 +10,10 @@ unless(fboundp('a2s) ineed('itos) alias(a2s itos))
 defun(bus2flat (@optional (net "Q<1:10>"))
 let((netb)
 netb=parseString(net ":<>" )
-netMakeBus(car(netb) list(atoi(cadr(netb)) atoi(caddr(netb))))
+if(length(netb)==3 
+
+netMakeBus(car(netb) list(atoi(cadr(netb)) atoi(caddr(netb)))) 
+net)
 ))
 
 
@@ -17,6 +21,7 @@ netMakeBus(car(netb) list(atoi(cadr(netb)) atoi(caddr(netb))))
 ; bus2flat("in<1:16>");=> ("in<1>" "in<2>" "in<3>" "in<4>" "in<5>" "in<6>" "in<7>" "in<8>" "in<9>" "in<10>" "in<11>" "in<12>" "in<13>" "in<14>" "in<15>" "in<16>")
 
 
+printf("obsolete, prefer >>> bus2list <<< function\n")
 printf("see also functions _bus2()  and bus2_() in terminal2pin.il\n")
 printf("ineed('terminal2pin)\n")
 

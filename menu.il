@@ -1,5 +1,8 @@
 ;; copyleft ebecheto
 
+;; https://community.cadence.com/cadence_technology_forums/f/48/t/26934
+;; TODO : verify the post to prevent designkit to remove my menu
+
 ;___vv___ the only thing TODO for new user : ___vv___
 ; export SKILLDIR=~/Skill
 ; chose to do :
@@ -34,7 +37,7 @@ concat('caz file))
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
 ; __ menu __ defun __--> too crowded => second one
-files2='("rexFindCell" "whereIncludeCell" "categorySet")
+files2='("rexFindCell" "whereIncludeCell" "categorySet" "terminalGen" "bBoxView")
 cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)

@@ -2,9 +2,12 @@
 
 ; pour un schematic ou layout
 ; getInstTermPointLPP()
+;; ;; return a list of :
+;; ;; (label point lpp bBox fig?)
 
 procedure(getInstTermPointLPP(@optional (inst css()) )
-let((point master pointList v5or6 labs ilab) 
+let((point master pointList v5or6 labs ilab verb)
+verb=nil
 master=inst~>master  ; printf("INST:%L\n" list(inst master~>terminals) )
 labs=setof(shape inst~>master~>shapes shape~>objType=="label");<= utile si que des labels sans pin
 foreach( conn master~>terminals 
@@ -18,7 +21,7 @@ dbTransformBBox(caar(v5or6)~>bBox inst~>transform) caar(v5or6)
 )))
 );secure layout error suba...
 unless(conn~>pins
-printf("terminal [%s] n'a pas de pin => label\n" conn~>name)
+when(verb printf("terminal [%s] n'a pas de pin => label\n" conn~>name) )
 ilab=car(setof(lab labs lab~>theLabel==conn~>name))
 ; printf("%L\n" ilab~>??) ?! vsub! exist dans mast~>terms~>name mais dans labs~>name c'est vsubo! et pas de vsub!...
 pointList=append(pointList list(list(conn~>name dbTransformPoint(ilab~>xy||'(0 0) inst~>transform) ilab~>lpp
