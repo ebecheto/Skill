@@ -8,7 +8,7 @@ ineed('(bus2list sch2layName))
 defun(schInst2mapTable (@optional (sinst nil))
 let((inst mapTable pNames lpNames iNames liNames sNames lsNames res)
 unless(sinst sinst=css()); end default config
-schi=car(sinst~>instTerms)
+; schi=car(sinst~>instTerms)
 mapTable=foreach(mapcan schi sinst~>instTerms
 pNames=schi~>net~>sigNames
 lpNames=length(pNames);=> 8
