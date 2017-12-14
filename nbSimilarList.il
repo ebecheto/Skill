@@ -21,6 +21,9 @@ if(tri sortcar(bList 'alphalessp) bList)
 );output result
 )
 
+printf("nbSimilarList()\n")
+printf("nbSimilarList('(\"A\" \"A\" \"A\" \"A\" \"A\" \"B\" \"B\" \"B\" \"B\")) ;=> ((\"A\" 5) (\"B\" 4))\n")
+
 ;; USAGE
 ; nbSimilarList('("A" "A" "A" "A" "A" "B" "B" "B" "B")) ;=> (("A" 5) ("B" 4))
 ; select some instances

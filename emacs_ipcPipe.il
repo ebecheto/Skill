@@ -10,12 +10,13 @@ cond(
 (;;;; Case C-c-f : load file where the region text was copied
 rexMatchp("load" data) 
 unless(errset(res=load("~/.emacs2icfb.il")  nil)
+fprintf(fep=outfile("~/.virtuoso2error.txt") "%L" errset.errset) close(fep)
 error(car(parseString(nth(5 errset.errset)  "*Error* "))
 )))
 (;;; case C-c-r
 rexMatchp("region" data) 
 printf("EXECUTE REGION\n")
-res="NOT YET while readline remove commend, change \\n into space etc...==> prefer C-c-f"
+res="NOT YET while readline remove command, change \\n into space etc...==> prefer C-c-f"
 )
 (t ;default
 ;;; case C-c-v  eval line
@@ -28,9 +29,12 @@ res=evalstring(nextLine))))  close(inPort)
 printf("\nEMACS>");<== can be commented/removed
 printf("%L\n" res)
 fprintf(fp=outfile("~/.virtuoso2emacs.txt") "%L" res) close(fp) ;=> saves resutls in a file for emacs to fetch it if you want
+sh("rm -f ~/.emacs2icfb.il");<== prevent loop ?
 ))
 
-ipcBeginProcess(strcat(getShellEnvVar("SKILLDIR") "/ipcPipe2CAT.sh") "" 'socketHandler)
+sh("rm -f ~/.emacs2icfb.il");<== prevent loop ?
+
+ipcBeginProcess(strcat(getShellEnvVar("SKILLDIR") "/" "ipcPipe2CAT.sh") "" 'socketHandler)
 
 printf("Try something like :\t\tControl-c-v\n")
 printf("get result back with :\t\tControl-c-s\n")

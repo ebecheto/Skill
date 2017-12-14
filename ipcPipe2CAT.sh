@@ -18,7 +18,7 @@ while true; do
         if [[ "$line" == 'quit' ]]; then break; fi
 	ret+=$line
 	if [[ "$ret" == *'EOF' ]]; then echo ${ret%EOF}; ret="" ;fi
-#        echo "GOT:$line$()__$ret" #<== do not uncomment this one! otherwise : twice eval!
+        echo "GOT:$line$()__$ret" #<== do not uncomment this one! otherwise : twice eval! Except is ~/.emacs2icfb is removed
     fi
 done
 
