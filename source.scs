@@ -1,0 +1,127 @@
+parameters \
+t_delay=200n \
+t_on=10n \
+t_start=200n \
+h=3.3 d=0.0 f=1n
+// High, Down, Front
+V_Slave_DA (slaveDA 0) vsource dc=3.3 type=pwl delay=t_delay wave=[ \
+0n h 1250n h\
+1251n d 1270n d\
+1271n h\
+]
+
+V_SDA (setDA 0) vsource dc=0 type=pwl delay=t_delay wave=[ \
+0n 0 \
+t_on h t_start h \
+(t_start+f) d \
+470n d 471n h 550n h \
+551n d 590n d\
+591n h 630n h\
+631n d 950n d\
+951n h 990n h\
+991n d 1150n d\
+1151n h 1350n h\
+1351n d 1370n d\
+1371n h 1500n h\
+(1500n+f) d \
+(1500n+270n) d \
+(1500n+271n) h (1500n+430n) h \
+(1500n+431n) d (1500n+670n) d\
+(1500n+671n) h (1500n+710n) h\
+(1500n+711n) d (1500n+750n) d\
+(1500n+751n) h (1500n+1150n) h\
+(1500n+1151n) d (1500n+1170n) d\
+(1500n+1171n) h\
+]
+
+V_SDAsave (setDAsave 0) vsource dc=0 type=pwl delay=t_delay wave=[ \
+0n 0 \
+t_on h t_start h \
+(t_start+f) d \
+470n d 471n h 550n h \
+551n d 590n d\
+591n h 630n h\
+631n d 950n d\
+951n h 990n h\
+991n d 1150n d\
+1151n h 1350n h\
+1351n d 1370n d\
+1371n h 1500n h\
+(1500n+f) d \
+(1500n+270n) d (1500n+271n) h (1500n+430n) h \
+(1500n+431n) d (1500n+750n) d\
+(1500n+751n) h (1500n+1150n) h\
+(1500n+1151n) d (1500n+1170n) d\
+(1500n+1171n) h\
+]
+
+
+V_SCL (SCL 0) vsource dc=0 type=pwl delay=t_delay wave=[ \
+0 0 \
+t_on h t_start h \
+220n h\
+221n d 240n d 241n h 260n h \
+261n d 280n d 281n h 300n h \
+301n d 320n d 321n h 340n h \
+341n d 360n d 361n h 380n h \
+381n d 400n d 401n h 420n h \
+421n d 440n d 441n h 460n h \
+461n d 480n d 481n h 500n h \
+501n d 520n d 521n h 540n h \
+541n d 560n d 561n h 580n h \
+581n d 600n d 601n h 620n h \
+621n d 640n d 641n h 660n h \
+661n d 680n d 681n h 700n h \
+701n d 720n d 721n h 740n h \
+741n d 760n d 761n h 780n h \
+781n d 800n d 801n h 820n h \
+821n d 840n d 841n h 860n h \
+861n d 880n d 881n h 900n h \
+901n d 920n d 921n h 940n h \
+941n d 960n d 961n h 980n h \
+981n d 1000n d 1001n h 1020n h \
+1021n d 1040n d 1041n h 1060n h \
+1061n d 1080n d 1081n h 1100n h \
+1101n d 1120n d 1121n h 1140n h \
+1141n d 1160n d 1161n h 1180n h \
+1181n d 1200n d 1201n h 1220n h \
+1221n d 1240n d 1241n h 1260n h \
+1261n d 1280n d 1281n h 1300n h \
+1301n d 1320n d 1321n h 1340n h \
+1341n d 1360n d 1361n h\
+1520n h \
+1521n d 1540n d 1541n h 1560n h \
+1561n d 1580n d 1581n h 1600n h \
+1601n d 1620n d 1621n h 1640n h \
+1641n d 1660n d 1661n h 1680n h \
+1681n d 1700n d 1701n h 1720n h \
+1721n d 1740n d 1741n h 1760n h \
+1761n d 1780n d 1781n h 1800n h \
+1801n d 1820n d 1821n h 1840n h \
+1841n d 1860n d 1861n h 1880n h \
+1881n d 1900n d 1901n h 1920n h \
+1921n d 1940n d 1941n h 1960n h \
+1961n d 1980n d 1981n h 2000n h \
+2001n d 2020n d 2021n h 2040n h \
+2041n d 2060n d 2061n h 2080n h \
+2081n d 2100n d 2101n h 2120n h \
+2121n d 2140n d 2141n h 2160n h \
+2161n d 2180n d 2181n h 2200n h \
+2201n d 2220n d 2221n h 2240n h \
+2241n d 2260n d 2261n h 2280n h \
+2281n d 2300n d 2301n h 2320n h \
+2321n d 2340n d 2341n h 2360n h \
+2361n d 2380n d 2381n h 2400n h \
+2401n d 2420n d 2421n h 2440n h \
+2441n d 2460n d 2461n h 2480n h \
+2481n d 2500n d 2501n h 2520n h \
+2521n d 2540n d 2541n h 2560n h \
+2561n d 2580n d 2581n h 2600n h \
+2601n d 2620n d 2621n h 2640n h \
+2641n d 2660n d 2661n h 2680n h \
+2820n h\
+]
+
+
+
+//(120n+f) h 180n h \

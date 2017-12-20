@@ -1,0 +1,8 @@
+sosDisplayAttributesTabG = makeTable( 'sosDisplayAttributesTabG nil )
+sosDisplayAttributesTabG["CheckedOutBy"] = list( 'nil 'label "Locked" 'width 10  )
+sosDisplayAttributesTabG["LatestRev"] = list( 'nil 'label "Latest" 'width 7  )
+sosDisplayAttributesTabG["CurrentVer"] = list( 'nil 'label "Version" 'width 7  )
+sosDisplayAttributesColOrderG = list( "CurrentVer" "LatestRev" "CheckedOutBy"  )
+sosProjectLibInfoPromptIgnoreG = t
+MLibSelStateG = 0
+MLibCurListG = list(  )

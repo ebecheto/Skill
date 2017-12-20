@@ -1,0 +1,42 @@
+
+IO='"APRIOP_3B"
+padLib='("IOLIB_ANA_3B_4M" "IOLIB_3B_4M" "IOLIB_ANA_4M" "IOLIB_4M")
+l_pins='( 
+( "VDD" "AVDD3ALLP_3B") ( "VDD" "AVDD3ALLP_3B") ( "VDD" "AVDD3ALLP_3B") ( "VDD" "AVDD3ALLP_3B")
+"O1" "O2" "O3" "O4"
+("GND" "AGND3ALLP_3B") ("GND" "AGND3ALLP_3B") ("GND" "AGND3ALLP_3B")
+("VSUB" "AVSUBP_3B")
+"I4" 
+"I3"
+"I2"
+("I1")
+)
+createPadRing( l_pins 5 5 "T2K_V5" "COUR1" "APRIOP_3B" "AGND3ALLP_3B" "AVDD3ALLP_3B" "PERI_SPACER_01_P" "CORNERP" "IOLIB_ANA_3B_4M" padLib)
+
+ioLib=firstFoundCell(padLib IO)
+ioLib=firstFoundCell(padLib  "AVDD3ALLP_3B")
+ioLib=firstFoundCell(padLib  "BBCU4P")
+map1List = foreach( mapcar x l_pins if(!listp(x) then append(list(x) list(IO ioLib)) else x)) ;; pour les elements seul, "in", rajoute ("in" "PAD_IO" "PAD_IO_lib")
+map2List = foreach( mapcar x map1List if(length(x)==1 then append(x list(IO ioLib)) else x)) ;; pour les elements seul, "in", rajoute ("in" "PAD_IO" "PAD_IO_lib")
+
+rList = foreach( mapcar x map2List
+if(length(x)==2 then
+tmpLib=firstFoundCell(padLib cadr(x))
+printf("%L=firstFoundCell('%L %L) \n" tmpLib padLib cadr(x))
+if(tmpLib then append(x list(tmpLib))  else x_=append(list(x) list("TOCHANGE"))  )
+else x)
+;; pour les elements double, '("vdede" "AVDD3ALLP_3B"), rajoute la lib ("vdede" "AVDD3ALLP_3B" "IOLIB_ANA_3B_4M")
+)
+
+
+
+;; rList = foreach( mapcar x map2List
+;; tmpLib=firstFoundCell(padLib cadr(x))
+;; ;if(!tmpLib then append(list(x) list(tmpLib)) else append(list(x) list("TOCHANGE")))
+;; printf("%L=firstFoundCell(%L %L) \n" tmpLib padLib cadr(x))
+;; )
+
+ ;; pour les elements double, '("vdede" "AVDD3ALLP_3B"), rajoute la lib ("vdede" "AVDD3ALLP_3B" "IOLIB_ANA_3B_4M")
+
+pad=car(rList)
+

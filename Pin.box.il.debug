@@ -1,0 +1,133 @@
+result='(("gnd!" "SIOGND") ("vdd!" "SIOVDD") "in1" "in2" ("gnd!" "SIOGND") ("vdd!" "SIOVDD") ("out1" "SIOWIRE_ESD" "short_io") ("out2"  "SIOWIRE_NOESD") )
+(printf "length: %d\n" length(result))
+
+procedure(createSch( l_pins @optional (library getEditRep()~>libName ) (outCell getEditRep()~>cellName)  (padCap "SIOCORNER") (padCapLib "short_io")  (IO "SIOWIRE_ESD") )
+let((nPad nSide mn tmp tmpList tmpLibList twoList threeList B R T L hstep lstep cstep xst yst edge Xstep Ystep Xq Yq Xlabel Ylabel Xlq Ylq Xcq Ycq X0 Y0 X1 Y1 W dbLib cell padName)
+
+;; few definitions
+(setq nPad length(l_pins) )
+nSide=nPad/4
+;; params to be automated considering ~>instTerms 
+;; car(css()~>instTerms)~inst  bBox
+mag=2
+hstep = 0.125*mag xst = 0.125*mag
+lstep = 0.375*mag yst = 0.125*mag
+mn=0 
+Xcstep = 0.3125*mag
+Ycstep = 0.375*mag
+edge=1
+rotate = 0 X=0 Y=0 rot="R0"
+cvSch = dbOpenCellViewByType( library outCell "schematic" "schematic" "w")
+cvSym  = dbOpenCellViewByType( library outCell "symbol" "schematicSymbol" "w")
+schPin = dbOpenCellViewByType("basic" "iopin" "symbol")
+symPin = dbOpenCellViewByType("basic" "sympin" "symbolNN" nil "r")
+
+
+unless( setq(dbLib ddGetObj(library)) error("Couldn't open library %L. Please open any new layout.\n" library)  )
+printf("Generate Sch&Sym %d-pin in %L %L %L \n" length(l_pins) library outCell list(dbLib))
+
+
+tmpList = foreach( mapcar x l_pins if(!listp(x) then append(list(x) list(IO)) else x)) ;; pour les elements seul, "in", rajoute ("in" "PAD_IO") (normalement déjà fais ds pad_frame.il
+
+
+twoList=foreach( mapcar elem tmpList if( (length(elem)== 1)|| (length(elem)> 3)
+	then append(car(elem) list(IO)) printf("changed %L to a list of 2 element\n" elem)
+	else elem))
+
+libList=ddGetLibList()
+threeList=foreach( mapcar elem twoList if(length(elem) ==2 
+	then tmpLibList=libList 
+		while( car(tmpLibList) && ! (dbOpenCellViewByType car(tmpLibList)~>name cadr(elem) "layout")
+;;		printf("%L not found in %L\n" cadr(elem) cadr(tmpLibList)~>name)
+		tmpLibList=cdr(tmpLibList)
+		);end while
+	if(tmpLibList
+		then printf("append %L as third element to %L\n" car(tmpLibList)~>name elem)
+		else printf("\n/!\\ %L not found in library /!\\ \n" cadr(elem))
+)
+	append(elem list(car(tmpLibList)~>name))
+	else elem ); end if
+);end foreach
+
+;; after that, threeList is a list of 3 elements : (padName padCell padLib)
+; threeList= '(("gnd!" "SIOGND" "short_io") ("vdd!" "SIOVDD" "short_io") ("out1" "SIOWIRE_ESD" "short_io") )
+
+
+;; loop on pins
+foreach(mapcar pad threeList
+	padName=car(pad) padCell=cadr(pad) padLib=caddr(pad)
+when(zerop(mod(mn nSide)) ; test on each edge = first element of a border
+case(edge 
+(1 Xq=1 	Yq=0 	Xlq=0 	Ylq=-1	) 
+(2 Xq=0 	Yq=1 	Xlq=1 	Ylq=0 	) 
+(3 Xq=-1 	Yq=0   	Xlq=0 	Ylq=1 	) 
+(4 Xq=0 	Yq=-1 	Xlq=-1	Ylq=0  	)
+);fin case
+Xstep =Xq*xst 		Ystep =Yq*yst
+Xlabel=Xlq*hstep	Ylabel=Ylq*hstep
+;printf(":: (%L)\n"  list(X Y))
+signY=Ylq+Yq
+signX=Xlq+Xq
+; X+ signY*sizeX
+X=X+ (Xlq+Xq)*0.5*( (1-(-1)**edge)*Ycstep + (1-(-1)**(1+edge))*Xcstep )
+Y=Y+ (Ylq+Yq)*0.5*( (1-(-1)**edge)*Xcstep + (1-(-1)**(1+edge))*Ycstep )
+;printf(" (%L) (%L) (%L) \n" list(X Y) list(Xlq Xq) list( 0.5*(1-(-1)**edge)*Xcstep  0.5*(1-(-1)**(1+edge))*Ycstep ))
+;printf(" (%L) (%L) (%L) \n" list(X Y) list(Ylq Yq) list( 0.5*(1-(-1)**edge)*Ycstep  0.5*(1-(-1)**(1+edge))*Xcstep ))
+
+;; COMMENTED because IBM cornerCap has no schematic view
+;; COMMENTED dbCreateInstByMasterName(cvSch padCapLib padCap "symbol" sprintf(nil "corner_%d" edge) X:Y rot)
+XC=X YC=Y ; center Ring for second symbol
+when(edge==1 X0=X Y0=Y) when(edge==3 X1=X Y1=Y)
+X=X+ (Xlq+Xq)*0.5*( (1-(-1)**edge)*Xcstep + (1-(-1)**(1+edge))*Ycstep )
+Y=Y+ (Ylq+Yq)*0.5*( (1-(-1)**edge)*Ycstep + (1-(-1)**(1+edge))*Xcstep )
+;printf(":: (%L) \n" list(X Y))
+rotate = mod(rotate+90 360)
+rot=sprintf(nil "R%d" rotate)
+edge++
+); fin when
+
+;	padName=car(pad) padCell=cadr(pad) padLib=caddr(pad)
+pinId = schCreatePin( cvSch schPin padName "inputOutput" nil X:Y rot )
+pinId~>children~>xy=(X+Xlabel:Y+Ylabel)  ; règle orientation pin label
+pinId~>children~>justify="centerRight"   ; règle orientation pin label
+
+symPinId = schCreateSymbolPin( cvSym symPin padName "inputOutput" X:Y "R0" )
+dbCreateLabel(cvSym  list("pin" "drawing") X+Xlabel:Y+Ylabel padName "centerRight" rot "stick" 0.0625); label du symbol
+
+;dbCreateInstByMasterName(cvSym padLib cadr(pad) "symbol"  sprintf(nil "PAD_%d" mn) X:Y rot)
+dbCreateInstByMasterName(cvSch padLib padCell "symbol"  sprintf(nil "PAD_%d" mn) X:Y rot)
+
+mn=mn+1
+when(!zerop(mod(mn nSide)) X=X+Xstep Y=Y+Ystep)
+when(!zerop(mod(mn nSide)) XC=XC+Xstep YC=YC+Ystep)
+
+);; foreach pad list	
+
+schCreateWire( cvSch "draw" "direct" list(X0:Y0 X0:Y1) 0.0625 0.0625 0.0125 ); <== creat wire line
+schCreateWire( cvSch "draw" "direct" list(X0:Y1 X1:Y1) 0.0625 0.0625 0.0125 ); <== creat wire line
+schCreateWire( cvSch "draw" "direct" list(X1:Y1 X1:Y0) 0.0625 0.0625 0.0125 ); <== creat wire line
+schCreateWire( cvSch "draw" "direct" list(X1:Y0 X0:Y0) 0.0625 0.0625 0.0125 ); <== creat wire line
+;printf("list(X Y):(%L)\n" list(X0 Y0 X1 Y1))
+W=Ycstep;+Xcstep
+
+shapeId = schCreateSymbolShape( cvSym "rectangle" "outline" list(X0:Y0 X1:Y1) )
+shapeId = schCreateSymbolShape( cvSym "rectangle" "outline" list(X0-W:Y0-W X1+W:Y1+W) )
+labelId = schCreateSymbolLabel( cvSym 0:Y1 "instance label" "[@instanceName]" "lowerLeft" "R0" "euroStyle" 0.125 "NLPLabel" )
+labelId = schCreateSymbolLabel( cvSym 0:Y1+0.15 "logical label" "Click here to edit" "lowerLeft" "R0" "roman" 0.0625 "normalLabel" )
+dbCreateRect(cvSym list("instance" "drawing") list(X0-W:Y1 X1+W:Y1+W)) ; <== selection box rect
+
+; schCreateNoteLabel( cvSch 0:0 sprintf(nil "Generated by \n%s\n%s\n" "~/Skill/Pin.box.il.debug" getCurrentTime())  "lowerLeft" "R0" "roman" 0.0625 "normalLabel" )
+
+
+dbSave(cvSym) dbClose(cvSym) dbSave(cvSch) dbClose(cvSch) 
+
+
+
+) ;;let
+) ;; proc
+
+createSch( result "toto" "box") 
+;; load("~/Skill/Pin.box.il.debug")
+
+(system "env > ~/.env")
+

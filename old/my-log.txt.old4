@@ -1,0 +1,3189 @@
+; /afs/in2p3.fr/group/micrhau/CADENCE/Skill/
+x=4
+;;; There is 3 way of wrinting in skill
+;; printf "The value of x is %n \n" x    ;; simplest way but wont be clear for a function of functions
+;; printf("The value of x is %n \n" x)   ;; standard C-like syntax
+;; (printf "The value of x is %n \n" x)  ;; standart lisp syntax, the recommend way to use it, but people usualy prefer C-like
+
+
+libName = "Cells"
+cellName = "inverter"
+viewName = "schematic"
+shapeCount = 200
+printf("The design of %s %s %s is %n \n" libName cellName viewName shapeCount)
+
+layerName= "MET_1"
+purpose= "png"
+rectCount= 7346546413516
+labelCount= 10
+lineCount=30
+miscCount=50
+
+printf(
+/* "\n%-15s %-15s %-10d  %-10d  %-10d  %-10d " */
+"\n%-15L %-15L %-10L  %-10L  %-10L  %-10L "
+layerName
+purpose
+rectCount
+labelCount
+lineCount
+miscCount
+)
+
+sprintf(cmd "echo \"%s\"" " Hello world" )
+(system cmd) ;; ==> renvoie sur le shell le resultat
+;; (system "xterm") ;; <== will launch an xterm, ==> wait for it to close ==> freeze
+
+names = foreach( mapcar x i2cNames if(!listp(x) then sprintf(nil "%L\\n" x) else sprintf(nil "%L\\n" car(x)))) ;; pour les elements seul, "in"...
+println(names)
+sprintf(cmd "echo \"%L\"" names)
+system(cmd)
+(system "xterm -e spectre -h |less&")
+
+aList = '(1 2 3) ;;;' quote <=> list si initialisation de la liste
+aLongList = '(1 2 3 4 5 6 7 8) ;;;' quote <=> list si initialisation de la liste
+aNestedList = '(1 (2 3) 4 5 (6 7)) ;;;' quote <=> list si initialisation de la liste
+println( aList )
+println( aLongList )
+println( aNestedList )
+
+printf("This is a liste :")
+
+a=1 b=2
+aList = list(a b)
+bList = '(a b)   ;;;;  <== c'est une initialisation ==> pointeurs
+a= 3
+nth(0 bList)
+eval(nth(0 bList))
+
+
+result = '(1 2 3) ;;'
+result = cons(result 1)
+result = cons(1 result)  ;;<== erreur arg 1 doit etre une liste
+result = cons(() 1 result)  ;;<== erreur cons a seulement 2 arguments
+
+aList= nil
+aList='()   ; equivalent'
+
+aList=tconc(aList 1)
+aList=tconc(aList 2)          	    ;; liste = tconc(liste1 liste2)
+aList=tconc(aList 3)	      	    ;; ==> liste = ( (liste1 liste2) liste2)
+aList=tconc(aList '(3 4 5 6)) 	    ;; tconc est mieux car il evite de creer 2 espaces memoire
+println aList		      	    ;; il marche avec le pointeur sur le dernier element
+
+result ='() for(i 0 31 result=tconc(result sprintf(nil "pad_%d" i))) result=car(result)
+
+
+x0=10 y0=10  x1=10 y1=10
+pinBox = list(x0:y0 x1:y1)
+subst('(-10) 'y1 pinBox);==> marche pas car "list" fait un eval des valeurs pointÂŽÃŽ©es => pas de pointeur
+subst('(-10) y1 pinBox);==> marche pas car change toutes les valeurs 10 par -10
+
+pinBox = '(x0:y0 x1:y1)
+subst('(-10) y1 pinBox) ;==> marche pas car y1 est la valeur pointÂŽÃŽ© par y1 et non le pointeur y1
+subst('(-10) 'y1 pinBox);==> ' permet de substituer le pointeur
+subst(-y1 'y1 pinBox);==> remplace y1 par -y1
+
+
+numbers = '(1 2 3 ) ;;;'
+	    member( 4 numbers)
+;;==> (1 2 3)    ;;<== renvoie la liste, puis la rÂŽÃŽ©ponse : nil ou la liste troncÂŽÃŽ© ÂŽÃŽ  partir de l'element cherch
+;;==> nil
+
+numbers = '(1 2 3 4 9 5 4 6) ;;;'
+	    member( 4 numbers)
+;;==> (1 2 3 4 9 5 4 6)
+;;==> (4 9 5 4 6)
+	    car(member( 4 numbers))
+;;==> 4
+
+nthelem( 2 '( a b c ) ) ;==> b
+
+A='(1 2 1 3 1 4 1 5) B='(1 3 5)
+procedure(SubstractList(B A)
+let((item)
+while(B && A item=car(B) B=cdr(B) A=remove(item A) )
+A))
+SubstractList(B A)
+
+;; foreach( mapcar x aList ...) renvoie la liste des derniers element evalues dans ...
+aList=list("one" "two" list("three"))
+foreach( mapcar x aList "tata");==> ("tata" "tata" "tata")
+i=0 foreach( mapcar x aList i++ );==> (0 1 2)
+i=0 foreach( mapcar x aList i++ sprintf(nil "tata_%d" i));==> ("tata_1" "tata_2" "tata_3")
+foreach( mapcar x aList append(list(x) '("d sd" )  )) ;==>(("one" "d sd") ("two" "d sd") (("three") "d sd"))
+
+(mapcar 'plus '(1 2 3 4 5) '(3 4 5 6 7));=> (4 6 8 10 12)
+
+full='("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
+full='(("0") ("1") ("2") ("3") ("4") ("5") ("6") ("7") ("8") ("9") ("10") ("11") ("12") ("13") ("14") ("15"))
+fourth=nil
+fourtt=nil
+for(i 1 4 fourth=append(fourth list(car(full))) full=cdr(full))
+for(i 1 4 fourtt=tconc(fourtt car(full)) full=cdr(full))
+println(fourth) ;==>(("0") ("1") ("2") ("3"))
+println(fourtt) ;==>((("4") ("5") ("6") ("7")) ("7"))
+println(car(fourtt)) ;==>(("4") ("5") ("6") ("7")
+
+full='(("0") ("1") ("2") ("3") ("4") ("5") ("6") ("7") ("8") ("9") ("10") ("11") ("12") ("13") ("14") ("15"))
+fourtt=nil
+for(i 1 4 fourtt=tconc(fourtt car(full)) full=cdr(full))
+println(fourtt) ;==>((("0") ("1") ("2") ("3")) ("3"))
+println(car(fourtt)) ;==>(("0") ("1") ("2") ("3"))
+
+nthcdr( 3 '( a b c d )) ;=> (d)
+z = '( 1 2 3 )
+nthcdr( 2 z ); => ( 3 )
+
+aList = '( a b c ) ;=> ( a b c )
+subst( 'a 'b aList ) ;=> ( a a c )
+anotherList = '( a b y ( d y ( e y )))
+subst('x 'y anotherList ); => ( a b x ( d x ( e x )))
+
+(
+setof
+ x
+ numbers
+ oddp(x)
+)
+help evenp ;; <=>isPaire?  |||  oddp <=> isImpaire?
+
+'(0:0 10:10)    ;'  ==> ((X0:Y0)(X1:Y1))        <== danger ne donnera pas l effet escompte
+list(0:0 10:10) ;   ==> ((X0 Y0)(X1 Y1))
+
+one =1
+two =2
+three =3
+moreNumbers = list( one two three)
+moreNumbers
+
+evenMoreNumbers = append( moreNumbers '(2 1)) ;;;' ))
+;==> (1 2 3 2 1)
+
+result = nil
+result = cons(1 result)
+result = cons(2 result)
+result = cons(3 result)
+
+reverse( result )
+
+
+left = '(1 2 3)  ;; '
+right = '(4 5 6) ;;'
+leftRight = append(left right)
+left
+right
+
+
+leftRight = append(left right)
+rightLeft = append(right left)
+
+
+cons(left right)
+cons(right left)
+
+list(7)
+
+append(right list(7))
+right
+right=append(right list(7))
+left =append(left list(4))
+
+left = '(1 2 3)  ;; '
+right = '(4 5 6) ;;'
+cons(left right)
+cons(cons(left right) right)
+append(right cons(cons(left right) right))
+     (println
+append(right cons(left right))
+     )
+
+numbers = '(1 (2 3) ) ;;;'
+type numbers
+car numbers
+cdr numbers
+(car (cdr numbers))
+(cadr numbers)
+ window(3)
+type  window(3)
+
+hiGetCurrentWindow()->?
+;; hiGetCurrentWindow()->stopLevel=0
+hiGetWindowList
+
+geOpen(
+?lib "master"
+?cell "mux2"
+?view "schematic"
+?mode "w"
+)
+
+
+alias(bk hiSetBindKey)
+
+     view(
+prependInstallPath("samples/local/schBindKeys.il")
+)
+    edit(
+prependInstallPath("samples/local/schBindKeys.il")
+)
+
+hiSetWindowName(window(1) "Icfb")
+
+ciwBBox = hiGetAbsWindowScreenBBox(window(1) t)
+
+(foreach
+nb_win
+hiGetWindowList()
+;;1 ;;; la une cest icfb dc pas besoin de la tester
+;;length(hiGetWindowList())
+(if
+rexMatchp("Analog Design Environment" hiGetWindowName(nb_win))
+hiSetWindowName(nb_win "ADE")
+)
+;;nb_win++
+)
+
+getShellEnvVar("PRINTER")
+setShellEnvVar("export PRINTER=lprdc2")
+
+OPATH=getShellEnvVar("PATH")
+np=strcat("export PATH=/cds/cadence/ASSURA615/tools/assura/bin/32bit:" OPATH)
+setShellEnvVar(np)
+;^ echec
+setShellEnvVar("PATH" strcat("/cds/cadence/ASSURA615/tools/assura/bin/32bit:" OPATH))
+;oki !
+
+setShellEnvVar("IBM_PDK=/data/cadence/IBM_CMOS8_V1.8_DM_vcad/")
+setShellEnvVar("IBM_PDK=/afs/in2p3.fr/group/micrhau/CADENCE/Workshop_cern_09/IBM_CMOS8_V1.6_DM_vcad")
+setShellEnvVar("IBM_PDK=/soft/cadence/IBM_CMOS8_V1.8_DM_vcad/")
+getShellEnvVar("IBM_PDK")
+
+rexMatchp("lyopcs24" getShellEnvVar("HOSTNAME") )
+
+rexCompile( "^[0-9]+" ) => t
+rexExecute( "123abc" ) => t
+rexSubstitute( "got: \\0")
+
+nextLine="\t\t[** noise-noise **]\n"
+rexExecute(nextLine)
+rexCompile(".*-noise")
+rexSubstitute( "got: \\0") ;=>""got:  noise-noise"
+
+
+cv= geGetWindowCellView()
+     ;;==> db:199725100  ;;<== database identifiant
+type cv
+     ;;==> dbobject
+cv~>objType
+     ;;==> "cellView"
+
+cv~>?
+     ;;==> donne toutes les infos des attributs possibles
+     ;;==> remarques tous les attributs avec un 's' sont normalement une liste d object sauf prop
+cv~>??
+     ;;==> affiches les valeurs des tous les attributs
+cv~>instances~>??
+     ;;==> affiches toutes les infos sur les instances dans la cellview en cours
+car(cv~>instances)~>?
+     car(cv~>instances~>?)  ;;<== marche aussi mais
+
+cv~>instances~>name
+instId = nth(2 cv~>instances)
+instId~>??
+
+length(cv~>nets)
+(cv~>netCount)   ;; egaux me semble-t-il
+
+setof(n cv~>nets n~>isGlobal);=>nil
+setof(n cv~>nets rexMatchp(".*!" n~>name));=> 9-net
+setof(n cv~>nets rexMatchp(".*!" n~>name))~>name
+;=> ("vcc!" "gndd!" "vddd!" "gnd!" "sub!" "vdd!" "gnda!")
+
+objId = css() ;;<== reccup l objective id de l object selectionne
+objId~>prop~>name
+objId~>prop~>value
+objId~>test1 ;;<== si on a ajouter un attribut dans les proprietes de l object il est accessible directement par son nom ==> valable uniquement pour les usesr defined attribut
+
+dbFindProp(cv "instances")~>value ;; <== si on a un nom d attribut identique a un nom cadence predefinit
+
+dbFindProp(objId "instances")~>value ;
+dbFindProp(objId "test1")~>value ;
+dbFindProp(objId "nf")~>value ;
+
+cv~>terminals ;; retourne les id des nets relatifs a des pins <=> terminaux
+     ;;==>(db:200079672 db:199822956 db:199822616 db:199822412)
+cv~>terminals~>name
+println(geGetWindowCellView()~>terminals~>name)
+     ;;==>("SEL" "Y" "B" "A")
+cv~>nets~>term      ;; meme chose que ci dessus mais pas forcement ds le meme ordre
+(println cv~>nets~>term)
+;; (db:199822616 nil nil db:199822956 db:199822412 nil nil db:200079672 nil)
+pinList='()
+rexCompile(">")
+foreach(mapcar p cv~>terminals~>name
+
+css() ;; alias qui retourne l id de l object selectionne (le premier de l'ensemble des selectionnÂŽÃŽ©s c'est en fait : car(geGetSelectedSet())
+
+
+entrop=setof(cs geGetSelectedSet() cs~>viaHeader~>viaDefName=="VMQ_MG")
+dbDeleteObject(car(entrop))
+
+
+dbFindTermByName( cv "SEL" )
+     ;;==> db:200079672
+cv~>nets~>name ;; retourne les noms de tous les nets
+
+(println cv~>nets~>name)
+     ;;==>("B" "net7" "net6" "Y" "A" "vdd!" "gnd!" "SEL" "net4")
+cv~>layerPurposePairs
+     ;;==>(db:200082396 db:199759444 db:199759476 db:199759508 db:199759540 db:199759572 db:199759604 db:199822340 db:199759056 )
+(println     (car cv~>layerPurposePairs)~>? )
+     ;;==> (cellView objType prop layerName layerNum nShapes numInstTypes purpose shapes)
+
+(car cv~>??)
+
+getWindowRep();; alias de geGetWindowCellView()
+
+getWindowRep()~>instances~>?
+getWindowRep()~>instances~>libNames
+getWindowRep()~>instHeaders
+
+(println (car getWindowRep()~>instHeaders) ~>? )
+     ;;==>(cellView objType prop cellName instances libName master timeStamp variants viewName)
+getWindowRep()~>instHeaders~>libName
+getWindowRep()~>instHeaders~>libName="Ed"
+     ;;<== equivaut a rename /!\ attention si plusieurs libName differents
+(foreach
+nb_win
+getWindowRep()~>instHeaders~>libName
+(if
+rexMatchp("Ed" )
+hiSetWindowName(nb_win "ADE")
+)
+;;nb_win++
+)
+
+
+getWindowRep()~>instHeaders~>libName
+     ;;==> ("Ed" "master" "master" "master" "master" "M1_POLY1" "M1_POLY1" )
+getWindowRep()~>instHeaders~>cellName
+     ;;==> ("mux2" "Inv" "nand2" "M2_M1" "M2_M1" "M1_POLY1" "M1_POLY1" )
+aa = setof(x getWindowRep()~>instHeaders  x~>cellName == "nand2")
+     ;;==>(db:199822980)
+aa~>libName = "Ed"
+     ;;==> ("Ed")
+myHeader = setof(x getWindowRep()~>instHeaders x~>libName == "Ed")
+myHeader~>libName = "master"
+
+     ;; si par exemple on a :
+getWindowRep()~>instHeaders~>libName
+     ;;==> ("master" "Ed" "master" "master" "master" "master")
+     ;;alors
+nth(1 getWindowRep()~>instHeaders)~>libName="master"
+     ;;==>"master" ;;<== renomme en master le 2eme element
+
+
+_itemsperline
+     ;;==> 5 ;;<== revoie la valeur par defaut du nomre d element a afficher sur une seule ligne, qui peut etre eviter par println, mais on peux redefinir cette valeur
+
+_itemsperline = 15 ;; <== va afficher 15 ele;ent avant de revenir a la ligne
+
+cv= geGetWindowCellView()
+cv~>instances~>name
+cv~>instances~>cellName
+length(cv~>shapes)
+cv~>shapes~>objType
+
+;; MENU
+hiGetCIWindow ;; <=> window(1)
+hiGetBannerMenus(window(1))
+
+member('ciwOptionsMenu hiGetBannerMenus(window(1)))  ;; ' <== not egal 0 si le menu est present
+
+member('TrRaiseCurrentWindow hiGetBannerMenus(window(1))) ;;' <== not egal 0 si le menu est present
+
+(if (length member('TrPulldownMenu  hiGetBannerMenus(window(1))) )
+ (hiDeleteBannerMenu window(1)
+  (difference
+   (length hiGetBannerMenus(window(1)) )
+   (length  member('TrPulldownMenu  hiGetBannerMenus(window(1))))
+   )
+  )
+)
+
+;; CUSTOMIZATION
+getSkillPath;;==> comme la var d environment PATH sous unix  ;==> ("/data/cadence/IC5.1.41_USR5/tools.lnx86/dfII/local" "." "~")
+append(getSkillPath() '("~/../ebecheto/Skill/"))
+setSkillPath(append(getSkillPath() '("~/../ebecheto/Skill/")))
+;; mais comment faire lister les fonctions skill existantes dans les fichiers present dans le repertoire ?? foreach(file bindKeyFileList if(isFile(file) then loadi(file)))
+
+
+prependInstallPath("") ;;==> "/data/cadence/IC5.1.41_USR5/tools.lnx86/dfII/"
+     ;;==> equivaut presque a which icfb ;; system("which icfb") ;; /data/cadence/IC5.1.41_USR5/tools/dfII/bin/icfb
+
+
+simplifyFilename("~/")
+     ;;==> "/home/class9/"  ;;<== affiche le path absolu
+simplifyFilename("../.")
+     ;;==> "/home/class9/" ;;<==> ls  ..
+simplifyFilename(".")   ;;<==> pwd
+
+getShellEnvVar("USER")
+println(getShellEnvVar("HOME"))
+println(getShellEnvVar("PDK_OPT"))
+
+;; FUNCTION PROCEDURE
+
+;; definition de la fonction
+procedure(
+TrBBoxHeight(bBox)
+     let( (ll ur lly ury ) ;; <== let assign a nil toutes ces variables locales
+     ll= lowerLeft(bBox)
+     ur= upperRight(bBox)
+     lly= yCoord(ll)
+     ury= xCoord(ur)
+     ury - lly
+     ); fin du let
+     ); fin de la procedure
+
+;; execution de la fonction
+TrBBoxHeight(list( 100:100 250:390 ))
+
+defun(bBoxWidth (bBox) caar(bBox)-caddr(bBox))
+
+
+;; definition de la fonction
+procedure(
+TrBBoxArea(bBox)
+     let( (X0 Y0 X1 Y1 area)
+
+     X0 = xCoord(lowerLeft(bBox))
+     X1 = xCoord(upperRight(bBox))
+
+     Y0 = yCoord(lowerLeft(bBox))
+     Y1 = yCoord(upperRight(bBox))
+
+     area= (X1-X0)*(Y1-Y0)
+     printf("[X0 %u] [X1 %u] [Y0 %u] [Y1 %u] of area : %u" X0 X1 Y0 Y1 area)
+     area  ;;<== dernier argument est la valeure de retour
+     ); fin du let
+     ); fin de la procedure
+
+;; execution de la fonction
+TrBBoxArea(list( 100:120 250:390 ))
+
+     aSquare = list(100:100 200:200)
+     aHoriz  = list(100:100 250:100)
+     aVert   = list(100:100 100:390)
+
+     TrBBoxArea(aSquare)
+     TrBBoxArea(aHoriz )
+     TrBBoxArea(aVert  )
+
+
+     var2 = 1  ;; var 2 est definit globalement
+     bb = let(
+(var1) var1=var2 printf("Var1 est : %u" var1)
+1+1
+)  ;; var1 est definit localement
+     var1  ;; donc normalement et n est pas definit
+     bb  ;; let revoir la valeur retournee par le derniere fonction applique
+
+
+     procedure( TrEnterBoxCB( wid completed? box)
+     when( completed? TrBBoxArea(box))
+     ); proc
+
+     procedure( TrEnterBox()
+     enterBox(
+?prompts '("First Corner" "Second Corner") ;; '
+?doneProc "TrEnterBoxCB"
+)
+     ); proc
+
+     hiSetBindKey("Layout" "<Key>F9" "TrEnterBox()")
+
+     hiSetBindKeys("Command Interpreter"
+     list(
+    list(
+ "Ctrl<Key>x"
+t
+;;     "(println \"hello World\")"
+     "(print \"second\" )"
+); EF
+)
+)
+
+
+;; FLOW CONTROL
+
+printf("%.30f" 1/3.0)
+printf("%.17f" 1/3.0)
+
+x=1 y=5
+x<3 && y<4
+x<3 && 1/0
+y<4 && 1/0 ;; <== si la premiere expression est fausse le system s arrete et renvoie nil sans executer le suivant
+1/0 && y<4
+
+x<3 || y<4
+x<3 || 1/0 ;; <== si la premiere expression est true => pas besion de tester la suivante
+
+
+shapeType = "triangle"
+case( shapeType
+( "rect"
+  recCount++
+(println "Shape is a rectangle")
+)
+( "line"
+  lineCount++
+(println "Shape is a line")
+)
+( "label"
+  labelCount++
+(println "Shape is a label")
+)
+( "triangle" || "Triangle" || "TRIANGLE"
+  triangleCount++
+shapeType = "rect" ;; pour tester la difference avec le language C
+(println "Shape is a triangle")
+)
+( "rect"
+  recCount++
+(println "Shape is a rectangle");<== ne passe pas la car break si une branche dessus est prise : different du language C
+)
+( t
+  miscCount++
+(println "Shape is a miscellaneous")
+)
+)
+
+     ;; fonctions de test des types :
+     numberp(3.3)
+     numberp(3)
+     floatp(3.3)
+     floatp(3)
+     fixp(3.3)
+     fixp(3)
+     ;; listp, stringp, symbolp, booleanp  existent aussi
+
+
+; ceiling, fix, round, truncate
+floor(2.2)==2.2;==> nil  ;; partie enfiÂŽÃŽ¨re
+floor(2.2)==2  ;==> t
+floor(15/4)==(15/4.0) ;==> nil
+floor(16/4)==(16/4.0) ;==> t
+
+(for int 1 1000
+(when int==10 int=999)  ;; <== on ne peux avoir access a la var int
+(println int)
+)
+
+myPort = outfile("~/Skill/time.txt")
+get_filename( myPort);=> "~/Skill/time.txt"
+;;time=220
+time=1520
+(for int 1 28
+(println fprintf(myPort "%dn d %dn d %dn h %dn h \\\n" time+1 time+20 time+21 time+40))
+time=time+40
+)
+close(myPort) myPort=nil
+
+     ;;  symbolToString  stringToSymbol simStringsToList evalstring("3"):=>3
+;; evalstring
+
+     ( foreach element list("rect" "polygon" "path" )
+     printf("[%-15s | %15s ]\n" element concat(element "Count"))
+     )
+
+rectCountx = 10
+aa = "rectCountx"
+evalstring(aa)
+
+evalstring(concat("rect" "Countx")) ;; <== error
+type concat("rect" "Countx") ;; en effet c est un symbol e non une string
+eval(concat("rect" "Countx")) ;; <== la solution est que un simple eval suffit
+type strcat("rect" "Countx")  ;; <== renvoie une string
+evalstring(strcat("rect" "Countx")) ;; <== marche aussi
+
+
+rectCount=0
+set(   concat(element "Count")    plus( eval(concat(element "Count")) 1) )
+
+times(1705.02 1539.0);==> 'times' est la fonction multiplier
+quotient(6 2);==>3  Prefix form of the / arithmetic operator. : division
+
+rotation = 0
+rotation = mod(rotation+90 360)
+sprintf(nil "R%d" rotation)
+
+edge = 0
+edge++ test = zerop(mod(edge 4)); ==> t|nil une fois tout les 4
+
+;; une maniere d ecrire une fonction qui supprime les doublons
+procedure(singleList(aList) bList=nil foreach(elt aList unless(member(elt bList) bList = append(bList list(elt) )) ) bList)
+singleList(wid~>shapes~>objType)
+     ;; il y a surement plus simple avec une reccursion
+
+
+;;FILE I/O
+;; drain(myport)  ;; <=> flush en C ==> balance le resultat du buffer
+;; gets : lit ligne par ligne
+
+
+;; par defaut ouvre en ecrasement de fichier
+myPort = outfile("~/SKILL/FileIO/MyFile.text")
+     ;;myPort = outfile("~/SKILL/FileIO/MyFile.text" "w") ;;<== write
+     ;;myPort = outfile("~/SKILL/FileIO/MyFile.text" "a") ;;<== append
+outportp(myPort);; <== check that the variable my_port is an output port
+
+lineCount = 0
+fprintf( myPort "Line # %d \n" lineCount++)
+fprintf( myPort "Line # %d \n" lineCount++)
+fprintf( myPort "Line # %d \n" lineCount++)
+
+     close(myPort)
+     myPort;; <== myport pointe toujours vers le fichier
+     outportp(myPort);; <== en effet, il est toujours compris comme tel
+myPort=nil	 ;; <== il peut etre une bonne idee de l annuler
+
+while(gets(nextLine fp) printf("%s\n" nextLine )) ;; <== lit tout le fichier et l'affiche dans icfb
+
+myPort = infile("~/SKILL/FileIO/Solutions/MyFile.text")
+nextLine = nil
+gets(nextLine myPort)
+nextLine
+gets(nextLine myPort)
+nextLine
+gets(nextLine myPort)
+nextLine
+gets(nextLine myPort)
+nextLine
+
+myPort = infile("~/SKILL/FileIO/Solutions/MyFile.text")
+fscanf( myPort "%s" word)
+word
+fscanf( myPort "%s" word)
+word
+fscanf( myPort "%s" word)
+word
+fscanf( myPort "%s" word)
+word
+fscanf( myPort "%[$]" word);; <== va a la fin et ne mets pas word a jour
+;;<== retoure la valeur 0 si fin de fichier, sinon fscanf retourn 1
+word
+
+wordList=nil
+myPort = infile("~/SKILL/FileIO/Solutions/MyFile.text")
+fscanf( myPort "%s" word)
+wordList=cons(word wordList)
+fscanf( myPort "%s" word)
+wordList=cons(word wordList)
+fscanf( myPort "%s" word)
+wordList=cons(word wordList)
+close(myPort)
+myPort=nil
+
+myPort = infile("~/SKILL/FileIO/Solutions/MyFile.text")
+fscanf( myPort "%[^0-9]" phrase)
+fscanf( myPort "%d" number) ;;<== PROBLEM ICI
+
+while(fscanf( myPort "%d:Ctrl-C" number)
+     print(number)
+     )
+;; <== boucle infini si le dernier caracter n est pas un chiffre
+
+
+;; pp <=> pretty print a defined function that is, an existing user defined procedure
+pp(ls);=> pp : ls is a read protected function and cannot be pretty printed
+pp(artMenuTrigger)
+pp(artExitTrigger)
+pp(artEnableSchematicTrigger)
+
+cv= geGetWindowCellView()
+;;wid= window(9)
+wid = geGetWindowCellView()
+
+setof( x cv~>shapes~>objType x=="rect")  ;;<== sauvegarde les attributs
+setof( x cv~>shapes x~>objType=="rect")  ;;<== sauvegarde les pointeurs ==> mieux!
+
+singleList(wid~>shapes~>objType)
+foreach(mapcar x singleList(wid~>shapes~>objType) concat(x "Count"))
+;;==> (textDisplayCount rectCount pathCount)
+
+cv~>layerPurposePairs~>?
+cv~>shapes~>?
+
+foreach( mapcar x cv~>shapes x~>objType)
+foreach( mapcar x cv~>shapes x~>lpp)      ;;<== layer purpose pair
+
+foreach( mapcar x cv~>shapes cons(x~>objType x~>lpp ))
+cv~>layerPurposePairs~>layerName
+;;==>("nwell" "pdiff" "cont" "ndiff" "text" "metal2" "poly1" "metal1" "changedLayer")
+
+
+(ddGetObj "master")~>?
+(ddGetObj "master")~>cells
+((ddGetObj "master")~>cells)~>?
+
+geOpen(?lib "analogLib" ?cell "vdc" ?view "spectre" ?mode "r")
+nand2wid = geOpen(?lib "master" ?cell "nand2" ?view "layout" ?mode "r")
+
+;; Ouvre, edit et donc lock la cellule tant qu elle ne sera pas fermee ==> close needed
+;; dbOpenCellViewByType( ) ;;<== pour ouvrir une database sans interface graphique
+dbOpenCellViewByType( "master" "mux2" list("layout" "schematic")) ;; <= pas bon, prend le premier element qui existe uniquement
+dbOpenCellViewByType( "master" "mux2" "layout" )
+
+cellview = dbOpenCellViewByType( "master" "mux2" "layout" "" "a")
+
+
+cellview~>lpps
+;;==> renvoie toutes les layer purpose pairs
+(car cellview~>lpps)~>?
+;;==> (cellView objType prop layerName layerNum nShapes numInstTypes purpose shapes)
+(car cellview~>lpps)~>purpose
+;;==>"drawing"
+
+;; cv=geGetSelSet() cv~>layerPurposePairs ;==> nil nil nil
+cv=geGetWindowCellView()
+cv~>lpps
+nameLayer=foreach(mapcar element cv~>lpps
+	cons(element~>layerName list(element~>layerNum)))
+println(nameLayer)
+
+dbClose(cellview) ;; <= ferme la cellulle
+dbPurge(cellview) ;; <= ferme la cellulle et enleve les infos dans la memoire
+
+;; dbCreateRect()
+
+newCV = dbOpenCellViewByType( "master" "new" "layout" "maskLayout" "w")
+newCV = dbOpenCellViewByType( "T2K_2008" "new" "layout" "maskLayout" "w")
+
+
+newRect  = dbCreateRect(newCV "metal1" list(0:0 .5:.5))
+newRect2 = dbCreateRect(newCV    30     list(0.5:0.5 1:1))
+
+dbSave(newCV)
+dbClose(newCV)
+
+dbCreateLine( geGetWindowCellView() '("text" "drawing1") list(-0.5:100 1:100))
+geTransformUserBBox(list(-0.5:100 1:100) list(0:0 "R0" 6))
+dbTransformPoint( (1.5:2.5) list(0:0 "R90" 2.5) )
+;=> (-6.250000 13.750000)
+dbTransformPoint( (1.5:2.5) list(0:0 "R0" 2.5) ) ;; => (3.75 6.25)
+dbTransformPoint( (1.5:2.5) list(0:1 "R0")) ;; => (1.5:3.5)
+dbTransformBBox( '((1.5 2.5) (0 7)) list(0:1 "R0")) ;; =>  ((1.5 3.5) (0.0 8.0))
+
+
+cc=car(geGetSelSet())
+cc~>cellView~>??
+cc~>cellName
+cc~>libName
+cvSym = dbOpenCellViewByType( cc~>libName cc~>cellName "symbol" "schematicSymbol" "r")
+cvSch = dbOpenCellViewByType( cc~>libName cc~>cellName "schematic" "schematic" "r")
+cvSch~>??
+cvSch~>terminals~>??
+pp=car(cvSch~>terminals~>pins)
+cvSym~>signals~>??
+cvSym~>pins~>??
+
+geOpen( ?lib "master" ?cell "new"  ?view "layout" ) ;; <== check results
+
+geSelectAll()
+foreach(dbObject geGetSelSet() dbDeleteObject(dbObject))
+
+foreach(mapcar dbObject geGetSelSet()
+	foreach(mapcar inst dbObject~>conns
+	inst~>name
+	)
+)
+
+
+TrRectangles( "master" "new" "layout" list(
+list("metal1" 0:0 1.0:1.5)
+list("poly1" 1:1 2:3)
+)
+)
+
+;; See /home/class9/SKILL/FlowOfControl/TrShapeReport.il
+
+;; il faut parfois spÂŽÃŽ©cifier t_viewTypeName
+ddMapGetToolNameViewType( "Composer-Schematic" ); ==>"schematic"
+ddMapGetToolNameViewType( "Composer-Symbol" ) ;==>"schematicSymbol"
+ddMapGetToolNameViewType( "Virtuoso" )  ;==>"maskLayout"
+
+;;HIERARCHICAL DESIGN
+mux2 = dbOpenCellViewByType( "master" "mux2" "schematic")
+
+cv = geGetEditRep()
+length(cv~>instances)
+
+;; selectionner une instance dans Layout Editor
+instId=css()
+instId~>name;; <= check by "q" -> edit that it is I2
+instId~>master;; <= renvoie le pointeur de l instance en question
+geGetEditRep();; <= normalement c est le meme db:id  heu ?! PB
+
+
+
+dbOpenCellViewByType( "master" "mux2" list("layout" "schematic")) ;; <= prend le premier element qui existe uniquement
+
+
+
+mux2Layout = dbOpenCellViewByType( "master" "mux2" "layout")
+mux2Sch = dbOpenCellViewByType( "master" "mux2" "schematic")
+load( "HierarchyTraversal.il" )
+TrSwitch(mux2Layout)  ;;<== renvoie db:iD si c'est bien un layout
+TrSwitch(mux2Sch)
+
+expandedHierarchy = TrHierarchyTraversal( mux2Layout nil )
+
+
+foreach( mapcar net cv~>nets net~>name)
+;;==>("SEL" "B" "A" "gnd!" "Y" "vdd!")
+
+
+foreach( mapcar net cv~>nets
+list(
+     net~>name
+     net~>instTerms
+    )
+)
+
+
+cv = geGetEditRep()
+my_netList = foreach( mapcar net cv~>nets
+list(
+     strcat("net : " net~>name)
+     foreach( mapcar term net~>instTerms
+	     list(
+		  term~>name
+		  term~>inst~>name
+		  )
+	     )
+     )
+)
+
+
+;; open-> New-> schematic
+load "~/Skill/Formation/class9/SKILL/CaseStudy/RoadMap.il"
+TrRoadMap(hiGetCurrentWindow());; => create a cellView Information Model graph
+
+
+cv = geGetEditRep()
+x=y=0
+dx=100
+dy=100
+
+my_netList = foreach( mapcar net cv~>nets
+list(
+     x=x+dx
+     strcat("net : " net~>name)
+     foreach( mapcar term net~>instTerms
+	     list(
+		  term~>name
+		  term~>inst~>name
+		  list(x y)
+		  y=y+dy
+		  )
+	     )
+     y=0
+     )
+)
+
+println(my_netList)
+;;==> donne une liste du genre :
+tata = '(270 "net : net4" (("Y" "I1" (270 0) 10) ("A" "I0" (270 10) 20)) 0)
+
+dbCellId = dbOpenCellViewByType( "master" "InstanceView" "layout" "maskLayout" "w")
+;;dbCellId = geOpen( ?lib "master" ?cell "InstanceView"  ?view "layout" ) ;; <== check results
+;;designWid = window
+
+foreach( element my_netList
+	foreach( inst  caddr(element)
+		dbCreateLabel(dbCellId
+			      '("text" "drawing")
+			      caddr(inst)
+			      strcat( cadr(inst) car(inst) )
+			      "centerCenter"
+			      "R0" "stick" 10.0
+			      )
+		)
+	)
+dbSave(dbCellId)
+dbClose(dbCellId)
+geOpen( ?lib "master" ?cell "InstanceView" ?view "layout")
+
+
+
+procedure( TrShowProp(cv)
+	  foreach( item cv~>prop
+		  printf("%s" item~>name) ;;<= print without cotes ""
+		  print(item~>name)       ;;<= print with cotes ""
+		  println(item~>name)     ;;<= print with cotes "" and a final \n
+		  )
+	  t
+	  )
+
+TrShowProp(topLevelCV)
+
+
+foreach( mapcar prop topLevelCV~>prop
+	list( prop~>name prop~>value))
+
+hiGetBannerMenus(window(1))
+;;==> (ciwFileMenu ciwToolsMenu ciwOptionsMenu ddsvHelpMenu)
+
+
+
+(procedure RmBannerItemByName(l_menuName @optional (window_id window(1)))
+ (if (length member( l_menuName hiGetBannerMenus(window_id)) )
+  (hiDeleteBannerMenu window_id
+   (difference
+    (length hiGetBannerMenus(window_id) )
+    (length  member(l_menuName  hiGetBannerMenus(window_id)))
+    )
+   )
+  )
+ )
+
+RmBannerItemByName('TrPulldownMenu)
+RmBannerItemByName('trEdPulldownMenu)
+
+procedure( TrCreateMenuItem( theMenuSymbol )
+	  set(
+	      theMenuSymbol
+	      hiCreateMenuItem(
+			       ?name theMenuSymbol
+			       ?itemText get_pname( theMenuSymbol )
+			       ?callback sprintf( nil "println('%L)" theMenuSymbol )
+			       )
+	      ) ;set
+	  );procedure
+
+TrCreateMenuItem('item1)
+TrCreateMenuItem('item2)
+TrCreateMenuItem('item3)
+TrCreateMenuItem('item4)
+TrCreateMenuItem('item5)
+
+
+hiCreateVerticalFixedMenu(
+'TrExempleVerticalFixedMenu
+list(item1 item2 item3 item4 item5)
+6;; number of rows
+1;; number of column
+)
+
+
+hiDisplayFixedMenu( TrExempleVerticalFixedMenu "left"  )
+
+attachedMenu = hiGetWindowFixedMenu()
+;;==> hiFixMenu@0xbecbc08
+
+println(attachedMenu~>?)
+;;==> (fitItem zoomInItem zoomOutItem editPropItem rulerItem addedRow _doneAction _widgetInstanceList _menuItemList _orientation _cols _rows hiMenuSym)
+
+hiRemoveFixedMenu()
+
+
+hiAddFixedMenu( ?fixedMenu TrExempleVerticalFixedMenu )
+
+hiDisplayAppBox(
+
+
+hiDisplayAppDBox(
+		?name gensym( 'TrDBox)
+		?dboxBanner "Exemple"
+		?dboxText "First\nSecond\nThird Line"
+		?callback "printf(\"\nExecutinf Callback ..done\")"
+		?dialogType hicInformationDialog
+		?dialogStyle 'modeless
+)
+
+
+(procedure testType(type)
+(let (text)
+println(type)
+sprintf(text "printf(\"Executinf Callback of %20L ..done\n\")", type )
+hiDisplayAppDBox(
+		?name gensym( 'TrDBox)
+		?dboxBanner "Exemple"
+		?dboxText "First\nSecond\nThird Line"
+		?callback text
+		?dialogType eval(type)
+;;		?dialogType type  ;; <== si on mets type tout court ca remplace le type par sa valeur,
+		?dialogStyle 'modeless
+)
+)
+)
+
+;;testType(hicInformationDialog)
+
+
+foreach( type '(hicErrorDialog hicInformationDialog hicMessageDialog hicQuestionDialog hicWarningDialog hicWorkingDialog)
+	testType(type)
+	)
+
+
+procedure( TrShowListBox(aList)
+	  hiShowListBox(
+			?name gensym( 'TrExampleListBox)
+			?choices aList
+			?callback 'TrExampleListBoxCB
+			?title "Example List Box"
+			?multipleSelect  t
+			?applyButton t
+			)
+	  )
+
+procedure( TrExampleListBoxCB(ok theListBox)
+	  if(ok then
+	     printf("You chose:\n")
+	     foreach( choice theListBox->value
+		     printf("%15s\n" choice)
+		     )
+	     else printf("You click cancel.\n")
+	     )
+	  )
+
+TrShowListBox('("apple" "orange" "melon"))
+
+
+
+
+;; TrFileNameField = hiCreateStringField(
+;; 	?name 		'TrFileNameField
+;; 	?prompt 	"File Name"
+;; 	?defValue 	".cshrc"
+;; 	?callback 	"TrDoFieldCheckCB( hiGetCurrentForm() )"
+;; 	?editable t
+;; 	)
+
+;; hiInsertBannerMenu(window(1) TrFileNameField 8)
+
+
+
+
+wf1 = TrCreateWindowForm(window(1))
+
+for(i 1 3
+;;    set(concat(wf i) 2)
+    set(strcat(wf i) 2)
+)
+
+
+wf2 = TrCreateWindowForm(window(2))
+wf5 = TrCreateWindowForm(window(5))
+hiDisplayForm(wf5)
+
+
+listWinIn=hiGetWindowList()
+rexCompile( "Virtuoso. " )
+listIn = foreach(mapcar x listWinIn
+		 titleName = hiGetWindowName(x)
+		 hiSetWindowName( x rexReplace( titleName "" 1) ) )
+
+
+
+deGetAllViewTypes();;<== il n y a plus que 4 types de view type dqns la 6.1
+deGetAppInfo("schematic")->menuTrigger
+;;==>schMenuTrigger
+deGetAppInfo("schematic")->userPostInstallTrigger
+;;==>TrUserPostInstallTrigger ;; <== si
+
+procedure(userPostInstallTriggerSch(args) let( (win titleName newTitle)
+	printf("HELLO?! %s\n" hiGetCurrentWindow())
+	   when( ; test sur titleName car il peut ÂŽÃŽªtre nil==> error rexReplace
+;;		win=hiGetCurrentWindow()
+		win=args->window
+		titleName = hiGetWindowName(win)
+		newTitle = titleName
+	printf("HELLO?! %s\n" titleName)
+
+	foreach(mapcar name '( "Virtuoso. " "Schematic Reading" "Schematic Editing")
+		rexCompile(name) newTitle=rexReplace( newTitle  "" 1)
+		)
+	hiSetWindowName( win sprintf(nil "S%s" newTitle ))
+		if(newTitle!=titleName then printf("Has removed Virtuoso\n") else printf("Has Failed\n"))
+	   )));; for some Linux distrib, hiSetIconName is also needed
+
+pp(userPostInstallTriggerSch)
+
+if(symbolToString(deGetAppInfo("schematic")->userPostInstallTrigger)!="userPostInstallTriggerSch" then deUnRegUserTriggers("schematic"))
+if(deGetAppInfo("schematic")->userPostInstallTrigger=='userPostInstallTriggerSch
+	then printf("don not need to UnRegisterbecause same trigger exist\n")
+	else if(deGetAppInfo("schematic")->userPostInstallTrigger==nil then printf("nothing to unRegister\n")
+		else deUnRegUserTriggers("schematic")
+	)
+	deRegUserTriggers("schematic" nil nil 'userPostInstallTriggerSch)
+	printf("Only one trigger can exist overwrite to : %s" deGetAppInfo("schematic")->userPostInstallTrigger)
+)
+
+
+
+rexCompile( "Schematic Editing" )
+foreach( win listWinIn
+	   when( ;; test sur titleName car il peut ÂŽÃŽªtre nil ==> error rexReplace
+		 titleName = hiGetWindowName(win)
+	   ))
+rexCompile( "Schematic Reading" )
+foreach( win listWinIn
+	   when( ;; test sur titleName car il peut ÂŽÃŽªtre nil ==> error rexReplace
+		 titleName = hiGetWindowName(win)
+		 hiSetWindowName( win rexReplace( titleName "Sr" 1) )
+		 hiSetIconName( win rexReplace( titleName "Sr" 1) );; for some Linux distrib, hiSetIconName is also needed
+	   ))
+
+
+
+;; Grrr viewType "schematic" se transforme en "analogArtist-Schematic" qd on ouvre un ADE !!
+;; deGetAppInfo("analogArtist-schematic")->userPostInstallTrigger
+;; deGetAppInfo("analogArtist-schematic")->userPostInstallTrigList
+;; deGetAppInfo("Artist")->userPostInstallTrigger ;==> nil
+deRegApp(?viewType "Artist");==> *Error* deRegApp: ViewType Artist must have a valid appName
+
+
+
+
+
+tata = '( "Virtuoso\256 Schematic Editing: master mux2 schematic")
+rexCompile( "\\256" )
+rexReplace( car(tata) "" 1)
+rexCompile( "Virtuoso" )
+rexReplace( car(tata) "" 1)
+rexCompile( "256" )
+rexReplace( car(tata) "" 1)
+
+rexCompile( "Virtuoso. " )
+rexReplace( car(tata) "" 1)
+
+rexCompile( "[Ss]chematic" )
+rexReplace( car(tata) "" 0) ;==> "Virtuoso\256  Editing: master mux2 "
+
+dir = "/data/ebecheto Sim trigger_sim3 spectre schematic"
+rexCompile( "[Ss]chematic" )
+rexReplace( dir "" 0) ;==> "Virtuoso\256  Editing: master mux2 "
+
+
+boundp('tata)
+tata = 'unbound ;<= c'est comme free ou purge ou clean, ou unset d'un autre language
+boundp('tata)
+;;==> nil
+,pour purger une fonction c'est different :
+putd('_foo nil)
+putd('invbufL nil)
+
+;; si simulation parametric, les parametres sont accessible via :
+
+selectResult('tran)~>sweepValues
+;;==> ((1000.0 10000.0 100000.0) 100000.0)
+car(selectResult('tran)~>sweepValues)
+;;==> (1000.0 10000.0 100000.0)
+
+if(val=car(selectResult('tran)~>sweepValues) then printf("OK-sweep\n")	else printf("PAS-OK_si pas -sweep"))
+
+getq(selectResult('tran) sweepValues)
+;==> *Error* slotValue: no such slot - sweepValues
+type(ENC_SH);==> other si pas de sweep mais aussi sweep ...
+
+sweepValues(ENC_SH);=> (1000.0 10000.0 100000.0) si parametric
+sweepValues(ENC_SH);=> (10 ... 100G) <== ac steps ... si pas parametric
+sweepValues(VT("/gnd!"));=> (0 ... 3u) <== tran steps ...
+sweepValues(VT("/gnd!"));=(1000.0 10000.0 100000.0) <== si parametric
+sweepVarValues("time");=> si pas de parametric, sinon error
+
+sweepVarValues("time"  ?result "tran_noise-tran_noise")
+
+className(ENC_SH);==> drWaveformIL  si pas parametric
+className(ymax(ENC_SH));==>flonum   si pas parametric
+className(ENC_SH);==> drWaveformIL  	  si parametric
+className(ymax(ENC_SH));==>drWaveformIL   si parametric
+className(VDC("/ADC_OUT<0>"));==>srrifWave si parametric
+
+if(className(ymax(ENC_SH))=='flonum then printf("not a param") else printf("Param\n"))
+
+;;DATA STRUCTURE
+
+aCard = '(nil rank "ace" suit "space")
+aCard->rank
+aCard->suit
+aCard->nouvelElement = t;; <== append en fin de list le nouvel element
+aCard
+aCard->?
+aCard->??
+
+
+
+cv = geGetWindowCellView()
+cv = hiGetCurrentWindow()
+
+Design->Hierarchy->Show in scope || dans IC6 : Edit->Hierarchy->Tree
+caar(geGetHierMemInst(hiGetCurrentWindow()))~>??
+geGetHierMemInst(hiGetCurrentWindow() ));==> list of descended schematics ((db:256626636 2)(db:tata <if multiple_nb>))
+foreach(mapcar hierNb geGetHierMemInst(hiGetCurrentWindow()) printf("%s<%d>" car(hierNb)~>baseName cadr(hierNb) ))
+
+
+mp=hiGetWindowFixedMenu();; <== MenuPointer
+
+;; vire la 1ere subWindow existante de awd
+awvDeleteSubwindow(window(10))
+
+;; vire la 1ere subWindow de awd
+awvDeleteSubwindow(window(10) ?subwindow 3)
+
+awvGetCurrentSubwindow( window(10) )
+addSubwindow
+
+awvDeleteSubwindow(
+	hiGetCurrentWindow()
+	?subwindow awvGetCurrentSubwindow( hiGetCurrentWindow() )
+	)
+
+gg=geGetObjectSelectedSet(geGetWindowCellView())
+caar(gg)~>??
+caar(gg)~>instTerms
+caar(gg)~>instHeader~>??
+ii = car(caar(gg)~>instTerms)
+caar(gg)~>conns~>term~>??
+caar(gg)~>conns~>??
+car(caar(gg)~>conns)~>net~>??
+car(caar(gg)~>conns)~>net~>figs~>??
+caar(gg)~>pin
+caar(gg)~>pin~>term->??
+
+schHiCreateSymbolPin( "data1" "square" "inputOutput" "full" "single" 0 "left" )
+schHiDrawSymbolPin( data1 "input" )
+
+geGetWindowCellView()~>layerPurposePairs~>layerNeme="MET1"
+geGetWindowCellView()~>lpps~>layerNeme="MET1"
+
+cv=geGetWindowCellView()
+setof(lpp cv~>layerPurposePairs lpp~>purpose=="MET1")
+
+						Fonction d'acces directe a bBox
+check if MET1 est au bord de la bBox                  upperLeft or uL
+; println cv~>bBox => ((-0.3 0.0) (120.275 261.425))  lowerLeft or lL
+; cdr(cv~>bBox)    => ((120.275 261.425))	      upperCenter or uC
+((X0 Y0)(X1 Y1)) 				      lowerCenter or lC
+X0 = caar(bBox)		 upperRight or uR
+Y0 = cadar(cv~>bBox)	 lowerRight or lR
+X1 = caadr(bBox)	  centerLeft or cL
+Y1 = cadadr(cv~>bBox)			      centerCenter or cC
+
+X0=caar(bBox)
+Y0=cadar(bBox)
+X1=caadr(bBox)
+Y1=cadadr(bBox)
+
+
+cv=geGetWindowCellView()
+xmin=caar(cv~>bBox)
+ymin=cadar(cv~>bBox)
+xmax=caadr(cv~>bBox)
+ymax=cadadr(cv~>bBox)
+x0M1=xmax
+y0M1=ymax
+x1M1=xmin
+y1M1=ymin
+foreach(met1Lpp
+	  setof(lpp geGetWindowCellView()~>layerPurposePairs lpp~>layerName=="MET1")
+	(printf " ~>shapes = %L\n" met1Lpp~>shapes)
+	foreach(shape met1Lpp~>shapes
+		(printf "bBox = %L\n" shape~>bBox)
+		x0M1=min(caar(shape~>bBox) x0M1)
+		y0M1=min(cadar(shape~>bBox) y0M1)
+		x1M1=max(caadr(shape~>bBox) x1M1)
+		y1M1=max(cadadr(shape~>bBox) y1M1)
+
+	         );foreach
+         );foreach
+x0M1=x0M1 - xmin
+y0M1=y0M1 - ymin
+x1M1=xmax - x1M1
+y1M1=ymax - y1M1
+
+printf("x0: left  MET1 Offset = %L\n" x0M1)
+printf("y0: down  MET1 Offset = %L\n" y0M1)
+printf("x1: right MET1 Offset = %L\n" x1M1)
+printf("y1: top   MET1 Offset = %L\n" y1M1)
+
+; a - b peut s'ecrire : plus(a minus(b))
+
+
+offsets=let( (cv xmin ymin xmax ymax x0M1 y0M1 x1M1 y1M1)
+cv=geGetWindowCellView()
+xmin=caar(cv~>bBox)
+ymin=cadar(cv~>bBox)
+xmax=caadr(cv~>bBox)
+ymax=cadadr(cv~>bBox)
+x0M1=xmax
+y0M1=ymax
+x1M1=xmin
+y1M1=ymin
+foreach(met1Lpp
+	  setof(lpp geGetWindowCellView()~>layerPurposePairs lpp~>layerName=="MET1")
+	(printf " ~>shapes = %L\n" met1Lpp~>shapes)
+	foreach(shape met1Lpp~>shapes
+		(printf "bBox = %L\n" shape~>bBox)
+		x0M1=min(caar(shape~>bBox) x0M1)
+		y0M1=min(cadar(shape~>bBox) y0M1)
+		x1M1=max(caadr(shape~>bBox) x1M1)
+		y1M1=max(cadadr(shape~>bBox) y1M1)
+
+	         );foreach
+         );foreach
+x0M1=x0M1 - xmin
+y0M1=y0M1 - ymin
+x1M1=xmax - x1M1
+y1M1=ymax - y1M1
+;;list((x0M1 y0M1)(x1M1 y1M1));;<== derniere ligne est le resultat renvoye;;<== ne marche pas.. comprends pas la diffÂŽÃŽ©rence ...
+list(x0M1:y0M1 x1M1:y1M1);;<== derniere ligne est le resultat renvoye
+); fin du let
+
+leGetEntryLayer() ; <== donne la couche selectionnÂŽÃŽ© dans LSW ; ie ==>("NW" "res")
+dbCreateRect( geGetWindowCellView() list("RX" "drawing" ) list(0:0 .5:.5))
+dbCreateRect( geGetWindowCellView() list( 3 "drawing" ) list(0:0 0.5:-0.5))
+dbCreateLabel(geGetWindowCellView() list( 3 "drawing" ) centerBox(list(0:0 0.5:-0.5)) sprintf(nil "1") "centerCenter" "R0" "roman" 0.5)
+
+i=1
+dd=dbCreateRect( geGetWindowCellView() list( 3 "drawing" ) list(0.5*i:0 0.5*(i+1):-0.5))
+dd~>layerName
+dd=dbCreateRect( geGetWindowCellView() list( 125 "drawing" ) list(0.5*i:0 0.5*(i+1):-0.5))
+dd~>layerName
+dbCreateLabel(geGetWindowCellView() list( 3 "drawing" ) centerBox(list(0.5*i:0 0.5*(i+1):0.5)) sprintf(nil "11111") "centerLeft" "R90" "roman" 0.5)
+
+;; A way to studdy the layer map / techfile
+for(i 0 200
+	elem=dbCreateRect( geGetWindowCellView() list( i "drawing" ) list(0.5*i:0 0.5*(i+1):-0.5))
+	dbCreateLabel(geGetWindowCellView() list( i "drawing" ) centerBox(list(0.5*i:0 0.5*(i+1):0.5)) sprintf(nil "%d-%s" i if(elem~>layerName elem~>layerName "nil")) "centerLeft" "R90" "roman" 0.5))
+
+for(i 0 200 	elem=dbCreateRect( geGetWindowCellView() list( i "drawing" ) list(1.0*i:0 1.0*(i+1):-1.0))
+		dbCreateLabel(geGetWindowCellView() list( i "drawing" ) centerBox(list(1.0*i:0 1.0*(i+1):1.0)) sprintf(nil "%d-%s" i if(elem~>layerName elem~>layerName "nil")) "centerLeft" "R90" "roman" 1.0))
+
+(layer \"MET1\") )
+
+procedure(layerOffset( @optional (cv geGetWindowCellView()) (layer "MET1") )
+let( (xmin ymin xmax ymax x0M1 y0M1 x1M1 y1M1) ; to use later with layerOffset(pcMaster)
+xmin=caar(cv~>bBox)
+ymin=cadar(cv~>bBox)
+xmax=caadr(cv~>bBox)
+ymax=cadadr(cv~>bBox)
+x0M1=xmax
+y0M1=ymax
+x1M1=xmin
+y1M1=ymin
+foreach(met1Lpp
+	  setof(lpp cv~>layerPurposePairs lpp~>layerName==layer)
+	(printf " ~>shapes = %L\n" met1Lpp~>shapes)
+	foreach(shape met1Lpp~>shapes
+		(printf "bBox = %L\n" shape~>bBox)
+		x0M1=min(caar(shape~>bBox) x0M1)
+		y0M1=min(cadar(shape~>bBox) y0M1)
+		x1M1=max(caadr(shape~>bBox) x1M1)
+		y1M1=max(cadadr(shape~>bBox) y1M1)
+
+	         );foreach
+         );foreach
+x0M1=x0M1 - xmin
+y0M1=y0M1 - ymin
+x1M1=xmax - x1M1
+y1M1=ymax - y1M1
+;;list((x0M1 y0M1)(x1M1 y1M1));;<== derniere ligne est le resultat renvoye;;<== ne marche pas.. comprends pas la diffÂŽÃŽ©rence ...
+list(x0M1:y0M1 x1M1:y1M1);;<== derniere ligne est le resultat renvoye
+); fin du let
+);fin procedure
+
+
+;; steepness : pente de la pente ÂŽÃŽ  suivre pour ecarter le objets
+procedure(spreadXY( @optional (cc geGetSelectedSet()) (steepness 1) (XY "Y"))
+let( (xmin ymin xmax ymax csbBox step liste xn yn x0 y0)
+xmin=caar(car(cc)~>bBox)
+ymin=cadar(car(cc)~>bBox)
+xmax=caadr(car(cc)~>bBox)
+ymax=cadadr(car(cc)~>bBox)
+foreach( obj cc
+		(printf "bBox = %L\n" obj~>bBox)
+		xmin=min(caar(obj~>bBox) xmin)
+		ymin=min(cadar(obj~>bBox) ymin)
+		xmax=max(caadr(obj~>bBox) xmax)
+		ymax=max(cadadr(obj~>bBox) ymax)
+	         );foreach
+csbBox = list(xmin:ymin xmax:ymax);;<== centre de l'ensemble des objects selectinonnÂŽÃŽ©s
+cC = centerBox(csbBox)
+xc = car(cC)
+yc = cadr(cC)
+x0 = car(centerBox(csbBox))
+y0 = cadr(centerBox(csbBox))
+(printf "steepness = %L\n" steepness)
+if( (y0 != yc) then a = (x0-xc)/(y0-yc)*steepness else a =1)
+if( (steepness==0) then ia=0 else ia = (y0-yc)/(x0-xc)/steepness)
+		(printf "steepness = %L\n" steepness)
+if( (XY=="X") then ;;; alignement en X
+foreach( obj cc
+	x0 = car(centerBox(obj~>bBox))
+	y0 = cadr(centerBox(obj~>bBox))
+	xn=ia*(yn-a*xc+yc)
+	dbMoveFig(obj nil list(xn-x0:0 "R0"))
+);end foreach
+else ;; alignement en Y ;; obj=car(cc) ; PB pas de grille ...
+;;a=2  list(xc yc)
+foreach( obj cc
+	x0 = car(centerBox(obj~>bBox))
+	y0 = cadr(centerBox(obj~>bBox))
+	yn=a*x0 + (yc-a*xc)
+	dbMoveFig(obj nil list(0:yn-y0 "R0"))
+);end foreach steepness=1
+);end if
+);fin du let
+);fin procedure
+
+
+;; cadr(cc)~>bBox=list( 0:0 0:0)  ne permet pas de dÂŽÃŽ©placer l'object
+dbMoveFig(car(cc) nil list( 0:0 0:0)) ;<== error : invalid orient
+dbMoveFig(car(cc) nil list( -1:2 "R180"))
+dbMoveFig(car(cc) nil list( -1:2 "R0"));; le ne veux pas faire un move, je veux faire un place
+
+
+;; projection sur un droite de pente : 'steepness' centrÂŽÃŽ© sur l'ensemble des objets selectionnÂŽÃŽ©s
+;; steepness : pente de la pente ÂŽÃŽ  suivre pour ecarter le objets
+
+
+procedure(centerAlignXY( @optional (cc geGetSelectedSet()) (steepness 1) (XY "Y"))
+let( (xmin ymin xmax ymax csbBox step liste xn yn x0 y0)
+xmin=caar(car(cc)~>bBox)
+ymin=cadar(car(cc)~>bBox)
+xmax=caadr(car(cc)~>bBox)
+ymax=cadadr(car(cc)~>bBox)
+foreach( obj cc
+		(printf "bBox = %L\n" obj~>bBox)
+		xmin=min(caar(obj~>bBox) xmin)
+		ymin=min(cadar(obj~>bBox) ymin)
+		xmax=max(caadr(obj~>bBox) xmax)
+		ymax=max(cadadr(obj~>bBox) ymax)
+	         );foreach
+csbBox = list(xmin:ymin xmax:ymax);;<== centre de l'ensemble des objects selectinonnÂŽÃŽ©s
+cC = centerBox(csbBox)
+xc = car(cC)
+yc = cadr(cC)
+(printf "steepness = %L\n" steepness)
+if( (XY=="X") then ;;; alignement en X
+foreach( obj cc
+when( (steepness==0)  steepness=1 printf("1/0 ?! ==> steepness re-affected to 1\n"))
+	x0 = car(centerBox(obj~>bBox))
+	y0 = cadr(centerBox(obj~>bBox))
+	xn=(y0-yc+steepness*xc)/steepness
+	dbMoveFig(obj nil list(xn-x0:0 "R0"))
+);end foreach
+else ;; alignement en Y ;; obj=car(cc) ; PB pas de grille ...
+;;a=2  list(xc yc)
+foreach( obj cc
+	x0 = car(centerBox(obj~>bBox))
+	y0 = cadr(centerBox(obj~>bBox))
+	yn=steepness*x0 + (yc-steepness*xc)
+	dbMoveFig(obj nil list(0:yn-y0 "R0"))
+);end foreach steepness=1
+);end if
+);fin du let
+);fin procedure.
+; USAGE : centerAlignXY(geGetSelectedSet() 2 "X")
+; USAGE : centerAlignXY(geGetSelectedSet() 1 "Y")
+
+
+
+css()~>bBox
+bb = layerOffset()
+css()~>master
+css()~>cellView
+css()~>cellName
+css()~>orient
+
+dbCreateInst( css()~>master css()~>cellView
+;; css()~>cellName ancien ou nouveau nom ? : nouveau
+"toto"
+list(
+caar(css()~>bBox)
+cadar(layerOffset()) - cadadr(layerOffset())
+)
+css()~>orient
+)
+;; ne marche pas car layerOffset() ne va pas dans la cellule !
+
+dbCreateInst( css()~>cellView css()~>master
+;; css()~>cellName ancien ou nouveau nom ? : nouveau
+nil ; "toto" ;
+list(
+caar(css()~>bBox)
+cadar(css()~>bBox) - abs( cadadr(css()~>bBox))
+)
+css()~>orient
+)
+
+marche pas car ne prends pas en compte l'Origin de la cellule
+
+
+newInst = dbCreateInst( css()~>cellView css()~>master
+;; css()~>cellName ancien ou nouveau nom ? : nouveau
+nil ; "toto" ;
+list(
+car(css()~>xy)
+; Yn = 2*Y0-Y1
+2* cadar(css()~>bBox) - cadadr(css()~>bBox)
+)
+css()~>orient
+)
+
+
+;; copie n-fois de la meme instance bout a bout en Y vers le bas
+selectedInst = css()
+for(i 1 13
+newInst = dbCreateInst( selectedInst~>cellView selectedInst~>master
+nil ; "toto" ;  ~>xy donne le point d'appel de l'origine de l'instance
+list(
+car(selectedInst~>xy)
+2* cadar(selectedInst~>bBox) - cadadr(selectedInst~>bBox)
+)
+selectedInst~>orient ;;"R0";;
+1
+)
+selectedInst = newInst
+)
+
+
+
+;; **************** ;;
+;; copie n-fois de la meme instance bout a bout en X vers la droite
+selectedInst = css()
+for(i 1 13
+
+foreach(met1Lpp
+	 setof(lpp css()~>master~>lpps lpp~>layerName=="MET4")
+	(printf " ~>shapes = %L of %L\n" met1Lpp~>shapes met1Lpp~>layerName)
+	foreach(shape met1Lpp~>shapes
+		(printf "bBox of  = %L\n" shape~>bBox)
+;;		(printf "bBox of  = %L\n" shape~>??)
+
+	         );foreach
+         );foreach
+
+
+setof( css()~>master~>lpps~>layerName="MET4")
+
+;; layerOffset(css()~>master  "MET4")
+;;		css()~>instHeader
+M4bBox = layerOffset(css()~>instHeader~>cellView  "MET4")
+;;layerOffset(geGetWindowCellView()  "MET4")
+x0 = car(selectedInst~>xy)
+y0 = cadr(selectedInst~>xy)
+yn = y0
+xn = x0 +  caadr(M4bBox) - caar(M4bBox)
+newInst = dbCreateInst( selectedInst~>cellView selectedInst~>master
+nil ; "toto" ;  ~>xy donne le point d'appel de l'origine de l'instance
+list(
+car(selectedInst~>xy)
+2* cadar(selectedInst~>bBox) - cadadr(selectedInst~>bBox)
+)
+selectedInst~>orient ;;"R0";;
+1
+)
+selectedInst = newInst
+)
+
+cv=geGetWindowCellView()
+ss = car(setof(inst cv~>layerPurposePairs inst~>baseName==css()~>baseName))
+
+tfId = techGetTechFile(geGetWindowCellView())
+techGetOrderedSpacingRule(tfId "minEnclosure" "metal1" "metal2")
+;==> WARNING* techGetOrderedSpacingRule: Illegal layer specified "metal1".
+;==> nil
+techGetOrderedSpacingRule(tfId "minEnclosure" "MET1" "MET2")
+;==> nil  ;<== merche ou marche pas ?
+
+leGetValidLayerList(techGetTechFile(geGetWindowCellView()))
+leSetLayerValid('("text" "drawing") t)
+leSetLayerValid('("text" "drawing") nil)
+assoc("text" leGetValidLayerList(techGetTechFile(geGetWindowCellView())))
+
+leSetLayerValid('("text1" "drawing") t) ;=> Warning, Invalid
+
+tf=techGetTechFile(geGetWindowCellView())
+leIsLayerVisible('("text" "drawing") tf)
+
+leSetLayerValid('("prBoundary" "boundary") t);<=  ?
+leIsLayerValid('("prBoundary" "boundary") techGetTechFile(geGetEditCellView()))
+leSetLayerValid('("prBoundary" "boundary") nil);<=  ?
+
+
+let(((tf techGetTechFile(geGetEditCellView())))   setof(lpp leGetValidLayerList(tf) leIsLayerVisible(lpp tf)))
+
+
+
+List='( ("A" 1) ("B" 2) ("C" 3))   ;=> (("A" 1) ("B" 2) ("C" 3) ("A" 4))
+assoc("A" assocList )                   ;=> ("A" 1)
+assoc("B" assocList )                   ;=> ("B" 2)
+assoc("D" assocList )                   ;=> nil
+rplaca(cdr(assoc("B" assocList)) "two") ;=>  <=> setcdr in foreach loop
+assocList                               ;=> (("A" 1) ("B" "two") ("C" 3))
+;; PB with list with multiples equal car
+;; mais les instances ont toutes des db: differents=> OK
+
+rplaca(assoc("B" assocList) list("blabla" "hu"))
+assocList                               ;=> (("A" 1) (("blabla" "hu") "two") ("C" 3))
+assocList='( ("A" 1) ("B" 2) ("C" 3))
+setcar(assoc("C" assocList) "D")
+assocList;=>(("A" 1) ("B" 2) ("D" 3))
+
+
+
+nodeList='() master=cv5
+dy=length(master~>instances)
+nl=append(nodeList list(list(dy master~>instances)));node list with 1st element : length of the elements =>useless
+master~>transform
+nl=append(nodeList list(list(dy master~>instances)));node list with 1st element : length of the elements =>useless
+;; empile et depile node list
+
+while(master~>instances
+;;inst=nth(caar(nl)-1 cadar(nl))
+inst=caadar(nl)
+printf("INST:%L. Depth:%d\n" list(inst~>name inst~>cellName) length(nl))
+tail=cdr(nl)
+chopHead=cdr(cadar(nl))
+when(tail nl=append(list(length(chopHead) chopHead) list(tail)))
+when(chopHead nl=list(list(length(chopHead) chopHead)))
+when(!chopHead nl=nil)
+)
+
+
+instLevel=foreach(mapcar inst master~>instances inst~>master~>instances )
+instLevel2=foreach(mapcar inst instLevel inst~>master~>instances )
+
+
+apply('or instLevel)
+
+instLevel='(nil (db:0x1005b512) (db:0x1005ad92))
+mapcar( '(lambda (arg) (when arg t )) instLevel)            ;=> (nil t t)
+apply('or mapcar( '(lambda (arg) (when arg t )) instLevel)) ;=> t
+
+
+
+instLevel=foreach(mapcar inst master~>instances append(list(inst) list(inst~>master~>instances)))
+instLevel2=foreach(mapcar inst instLevel append(list(inst) list(inst~>master~>instances )))
+instLevel3=foreach(mapcar inst instLevel2 append(list(inst) list(inst~>master~>instances )))
+instLevel4=foreach(mapcar inst instLevel3 printf("INSTLevel:%L\n" list(inst~>master~>instances ))  append(list(inst) list(inst~>master~>instances )))
+checkLevel=foreach(mapcar inst instLevel3 printf("CHECKLevel:%L\n" list(inst~>master~>instances ))  append(list(inst) list(inst~>master~>instances )))
+
+reverse(instLevel4~>master~>instances)
+
+foreach(mapcar x instLevel2 nthcdr(2 instLevel2))
+
+last(instLevel4)
+
+
+depth=0
+foreach(x instLevel4 depth++ x=car(x)) depth
+
+
+instLevel=foreach(mapcar inst master~>instances append( list(inst~>master~>instances) list(inst)))
+instLevel2=foreach(mapcar inst instLevel        append( list(inst~>master~>instances) list(inst)))
+instLevel3=foreach(mapcar inst instLevel2       append( list(inst~>master~>instances) list(inst)))
+instLevel4=foreach(mapcar inst instLevel3       append( list(inst~>master~>instances) list(inst)))
+instLevel5=foreach(mapcar inst instLevel4       append( list(inst~>master~>instances) list(inst)))
+
+foreach(mapcar x instLevel4 length(x))
+
+depth=0
+foreach(x car(instLevel4) depth++ x=car(x)) depth
+foreach(x last(instLevel4) depth++ x=car(x)) depth
+foreach(x last(instLevel5) depth++ x=car(x)) depth
+
+
+
+depth=0
+x=instLevel4
+x=tail(instLevel4)
+x=car(instLevel4)
+while(type(x)=='list&&x!=nil depth++ printf("%d %L\n" depth x) x=car(x)) depth
+
+
+list(length(instLevel) length(instLevel2) length(instLevel3) length(instLevel4))
+list(length(car(instLevel)) length(car(instLevel2)) length(car(instLevel3)) length(car(instLevel4)))
+
+levels=list(instLevel instLevel2 instLevel3 instLevel4)
+mapcar('length levels)
+mapcar('length (mapcar 'car levels))
+
+
+depth=0 mapcar( '(lambda (arg) (while arg!=nil depth++ arg=car(arg))) instLevel3)            ;=> (nil t t)
+
+depth=0 x=instLevel3
+while(depth<10||(apply 'or x)
+depth++ 
+printf("DEPTH:%d %L\n" depth x)
+x=foreach(mapcar arg x car(arg)))
+
+
+
+
+master=geGetWindowCellView()
+tree=master~>instances
+level0=master~>instances
+
+level1=foreach(mapcar inst level0 inst~>master~>instances)
+level2=foreach(mapcar inst level1 inst~>master~>instances)
+level3=foreach(mapcar inst level2 inst~>master~>instances)
+level4=foreach(mapcar inst level3 inst~>master~>instances)
+
+
+;; flatten fct thanks to http://answers.yahoo.com/question/index?qid=20101106203548AALDgwY
+
+(defun flatten (list)
+(cond
+((null list) list)   ;=> nothing in the list anymore = stop condition
+((null (car list)) (flatten (cdr list)))     ;=> first element is nil => ignore it and go further
+((atom (car list)) (cons (car list) (flatten (cdr list))))  ; when first element is single process it (cons) and go further is returned
+(t                 (append (flatten (car list)) (flatten (cdr list)))) ; else append head and tail with the function itself recursing
+))
+
+
+master=geGetWindowCellView()
+tree=master~>instances
+i=0
+while(flatten(tree)
+i++
+printf("I=%d %L\n" i tree)
+tree=foreach(mapcar inst tree inst~>master~>instances)
+)
+
+
+tree=master~>instances res='()
+tree=master~>instances res=list(tree)
+while(flatten(tree)
+tree=foreach(mapcar inst tree inst~>master~>instances)
+res=append(list(tree) res)
+)
+
+
+
+(defun flattenTrans (list)
+(cond
+((null list) list)
+((null (car list)) (append '(nil) (flatten (cdr list))))
+((atom (car list)) (cons list~>transform (flatten (cdr list))))
+(t                 (append (flatten (car list)) (flatten (cdr list))))
+)) flattenTrans(tree)
+
+(atom list('x))  ;nil
+(atom list(nil)) ;nil
+(atom list(t))	 ;nil
+(atom 'tata )	 ;t  
+(atom 'x )	 ;t  
+(atom 168 )	 ;t  
+(atom '(   ) )	 ;t  
+(atom nil )	 ;t  
+(atom t )	 ;t  
+
+
+(null list('x))  ;nil
+(null list(nil)) ;nil
+(null list(t))	 ;nil
+(null 'tata )	 ;nil  
+(null 'x )	 ;nil  
+(null 168 )	 ;nil
+(null '(   ) )	 ;t
+(null nil )	 ;t  
+(null t )	 ;t   ?!!! it does !
+(null 't) ;=>!'t =>nil   
+(null !t)  ;=> !!t   ;=> t
+(null !nil);=> !!nil ;=> nil
+
+
+
+
+help null; null( g_value ) => t | nil Checks if an object is equal to nil.
+help not ; not( g_obj )    => t | nil Same as the ! operator. Returns t if the object is nil, and returns nil otherwise.
+help atom; atom( g_arg )   => t | nil Checks if an object is an atom.
+
+
+;; http://cera.us/ta/cs380_00f/lisp.examples.lsp
+; word-count, counts all arguments, including embedded arguments
+(defun wc (x)
+  (cond ((null x) 0)
+        ((atom x) 1)
+        (t (+ (wc (car x))
+              (wc (cdr x))))))
+;USER(16): (wc '(a b c))
+;3
+;USER(17): (wc '(a b (c d) e))
+;5
+;------------------------------------------------------------------------------
+; flattens all embedded lists
+(defun flatten (x)
+  (cond ((null x) nil)
+        ((atom x) (list x))
+        (t (append (flatten (car x))
+                   (flatten (cdr x))))))
+
+;USER(19): (flatten '(a b (c d) e))
+;(A B C D E)
+
+
+
+(defun listIntersection (l1 l2)
+  (cond ((or (null l1) (null l2)) nil)
+    ((member (car l1) l2)
+    (cons (car l1)
+    (listIntersection (cdr l1) l2)))
+    (t (listIntersection (cdr l1) l2))))
+
+listIntersection('('A 'B 'C 'N '('T 'N)) '('C 'D '('T 'N ) '('N) 'E))
+;=> ('C '('T 'N))
+
+; ------------------------------------------------------------------------------
+(defun listDifference (l1 l2)
+  (cond ((null l2) l1)
+    ((null l1) nil)
+    ((member (car l1) l2) 
+    (listDifference (cdr l1) l2))
+    (t (cons (car l1) (listDifference (cdr l1) l2)))))
+listDifference('(A B C N (T N))        '(C D (T N ) (N) E)) ;=> (A B N)
+listDifference( '(C D (T N ) (N) E)   '(A B C N (T N))    ) ;=> (D (N) E)
+; ------------------------------------------------------------------------------
+(setq alf  '(a b c d e f g h))
+;# SIMULATED STACK POPPING, pops first element, and stores cdr into alf
+(prog1 (car alf) (setq alf (cdr alf))) ;=> a ; but alf='(b c d e f g h)
+
+
+
+(defun flatten (x)
+  (cond ((null x) nil)
+        ((atom x) (list x))
+        (t (append (flatten (car x))
+                   (flatten (cdr x))))))
+
+(defun wc (x)
+  (cond ((null x) 0)
+        ((atom x) 1)
+        (t (plus (wc (car x))
+              (wc (cdr x))))))
+wc('(R F E G (FF F ))) ;=> 6
+
+
+(defun sum (x)
+  (cond ((null x) 0)
+        ((atom x) x)
+        (t (plus (sum (car x))
+              (sum (cdr x))))))
+
+sum('(1 2 3 4 (5 6 ))) ;=> 21   == (7*6/2)
+
+;; GENERAL RECURSION for tre/ AST parsing
+(defun FCT (x)
+(cond 
+((null x) 0) ; <= STOP CONDITION, wheter nil or 0 or "" or t...
+((atom x) x) ; <= what to do when there is only one element. Indeed, car(oneElement) => fail! so this case has to be treated
+(t ( (FCT(car x)) (FCT (cdr x))))  ; <= do something with FCT(car(x)) and FCT(cdr(x))
+))
+
+
+master=geGetWindowCellView()
+tree=master~>instances
+
+(defun flattenTrans (x)
+(cond
+((null x) nil)
+((null x) nil)
+((atom x) printf("%L\n" list(x~>transform )) list(x~>transform ))
+(t      printf("%L\n" list(x~>transform ))  (append (flattenTrans (car x)) (flattenTrans (cdr x))))
+))
+flattenTrans(tree)
+
+
+(defun recInstance (x)
+(cond
+((null x) nil)
+((atom x) printf("ATOM :%L\n" list(x~>baseName x~>cellName x~>master~>instances )) list(x~>master~>instances ))
+(t      printf("MULT :%L\n" list(x~>baseName x~>cellName x~>master~>instances ))  
+printf("CAR :%L\n" (car x))
+printf("CDR :%L\n" (cdr x))
+(append (recInstance (car x)) (recInstance (cdr x))))
+))
+recInstance(tree)
+
+
+(defun scope (x)
+(cond
+((null x) "")
+((atom x) x~>baseName )
+((atom car(x)) cons(list(sprintf(nil "%L" x~>baseName)) list((scope (cdr x))) ))
+(t     
+printf("MULT :%L\n" list(x~>baseName x~>cellName x~>master~>instances ))
+printf("CAR :%L\n" (car x))
+printf("CDR :%L\n" (cdr x))
+(append sprintf(nil "%s.%s" (scope (car x)) (scope (cdr x)))))
+))
+scope(tree) ;=> (("(\"I1\" \"I0\" \"I2\" \"I3\")") "I1")
+
+
+sprintf(nil "I1.%s") ("(\"I1\" \"I0\" \"I2\" \"I3\")") )
+aList='("(\"I1\" \"I0\" \"I2\" \"I3\")")
+mapcar( '(lambda (arg) sprintf(nil "I1.%s" arg )) aList)
+bList='("I1" "I0" "I2" "I3")
+mapcar( '(lambda (arg) sprintf(nil "I1.%s" arg )) bList)
+mapcar( '(lambda (arg) sprintf(nil "I1.%s" arg )) bList)
+
+
+
+
+
+(defun flatten (list) 
+(cond
+((null list) list)   ;=> nothing in the list anymore = stop condition
+((null (car list)) (flatten (cdr list)))     ;=> first element is nil => ignore it and go further
+((atom (car list)) (cons (car list) (flatten (cdr list))))  ; when first element is single process it (cons) and go further is returned
+(t                 (append (flatten (car list)) (flatten (cdr list)))) ; else append head and tail with the function itself recursing
+))
+
+;;identical in two line definition
+(defun flatten (list) (cond 
+((null list) list) ((null (car list)) (flatten (cdr list))) ((atom (car list)) (cons (car list) (flatten (cdr list)))) (t (append (flatten (car list)) (flatten (cdr list))))))
+
+
+
+master=geGetWindowCellView()
+tree=master~>instances
+
+
+(defun analyse (x)
+(cond
+((null x) printf("null %L" x) x)
+((atom x) printf("atom %L" x) x)
+((null car(x))&&(null cdr(x)) printf("null CAR&&CDR (ONE element nil in the list only) %L\n" x) x)
+((null car(x)) printf("null CAR %L\n" x) x)
+((atom car(x)) printf("atom CAR %L\n" x) x)
+((length car(x))==1 printf("1 CAR %L\n" x) x)
+((length car(x))==2 printf("2 CAR %L\n" x) x)
+))
+ 
+analyse(nil)       ;=> null nil 
+analyse('(nil))    ;=> null car&&cds CAR (nil)
+analyse('tata) ;=> atom tata
+analyse(master) ;=> atom db:0x10adbf12 (master is defined=db:0x10adbf12)
+analyse('(master)) ;=> atom CAR (master)
+analyse('(master truc)) ;=> atom CAR (master truc)
+analyse('(nil nil)) ;=> null CAR ((nil))
+analyse('((nil))) ;=> 1 CAR ((nil))
+analyse('((master) truc)) ;=> 1 CAR ((master) truc)
+analyse('((master deux) truc)) ;=> 2 CAR ((master deux) truc)
+
+
+
+
+;; PB infinit loop! check step by step
+;; first caught condition transform the list into '((master upperInst[n-1] upperInst[n-2] upperInst[n-3] ...))
+(defun scope (x)  
+(let (shList downShapes trans inst upInstList box2trans tranList)
+(cond
+((null x) printf("null %L" x) x)
+((atom x) printf("atom %L\n" x)
+	foreach(mapcar inst x~>instances scope(list(inst~>master inst)))
+	shList=setof(shape x~>shapes shape~>layerName=="MET1") 
+	shList~>shapes~>bBox);<= revoie une liste de bBox
+;master begin ^^^^^^^^^^
+((null car(x))&&(null cdr(x)) x)
+(t inst=car(x) upInstList=cdr(x)
+;; shList=x~>shapes
+shList=setof(shape x~>shapes shape~>layerName=="MET1") 
+downBox=foreach(mapcar inst x~>instances scope(list(cons(inst~>master cons(inst cdr(x))))));<= recurse on following instances
+shList=append(shList~>bBox downShapes)
+printf("In master %s-%s transforming bBox shapes:\n" x~>baseName x~>cellName)
+tranList=foreach(mapcar shape shList 
+box2trans=shape~>bBox
+printf("%L into->" box2trans)
+foreach(mapcar upInst upInstList
+box2trans=dbTransformBBox(box2trans upInst~>transform);; <== apply transform 
+printf("%L by %L\n" box2trans upInst~>transform)
+box2trans) tranList);;foreach foreach
+);<= renvoie bBox et appele scope suivants
+)))
+scope(master) ;=> 
+
+
+
+(defun flatten1Level (LIST) (if LIST (append (car LIST) (flatten1Level (cdr LIST)))  nil));;warning if LIST in not a list of list => fail
+master=geGetWindowCellView()
+
+
+
+aa=flatten1Level('(("A" "" ) ("B" "C")))
+aa=flatten1Level(aa)
+
+lst='(("A" "" ) ("B" (("A" "" ) ("B" "C")) "C"))
+aa=flatten1Level(lst)
+
+
+;; construct a list of traversed hierarchy instances: '((instance upperInst[n-1] upperInst[n-2] upperInst[n-3] ...))
+
+
+LAYER_="PAD"
+(defun scope (x)  
+(let (shList downShapes trans inst box2trans tranList topRes)
+(cond
+((null x) printf("null %L" x) x)
+((atom x) printf("atom %L\n" x)
+when(null(LAYER_) printf("PLEASE DEFINE variable LAYER_ to a string layer. ie. \nLAYER_=%L\n" "PAD") return(2))
+printf("scope(%L %L)________________\n" x LAYER_)
+topRes=foreach(mapcar inst x~>instances scope(list(inst)));<= nil because no transformation or ((0 0) "R0" 1)
+;;foreach(mapcar inst x~>instances scope(list(inst nil)));<= nil because no transformation or ((0 0) "R0" 1)
+shList=setof(shape x~>shapes shape~>layerName==LAYER_) 
+printf("shList %L\n" shList~>bBox)
+printf("topRes='%L\n" topRes)
+cons(list(shList~>bBox) topRes));<= revoie une liste de liste de bBox
+;master begin ^^^^^^^^^^
+((null car(x))&&(null cdr(x)) x)
+(t inst=car(x)
+shList=setof(shape inst~>master~>shapes shape~>layerName==LAYER_) 
+printf("t: %L_%L-%L" x~>baseName x~>cellName x)
+printf("\ttr%L" inst~>transform)
+printf("\tsh: %L\n" inst~>master~>shapes)
+toptopRes=foreach(mapcar ins inst~>master~>instances scope(cons(ins x)));qd list nil => pas d'evaluation de la suite => plus de recursion possible
+tranList=foreach(mapcar shape shList 
+box2trans=shape~>bBox
+printf("\n%L through %L" box2trans x~>transform )
+when(box2trans!=nil&&box2trans!='(nil)  ;;Warning when('(nil) crotte) =>passes => fails
+printf("not-nil%L-%L" box2trans shape~>layerName)
+foreach( upInst x when(upInst~>transform ;;<== PB with array : no transform... should I check  tileArray ("R0")?...skipped
+box2trans=dbTransformBBox(box2trans upInst~>transform) );; <== apply transform 
+);foreach transformations
+);when box2trans
+printf("boxTrans=%L\n" box2trans)
+box2trans
+); foreach
+printf("AbsolutebBox %L\n" tranList)
+printf("UPPERS__bBox %L\n" toptopRes)
+cons(tranList flatten1Level(toptopRes))
+))))
+;;res=scope(master) ;=> 
+
+hier=(dbOpenCellViewByType "Ed_IC6" "hier54" "layout")
+aa=(dbOpenCellViewByType "IOLIB_4M" "CORNERP" "layout")
+res=scope(hier) t
+flatten1Level(flatten1Level(res))
+res=scope(geGetWindowCellView()) t
+ff=flatten1Level(flatten1Level(res))
+
+bBox='((-0.45 -0.45) (0.45 0.45)) ;through (((36.45 79.95) "R0" 1.0) ((7.55 4.3) "R0" 1.0))
+bBox=dbTransformBBox(bBox '((36.45 79.95) "R0" 1.0))
+bBox=dbTransformBBox(bBox '((7.55 4.3) "R0" 1.0))
+
+bBox=dbTransformBBox(nil '((7.55 4.3) "R0" 1.0))
+
+dbTransformBBox('((0.0 43.5) (0.9 44.4)) '((0.45 43.95) "R0" 1.0))
+toto='((1 2 3 4) "last")
+'(one two)=toto
+box2trans
+when('(nil)!=nil&&nil!=nil crotte)
+
+foreach( upInst '(nil ((7.55 4.3) "R0" 1.0)) printf("up:%L\n" upInst) if(upInst then;;<== PB with array : no transform... should I check  tileArray ("R0")?...skipped
+printf("then %L %L " upInst box2trans) box2trans=dbTransformBBox(box2trans upInst)  else printf("else ") box2trans=nil);; <== apply transform 
+) 
+
+
+
+absSetOption "ImportVerilogFiles" "myverilogfile1" ;; ==> 1
+absImportVerilog   ; ==> 1
+
+Imports a Verilog file called myverilogfile1.
+cat Work/IC6/.ihdlParamFile
+absSetOption "ImportOptionsFile" ".ihdlParamFile"
+Loading absGen.cxt 
+*Error* arrayref: can't handle nil[nil]
+
+
+use (system "") with :
+$unix> ihdl -f option_file verilog_design_file
+The option_file might contain the following:
+-param ihdl_param_file
+-v std_cell.v
+
+ihdl -param .ihdlParamFile -v ~/Work/vhd/5decode/address_decoder_final.v
+@(#)$CDS: ihdl.exe version 6.1.3 09/08/2008 02:38 (cic612lnx) $: (c) Copyright 1994-1995, Cadence Design Systems, Inc.
+ERROR (VERILOGIN-75): Execution failed because you have not specified the design file to be imported. 
+Specify a valid design file and run the command again.
+
+ihdl -f -param .ihdlParamFile -v ~/Work/vhd/5decode/address_decoder_final.v
+ihdl -help
+
+ihdl ihdl -f option_file verilog_design_file
+
+
+(defun take (n l)
+  (cond (( n < 0) (error "index negative"))
+        (( n == 0) ())
+        ((null l) (error "index too large"))
+        (t (cons (car l) (take (n-1) (cdr l))))))
+
+;equivalent to :
+aList='(a b c d e f) 
+bList=reverse(nthcdr(length(aList)-3 reverse(aList))) 
+
+alias(lf listFunctions)
+lf("ToString") ;=> list all cmds with ToString
+sortcar(list( '("A9" 45) '("C43" 56) '("B5" 23)) 'alphalessp);=> does not create a new list. Altered the input list
+
+;; Trouver le cadran R0 R90 R180 ou R270 dans lequel se situe une intance   
+;;  \/
+;;  /\
+
+
+pi=acos(-1);=> 3.141593
+cv= geGetWindowCellView()
+middle=centerBox(cv~>bBox);=>(2.040625 0.75)
+ox=car(middle)
+oy=cadr(middle)
+
+norient=foreach(mapcar inst setof(in cv~>instances in~>purpose=="cell")
+X=car(centerBox(inst~>bBox))
+Y=cadr(centerBox(inst~>bBox))
+if(X!=ox then
+teta=180*atan((Y-oy)/(X-ox))/pi
+when(X-ox<0 teta=teta+180)
+tmp=mod(round(teta)+45+360 360)
+list(inst~>name floor(tmp/90))
+else if(Y-oy>0 1 0)
+);end check notNaN
+) t ;end loop inst
+
+(sortcar norient 'alphalessp)
+
+
+defun( orientSection (XY)
+let((X Y teta tmp)
+X=car(XY)
+Y=cadr(XY)
+if(X!=0 then
+teta=180*atan(Y/X)/pi
+when(X<0 teta=teta+180)
+tmp=mod(round(teta)+45+360 360)
+floor(tmp/90)
+else if(Y>0 1 0)
+)))
+
+defun( orientSection (XY)
+let((X Y teta)
+X=car(XY)
+Y=cadr(XY)
+if(X!=0 then
+teta=4*atan(Y/X)/pi
+when(X<0 teta=teta+4)
+floor(mod(round(teta)+9 8)/2)
+else if(Y>0 1 0)
+)))
+
+
+;; suggestion for orientation text
+middle=centerBox(geGetWindowCellView()~>bBox);=>(2.040625 0.75)
+ox=car(middle) oy=cadr(middle)
+norient=foreach(mapcar inst setof(in geGetWindowCellView()~>instances in~>purpose=="cell")
+X=car(centerBox(inst~>bBox))
+Y=cadr(centerBox(inst~>bBox))
+list(inst~>name sprintf(nil "R%d" 90*orientSection(rodSubPoints(X:Y ox:oy) )))
+)
+
+
+cv=geGetWindowCellView()
+hs = geCreateHilightSet( cv list("yellowLayerName" "drawing"))
+geSetHilightSetHaloParameters(hs "over" "fadeout" "normal" 50 nil)
+hs~>enable = t
+geAddHilightPolygon( hs list(-2:-2 2:-2 2:2 -2:2) )
+
+buildString( parseString("din<2>" "<>") "_") ;==> din_2  eleve chevron bus 
+
+; fractionnal part
+defun( part (x) x-floor(x))
+
+x=19.7
+rest=0 
+rx=x*10
+
+defun(intToPeri (x)
+(let (rest x0 periList)
+;; x0=truncate(10*(x-truncate(x))) ; why the Hell floor(0.7*10)=6 ! rounding error ?!
+x0=atoi(sprintf(nil "%0.f" 0.7*10))
+periList=reverse(foreach(mapcar peri reverse('(  1 2 5 10 20 50 100))
+rest=floor(x/peri) x=x-peri*rest list(rest sprintf(nil "%d" peri) )))
+cons(list(x0 "01") periList)
+))
+
+intToPeri(13.7) ;=> ((7 "01") (1 "1") (1 "2") (0 "5") (1 "10") (0 "20") (0 "50") (0 "100"))
+
+
+defun(intToPeriSpacer (x)
+foreach(mapcar n intToPeri(x) list(car(n) sprintf(nil "PERI_SPACER_%s_P" cadr(n))))) 
+intToPeriSpacer(13.4);=> ((7 "PERI_SPACER_01_P") (1 "PERI_SPACER_1_P") (1 "PERI_SPACER_2_P") (0 "PERI_SPACER_5_P") (1 "PERI_SPACER_10_P") (0 "PERI_SPACER_20_P") (0 "PERI_SPACER_50_P") (0 "PERI_SPACER_100_P"))
+
+; intToPeriSpacer(13.4)
+
+defun(biggerPeri (x)
+let((one) one=0
+car(remove(nil foreach(mapcar p reverse(intToPeriSpacer(x)) if(car(p)!=0&&one==0 then one=1 cadr(p) else nil))))))
+
+biggerPeri(5)
+
+cv=geGetWindowCellView()
+
+t0=cputime()
+getMaxPointsLayer(cv "MET1")
+t1=cputime()
+t1-t0;=>158; en 60ème de secondes => 2.633 second
+
+foreach(mapcar x '(1 2 3 4 5 6 7 8) mod((x+1)/2 2))
+foreach(mapcar x '(1 2 3 4 5 6 7 8) mod(x/2 2))
+foreach(mapcar x '(1 2 3 4 5 6 7 8) mod(x 2))
+
+
+t0=cputime()
+for(i 1 1M foreach(mapcar x '(1 2 3 4) mod((x+1)/2 2)))
+t1=cputime() 
+t1-t0; => 126
+
+t0=cputime()
+for(i 1 1M foreach(mapcar x '(1 2 3 4) if(x<=2 1 0)  ))
+t1=cputime() 
+t1-t0; => 94 Conclusion : if plus rapide que le mod... ;-(
+dir="/the/path/you/want"
+system(strcat("cd " dir "; xterm &"))
+
+defun(test (@optional (cv "ZZ") @rest rest)
+printf("ONE%L\n" cv)
+printf("2NE_%L %d\n" rest length(rest))
+if(metalList=assoc("metal" rest) METAL=cadr(metalList) METAL="MET1")
+printf("GOT: %L\n" METAL)
+)
+
+test("TRUC"  '("" "metal1") '("metal" "metal2")  )
+test("TRUC"  '("" "metal1") '("metal" )  )
+
+
+output=nth(0 asiGetOutputList(asiGetCurrentSession()))
+(cond (output~>type=='terminal
+when(not(file=output~>name) file=output~>signal)
+exprList='()
+when(expr=IT(output~>signal) exprList=tconc(exprList expr))
+when(expr=IDC(output~>signal) exprList=tconc(exprList expr))
+exprList=car(exprList)
+))
+
+
+seuil=0.5
+(cond
+if(VT("/ADC_OUT<0>")>seuil 1 0)
+
+awvPrintWaveform( ?output VT("/ADC_OUT<0>")
+
+getData("loopGain" ?result "stb")
+
+v("/ADC_OUT<0>" ?result "tran-tran")
+
+
+;; OnlyPresentLayers ! like IBM 
+procedure(JWgetUsedVisibleValidLayers(@optional (cv geGetEditCellView()))
+  let(((tf techGetTechFile(cv)))
+    setof(lp foreach(mapcar lpp cv~>lpps list(lpp~>layerName lpp~>purpose))
+      leIsLayerValid(lp tf) && leIsLayerVisible(lp tf)
+    )
+  )
+)
+
+
+
+; print format pico nano micro mili kilo mega giga etc...
+I1=1.9m ;=> 0.0019
+I2=2.9m ;=> 0.0029
+;=> 
+cond(
+(I1>=1e-3&&I1<1 sprintf(nil "%gm" I1*1e3))
+(I1>=1e-6&&I1<1e-3 sprintf(nil "%gu" I1*1e6))
+(I1>=1e-9&&I1<1e-6 sprintf(nil "%gn" I1*1e9))
+(I1>=1e-12&&I1<1e-9 sprintf(nil "%gp" I1*1e12))
+(t I1)
+)
+aelSuffixNotation(I2)
+
+aelSuffixNotation(2e-5);=> "20u"
+
+
+
+;; ssh pour remote host au lieu de ssh
+
+envSetVal("asimenv.distributed" "remoteShell" 'string "ssh")
+envGetVal("asimenv.distributed" "remoteShell" ) ;=> "ssh"
+
+a='(1 2 3)
+b='(4 5 6)
+c='(2 3)
+
+mapcar('plus a b) ;=> (5 7 9)  ;<= sommes deux points deux a deur par exemple. C plus concis que rodAddPoints
+mapcan('list a b) ;=> (1 4 2 5 3 6)
+mapcar('list a c) ;=> (1 4 2 5 3 6)
+mapcar('list a b) ;=> ((1 4) (2 5) (3 6))
+
+atan(sqrt(3))/acos(-1)*180.0 ;=> 60
+
+;transpose a matrix (matrice) like list of list
+apply('mapcar 'list Cins)
+
+apply('mapcan 'strcat '("1" "1" "0" "0" "0" "1" "1" "1" "0" "1"))
+apply('strcat '("1" "1" "0" "0" "0" "1" "1" "1" "0" "1"))
+
+
+
+;; managing srrWaves
+wave=dif
+wave=eval(caar(YOYO))
+sweepNames(wave)
+famGetSweepName(wave)
+famIsFamily()
+famMap()
+
+sweepNames(VN2()) ;=>("time" "freq")
+paramValue
+
+
+
+x=drGetWaveformXVec(wave)
+y=drGetWaveformYVec(wave)
+len=drVectorLength(x)
+for(i 0 len-1
+ printf("First wave is at x value %g\n" drGetElem(x i)
+ subWave=drGetElem(y i)
+ printf("Sub wave x-axis name is %L\n" drGetWaveformXVec(subWave)~>name)
+ printf("Sub wave y-axis expression is %L\n" drGetWaveformYVec(subWave)~>expression)
+ plot(subWave)
+)
+
+
+
+apply('plus '(1 2));=> ok
+apply('+ '(1 2));=> ok
+apply('minus '(1 2));=> error minus attends un seul argument..
+apply('- '(1 2));=> error minus attends un seul argument..
+apply('difference '(1 2));=> -1;=> yep ! works!
+
+
+concat('titi '_ "aa" "_uu")  ;=>titi_aa_uu
+concat('titi '_ "<");=>titi_\<  hum si on veut pas le backslash
+
+
+grid=schGetEnv("schSnapSpacing")
+xy='(2.30625 6.925)
+inst=css()
+xyok=foreach(mapcar a xy round(a/grid)*grid)
+inst~>xy=xyok
+
+;symbol selection box :
+symselbox=car(setof(x inst~>master~>shapes x~>layerName=="instance" && x~>objType=="rect")~>bBox)
+
+
+;; inst=css()
+;; getInstTermPoint(inst)
+;; inst~>bBox
+;; os='3 point='(-2.03125 3.46875) bBox='((-2.05 3.15625) (-1.19375 3.6)) pinName='"D"
+;; os='0 point='(-2.03125 3.21875) bBox='((-2.05 3.15625) (-1.19375 3.6)) pinName='"CP"
+;; centerBox(css()~>bBox); (-2.03125 3.21875)
+;; inst~>master~>bBox
+;; dbTransformBBox(inst~>master~>bBox inst~>transform)
+;; ((-2.03125 3.15625) (-2.03125 3.21875))
+;; symselbox=car(setof(x inst~>master~>shapes x~>layerName=="instance" && x~>objType=="rect")~>bBox)
+;; dbTransformBBox(symselbox inst~>transform)
+
+
+;si edit ouvre la string et non le fichier :
+apply('edit list(fn))
+
+(atom nil)
+(null nil)
+
+
+;tiens c'est moi ou c'est cadence qui definit la variable pattern??
+pattern;=> "[-+0-9e.]+[a-df-zA-Z]+"
+
+gtp='(("CP" (0.0 -1.125)) ("QN" (0.4375 -1.125)) ("Q" (0.4375 -0.875)) ("D" (0.0 -0.875)))
+mapcar('car gtp);=>("CP" "QN" "Q" "D")
+mapcar('cdr gtp);=>(((0.0 -1.125)) ((0.4375 -1.125)) ((0.4375 -0.875)) ((0.0 -0.875)))
+
+
+
+
+simulator('spectre)
+lib="ATEST_h18"
+cell="tdc_xor_51515040405051515051_3.132n_sim"
+design(lib cell "schematic")
+createNetlist()
+analysis('dc ?saveOppoint t  )
+analysis('tran ?stop "40n"  )
+envOption('analysisOrder  list("dc" "tran"))
+temp( 27 ) 
+run()
+
+schCreateNoteLabel
+schCreateNoteLabel( cvSch 0:0 sprintf(nil "Generated by \n%s\n%s\n" "~/Skill/Pin.box.il.debug" getCurrentTime())  "lowerLeft" "R0" "roman" 0.0625 "normalLabel" )
+
+
+l_times='(0 1n 2n 3n)
+l_values='(1 1.2 1.4 1.3)
+
+xV = drCreateVec('double l_times)
+yV = drCreateVec('double l_values)
+thewave = drCreateWaveform(xV yV)
+plot(thewave)
+
+defun(ineed (func) unless(fboundp(func) load(strcat(symbolToString(func) ".il"))))
+
+ineed('whereExistCell3)
+putd('whereExistCell3 nil)
+
+
+load("CCSdec2bin.il")
+foreach(mapcar i linRg(0 3 1) CCSdec2bin(i));=>("0" "1" "10" "11")
+
+(mapcar 'a2s  '(L 1 "3" _));=>("L" "1" "3" "_")
+; la fonction a2s n'est pas documente, mais c'est All to String je suppose? elle a l'aire elnte a l'execution
+
+aa= '(("A" "0") ("B" "0") ("C" "0") ("D" "0") ("E" "0") ("F" "0") ("H" "1") ("I" "1") ("J" "1") ("K" "1") ("L" "1"))
+apply('mapcar 'strcat aa);=>("ABCDEFHIJKL" "00000011111")
+apply('mapcar 'list aa)
+;=>(("A" "B" "C" "D" "E" "F" "H" "I" "J" "K" "L") ("0" "0" "0" "0" "0" "0" "1" "1" "1" "1" "1"))
+
+;; DO NOT USE => erreur d'arroundi si mean ~ e-11 => ² e-21...
+defun(myRms (alist) (let (mean)
+list(mean=apply('plus alist)/length(alist)
+sqrt(apply('plus foreach(mapcar a alist (mean-a)**2))))))
+
+; USE THAT ONE :
+defun(myRms (alist) (let (mean)
+list(mean=apply('plus alist)/length(alist)
+mean*sqrt(apply('plus foreach(mapcar a alist (1-a/mean)**2))))))
+
+
+if(boundp('histoSubwin) awvSetCurrentSubwindow(awvGetCurrentWindow() histoSubwin)  histoSubwin=addSubwindow())
+; bof ca change tout le temsp et SetSubwin ne marche pas...
+
+
+alist;=>(2.36638e-09 2.36276e-09 2.40691e-09 2.31056e-09 2.31908e-09 2.33678e-09 2.3292e-09 2.33277e-09 2.34584e-09 2.3595e-09 2.33958e-09 2.38302e-09 2.28666e-09 2.29518e-09 2.31279e-09 2.3053e-09 2.30895e-09 2.32195e-09 2.33609e-09 2.37775e-09 2.28242e-09 2.29105e-09 2.30865e-09 2.30125e-09 2.30473e-09 2.31781e-09 2.3319e-09 2.32665e-09 2.33519e-09 2.35276e-09 2.3453e-09 2.34884e-09 2.36196e-09 2.37596e-09 2.23867e-09 2.25644e-09 2.24886e-09 2.25241e-09 2.26557e-09 2.27966e-09 2.26469e-09 2.25747e-09 2.26089e-09 2.27421e-09 2.2881e-09 2.27458e-09 2.27854e-09 2.29182e-09 2.30578e-09 2.27023e-09 2.28434e-09 2.29822e-09 2.28693e-09 2.30176e-09 2.31353e-09)
+
+res=list(car(alist))
+foreach(mapcar a alist 
+re=res
+while(re b=car(re)
+if(a<b res=append(res cons(b
+
+
+
+
+cv=geGetWindowCellView()
+terms=cv~>terminals
+terms~>name;=>("Q_5" "Q_0" "S_0" "S_1" "S_2" "S_3" "S_4" "S_5" "S_6" "S_7" "S_8" "S_9")
+term=car(terms)
+car(term~>pins~>figs)~>xy;=>((-1.125 -0.25))
+
+libName=geGetWindowCellView()~>libName;=>"Ed_CMOS8"
+cellName=geGetWindowCellView()~>cellName;=>"xor_ABCDEEDCBA"
+cvs=dbOpenCellViewByType( libName cellName "symbol" "schematicSymbol" "w")
+symPin = dbOpenCellViewByType("basic" "sympin" "symbolNN" nil "r")
+
+foreach(mapcar term terms
+pinName=term~>name;=>"Q_5"
+termXY=caar(term~>pins~>figs)~>xy;=>(-1.125 -0.25)
+symPinId=schCreateSymbolPin(cvs symPin pinName "inputOutput" termXY "R0" ) ;; pin for the symbol
+txy=car(term~>textDisplays)~>xy
+rot=car(term~>textDisplays)~>orient
+dbCreateLabel(cvs  list("pin" "drawing") txy pinName "centerRight" rot "stick" 0.0625); label du symbol
+)
+;end loop
+
+xyList=foreach(mapcan term terms car(term~>pins~>figs)~>xy)
+bBox=minmaxPts(xyList)
+
+
+shapeId = schCreateSymbolShape( cvs "rectangle" "outline" bBox)
+labelId = schCreateSymbolLabel( cvs cadr(bBox) "instance label" "[@instanceName]" "lowerLeft" "R0" "euroStyle" 0.125 "NLPLabel" )
+;labelId = schCreateSymbolLabel( cvs centerBox(bBox) "logical label" "Click here to edit" "lowerLeft" "R0" "roman" 0.0625 "normalLabel" )
+dbCreateRect(cvs list("instance" "drawing") bBox) ; <== selection box rect
+
+
+dbSave(cvs) dbClose(cvs)  
+dbCheck
+
+
+when(t geOpen(?lib libName ?cell cellName ?view "symbol"))
+
+ineed('minmaxPts)
+
+
+for(N 3 2 printf("N=%d\n"))
+
+; edit symbol origin =>  schSetSymbolOrigin
+
+cv=geGetWindowCellView()
+dbSave(cv) dbClose(cv) dbCheck(cv) 
+
+schVIC(cv) 
+
+schHiVICAndSave()  ;<= interactiv...
+
+
+str=parseString(net "<:>");=>("S_87-4_")
+
+
+defun(netMakeBus (@optional (net "S_87-4_")(L 8))
+let((from to expand)
+if(listp(L) then from=car(L) to=cadr(L) else from=0 to=L-1)
+expand='()
+for(i from to expand=cons( strcat(net "<" a2s(i) ">") expand))
+expand=reverse(expand)
+list(list(strcat(net "<" a2s(from) ":" a2s(to) ">")) expand)
+))
+
+netMakeBus("S" '(2 6));=>(("S<2:6>") ("S<2>" "S<3>" "S<4>" "S<5>" "S<6>"))
+netMakeBus("Q" 5)     ;=>(("Q<0:4>") ("Q<0>" "Q<1>" "Q<2>" "Q<3>" "Q<4>"))
+
+
+sprintf(nil "%0.3d" 2);=>"002"
+
+
+
+
+defun(valueLast(wave) let((y) y=drGetWaveformYVec(wave)
+drGetElem(y drVectorLength(y)-1);=>2.785856e-09 ;=> last plot value
+))
+
+
+curb=VN2()
+y=drGetWaveformYVec(curb)
+L=drVectorLength(y);=>2
+
+
+type(curb);=>other
+type(value(curb 0));=>other
+type(value(value(curb 0) 0));=>other
+type(value(value(value(curb 0) 0) 0));=>flonum
+
+drGetWaveformYType(curb);=>double
+
+
+
+;; managing srrWaves
+wave=VN2();=> srrWave:0x199649c0
+sweepNames(wave);=>("IDC" "temp" "freq")
+famGetSweepName(wave);=>"IDC"
+
+drVectorLength(drGetWaveformYVec(wave));=> 2
+drVectorLength(drGetWaveformXVec(wave));=> 2
+
+type(drGetWaveformYVec(wave));=>other
+
+famIsFamily(wave);=>t
+famMap()
+
+drIsWaveform(wave);=>nil
+drIsParamWave(wave);=>t
+
+
+foreach(mapcar sw sweepNames(wave)
+w0=drGetElem(y 0);=>srrWave:0x19965840
+w1=drGetElem(y 1);=>srrWave:0x19965ae0
+
+drIsParamWave(w1);=>t
+sweepNames(w1);=>("temp" "freq")
+drVectorLength(drGetWaveformXVec(w1));=>2
+wt0=drGetElem(drGetWaveformYVec(w0) 0);=>srrWave:0x19965b10
+drIsParamWave(wt0);=>nil
+drIsWaveform(wt0);=>t
+drVectorLength(drGetWaveformXVec(wt0));=> 51
+
+
+;; faire une reccursion
+
+cond(
+(drIsWaveform(wave)==t for( pos 0 (sub1 drVectorLength(wave)) subWave waves rappelFct(faireListData subWave)))
+(drIsParamWave(wave)==t )
+)
+
+(for pos 0 (sub1 (drVectorLength wave))
+
+)
+
+defun(edgpPlot (wave @optional (AST list((name "expr") ())
+cond(
+(drIsWaveform(wave)==t for( pos 0 (sub1 drVectorLength(wave)) 
+edgpPlot(drGetElem(drGetWaveformYVec(wave) pos) )
+append(list(AST rappelFct(faireListData subWave)))
+(drIsParamWave(wave)==t )
+(t nil)
+)
+
+t
+)
+
+cv=geGetWindowCellView()
+cv~>cellName; =>"d_EEDHFEIHKJL"
+a=dbCopyFig(geGetSelectedSet() cv)
+
+hiZoomIn(cv a~>bBox)
+hiZoomIn(getCurrentWindow() a~>bBox)
+
+
+as=foreach(mapcar ge geGetSelectedSet() dbCopyFig(ge cv) )
+
+cv=geGetWindowCellView()
+
+insts=cv~>instances
+mos=setof(i insts i~>cellName=="nfet_inh")
+mos=setof(i insts i~>cellName=="lvtnfet_inh")
+
+
+m=car(mos)
+
+B=dbOpenCellViewByType("cmrf8sf" "nfet" "symbol")
+B=dbOpenCellViewByType("cmrf8sf" "lvtnfet" "symbol")
+
+foreach(mapcar m mos
+m~>master=B  ;<== ####CHANGE MASTER###
+)
+
+plot("/Sync_0")
+
+
+plot(v("/Sync_0" ?result "tran-tran"))
+plot(v("Sync_0" ?result "tran-tran" ?resultsDir "./Sim/Tdc_CH3_nosub_sim/spectre/schematic-rcx/psf"))
+plot(v("Sync_0" ?result "tran-tran" ?resultsDir "./Sim/Tdc_CH3_nosub_sim/spectre/schematic/psf"))
+
+cross(v("/Sync_0" ?result "tran") 0.6 1 "rising" nil nil  )
+;aps_Tdc_CH1r_rcx 2.102358e-06
+2.177048e-06
+;sch  2.213682e-06
+;rc usim =>2.107u
+
+; aps _sch Sync @  2.177048e-06
+
+per1=1/frequency(clip(VT("/Z1") 2u 2.2u ))
+per2=1/frequency(clip(VT("/Z2") 2u 2.2u ))
+per1=1.0/frequency(VT("/Z1"))
+per2=1.0/frequency(VT("/Z2"))
+per2-per1
+;aps_sch=>1.639722e-11
+;Sync @ =>> 2.177048e-06
+
+; Tdc_CH3_nosub
+; aps_rc
+per1;=>3.194706e-09
+per2;=>3.219348e-09
+;=>2.464186e-11 = 24ps de delta_T au lieu de 16ps en schema
+;=>2.131604e-06 = 2.131us
+; sunchro prevue @ :
+;; 2u+1n/(per2-per1)*per2 ;= 2.130645e-06;<= OK !
+
+;pour le chargement Dzi : 00010100110010010011
+
+
+
+
+cv=geGetWindowCellView()
+cv~>instances~>objType
+
+setof(c cv~>shapes c~>objType=="label")~>??
+
+setof(c cv~>shapes c~>objType=="label")~>lpp
+;=> 
+(("MA" "label") ("MA" "label") ("text" "drawing") ("M2" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin") ("MA" "pin"))
+
+setof(c cv~>shapes c~>objType=="label")~>theLabel
+;=> ("VCC" "GNDA" "subc" "vcc!" "vdd!" "vddd!" "gndd!" "OUTCSA" "PN" "Inf_1" "SkipA<0>" "SkipA<1>" "SkipB<0>" "SkipB<1>" "SkipC<0>" "SkipC<1>" "Dzin" "Bf_3c" "Sync_3" "Sync_1" "Bf_1c" "B_2c" "Sync_2" "Bf_2c" "B_3c" "Vcasc" "gnd!" "IN" "Q" "D" "clk_cpff" "Qout" "Sl" "Fs" "Dziout" "clk_Dzi" "Rs" "In_1" "etrou" "B_1c" "RN" "Ps3" "Rs3" "Inf_3" "In_3" "Inf_2" "In_2")
+
+
+setof(c cv~>shapes c~>objType=="label"&&cadr(c~>lpp)=="pin");=> 
+setof(c cv~>shapes c~>objType=="label"&&cadr(c~>lpp)!="pin")~>??
+;=> 
+length(setof(c cv~>shapes c~>objType=="label"&&cadr(c~>lpp)=="pin")
+
+labs=setof(c cv~>shapes c~>objType=="label"&&cadr(c~>lpp)=="pin")
+lab=car(labs)
+foreach(mapcar lab labs
+bBox=lab~>bBox
+lpp=lab~>lpp
+dir
+
+if(bBox&&lpp then createPinLPP(name bBox lpp dir) else printf("NO LPP or bBox for:%L\n" list(name bBox lpp dir)))
+
+; pour connaitre la date
+getCurrentTime()
+;=> "Feb 21 14:37:23 2014"
+
+
+
+geOpen(?lib "Ed_IC6" ?cell "IOPINS" ?view "schematic" )
+geOpen(?lib "Ed_IC6" ?cell "IOPINS_RING" ?view "layout" )
+
+inst=(dbOpenCellViewByType "IOLIB_3B_4M" "CORNERP_3B"  "layout")
+layBox=getMaxPointsLayer(inst "MET1");=> ((-5.4 -5.4) (340.3 340.3))
+
+
+
+pinName=cv~>terminals~>name
+;=> ("IN" "OUT" "VDD" "vdd!" "gnd!" "GND" "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "o" "p" "q" "r" "s" "t")
+
+
+GNDCELL="SIOGND"
+VDDCELL="SIOVDD"
+
+
+
+
+foreach(mapcar pn pinName if(pn=="vdd!" list(pn GNDCELL) pn))
+
+
+
+hiGetWindowList( );=> (window:1 window:18)
+
+ setof(win hiGetWindowList() 
+    rexMatchp("chematic" hiGetAppType(win))
+  )
+
+
+getCurrentWindow();=> window:18
+getCurrentWindow()~>cellView~>cellName; ;=> "IOPINS"
+hiGetWindowList()~>cellView~>cellName ;=> (nil "IOPINS")
+hiDeiconifyWindow(geGetCellViewWindow(cv))
+hiRaiseWindow(geGetCellViewWindow(cv))
+
+hiRaiseWindow(getCurrentWindow())
+
+defun(geOpenOrRaise (@optional (cellName nil)(libName nil)(cellViewType nil))
+unless(cellName cellName=geGetWindowCellView()~>cellName)
+unless(libName libName=geGetWindowCellView()~>libName)
+unless(cellViewType cellViewType=geGetWindowCellView()~>cellViewType)
+wini=setof(win hiGetWindowList() win~>cellView~>cellName==cellName)
+if(length(wini)>=2&&libName wini=setof(win wini win~>cellView~>libName==libName))
+if(wini then
+wini=car(wini) ;(window:18)=> window:18
+hiRaiseWindow(wini)
+else
+wini=geOpen(?lib libName ?cell cellName ?view cellViewType)
+)
+)
+
+
+
+cons(nil listAlias())->xCoord;=> car
+arglist( 'dbCreateLib);=> (g_general \@optional g_general "gg")
+
+arglist('geOpenOrRaise);=> (\@optional cellName libName cellViewType)
+
+_iliIsPublicFunc( 'artUnique);=> nil
+_iliIsPublicFunc( 'car);=> t
+_iliIsPublicFunc( 'techSetTechFileName);=> nil
+_iliIsPublicFunc( 'techGetTechFileName);=> t
+
+http://www.cadence.com/Community/forums/p/22498/1317054.aspx#1317054
+
+
+procedure(MyUnique(lst)
+  let(((seen makeTable('seen nil)))
+    setof(elem lst
+      unless(seen[elem]
+        seen[elem]=t
+      )
+    )
+  )
+)
+
+
+(parseString "Banana Rama" "")
+;=> ("B" "a" "n" "a" "n" "a" " " "R" "a" "m" "a")
+MyUnique((parseString "Banana Rama" ""))
+;=> ("B" "a" "n" " " "R" "m")
+
+
+
+
+sqrt(iinteg(IT("/I1/PLUS")*IT("/I1/PLUS"))
+
+tps=xval(IT("/I1/PLUS"))
+
+ivcc=IT("/V4/PLUS")
+ivddd=IT("/V14/PLUS")
+
+ivdd=IT("/I1/PLUS")
+ivddd=IT("/V3/PLUS")
+
+plot(ivdd)
+plot(ivddd)
+
+plot(iinteg(ivddd)/tps)
+plot(iinteg(ivdd)/tps)
+plot(iinteg(ivcc)/tps)
+
+OP("/MP13" "??")
+ineed('ocnPrint2list)
+alist=ocnPrint3(OP("/MP13" "??"))
+rexCompile("^c")
+rexExecute("cgs")
+clist=setof(a alist rexExecute(car(a)))
+ca=foreach(mapcar c clist list(abs(cadr(c)) car(c)))
+tmp=foreach(mapcar c ca c)
+sca=sortcar(tmp 'lessp);=> does not create a new list. Altered the input list
+sca=sortcar(tmp 'greaterp)
+
+ineed(list('ocnPrint2list 'getHierName))
+
+defun(sortOPpattern (@optional (instName "/MP13") (pattern "^c")(i 0))
+let((alist clist ca sca out)
+if(css() instName=strcat(getHierName() css()~>baseName))
+printf("Getting %s of %s\n" pattern instName)
+alist=ocnPrint3(OP(instName "??"))
+rexCompile(pattern)
+clist=setof(a alist rexExecute(car(a)))
+ca=foreach(mapcar c clist list(abs(cadr(c)) car(c)))
+sca=sortcar(ca 'lessp);=> does not create a new list. Altered the input list
+if(i!=0 
+out=reverse(nthcdr(i sca))
+out=reverse(sca)
+)
+foreach(mapcar o out printf("%s\t=%s\n" cadr(o) aelSuffixNotation(car(o))))
+out))
+
+
+
+
+geSelectFigs(setof(in cv~>instances rexMatchp("mos4$" in~>cellName)))
+mosList=setof(in cv~>instances rexMatchp("mos4$" in~>cellName))
+mos=car(mosList)
+
+geDeselectAll()
+geSelectFig(mos)
+geSelectFig(cadr(mosList))
+
+schHiObjectProperty()
+schDelProp()
+hiiSetCurrentForm('schDelPropForm)
+schDelPropForm->deleteAll->value=t
+hiDBoxOK(_schDBox)
+hiFormDone(schObjPropForm)
+
+manu=assoc("nfet" flip);=> ("nfet" "nmos4" "PRIMLIB" (("flipProp" (("wf" "w") ("wt" "wtot") ("nf" "ng"))) ("adjust" (0.0 0.0625))))
+nth(3 manu);=> (("flipProp" (("wf" "w") ("wt" "wtot") ("nf" "ng"))) ("adjust" (0.0 0.0625)))
+cdar(nth(3 manu));=> ((("wf" "w") ("wt" "wtot") ("nf" "ng")))
+
+
+
+defun( strapPropCell (@optional (param "m")  (instList geGetWindowCellView()~>instances) (varType "string")) 
+(let (ipp val cnt sList) cnt=0  printf("%s %s_INSTLIST:%L\n" param varType instList)
+foreach(inst instList  ;printf("INSTname:%s_PROP:%L\n" inst~>cellName inst~>prop~>name)
+; printf("...%L...%L\n" (setq ipp car(setof(ip inst~>prop ip~>name==param)))~>?? ipp~>valueType)
+when((setq ipp car(setof(ip inst~>prop ip~>name==param))) ; ipp=car(setof(ip css()~>prop ip~>name=="m"))
+; (and (setq ipp car(setof(ip inst~>prop ip~>name==param))) ipp~>valueType==varType )
+if(type(ipp~>value)=='string  val=atoi(ipp~>value)  val=ipp~>value) ; printf("Changing %L in %L" "2" atoi("2"))
+putprop(inst val param) cnt=cnt+1
+))  cnt)) ; /!\ ipp~>valueType="string"  !=   type(ipp~>value)='string  /!\
+; strapPropCell() 
+
+
+css()~prop
+dbFindProp(objId "wt")~>value ;;=> "160.0n"
+dbFindProp(objId "l")~>value  ;=> "120.0n"
+dbFindProp(objId "nf")~>value;=> "1" 
+dbFindProp(objId "ng")~>value;=> ;=> "360.0n" error to fix
+
+cv=geGetWindowCellView()
+foreach(inst cv~>instances dbFindProp(inst "ng")~>value="1")
+
+foreach(inst setof(in cv~>instances rexMatchp("mos4$" in~>cellName)) dbFindProp(inst "wtot")~>value=dbFindProp(inst "w")~>value)
+
+
+inst=css()
+coef=350n/120.0n
+
+foreach(inst geGetSelectedSet()||setof(in cv~>instances rexMatchp("mos4$" in~>cellName))
+if(evalstring(dbFindProp(inst "l")~>value)<=0.35u then
+printf("update %s %s\n" inst~>name inst~>cellName)
+dbFindProp(inst "l")~>value=aelSuffixNotation(evalstring(dbFindProp(inst "l")~>value)*coef)
+dbFindProp(inst "w")~>value=aelSuffixNotation(evalstring(dbFindProp(inst "w")~>value)*coef)
+))
+
+
+foreach(mapcar inst setof(in cv~>instances rexMatchp("mos4$" in~>cellName)) list(inst~>name dbFindProp(inst "w")~>value))
+foreach(mapcar inst setof(in cv~>instances rexMatchp("mos4$" in~>cellName)) list(inst~>name dbFindProp(inst "w")~>value))
+
+
+coef=350n/120.0n ;=> 2.916667
+larg=dbFindProp(objId "l")
+newVal=evalstring(larg~>value)*coef;=> 3.5e-07
+aelSuffixNotation(newVal);=> "350n"
+
+
+objId = css() ;;<== reccup l objective id de l object selectionne
+
+objId~>prop~>name;=> ("wf" "m" "ng" "wtot" "wt" "w" "wff" "l" "nf" "par" "mSwitch" "interdigitation?" "idg" "leftRX" "rightRX" "leftExt" "rightExt" "leftCnt" "rightCnt" "ngcon" "connect" "leftFill" "rightFill" "centerFill" "trench" "stis" "lstis" "nws" "lnws" "vtsens" "rbody" "rbodymod" "rgate" "rgatemod" "rf_rsub" "nrd" "nrs" "psp?" "psp")
+objId~>prop~>value
+
+
+
+;;defresh all callbacks graphically
+mosList=setof(in cv~>instances rexMatchp("mos4$" in~>cellName))
+
+foreach(mapcar mos geGetSelectedSet()||setof(in cv~>instances rexMatchp("mos4$" in~>cellName))
+printf("%s %s\n" mos~>name mos~>cellName)
+geDeselectAll()
+geSelectFig(mos)
+schHiObjectProperty()
+schDelProp()
+hiiSetCurrentForm('schDelPropForm)
+schDelPropForm->deleteAll->value=t
+hiFormDone(schDelPropForm)
+hiFormDone(schObjPropForm)
+)
+; semble marcher mais ne marche pas...
+
+load "abInvokeCdfCallbacks.il"
+abInvokeCdfCallbacks(geGetWindowCellView())
+abInvokeInstCdfCallbacks(css())
+
+css()~>prop
+dbFindProp(css() "w")
+
+cdfgData=(cdfGetInstCDF css())
+cdfgData~>??
+cdfgData~>parameters~>name;=> ("rod" "model" "wtot" "w" "l" "ng" "MosShape" "Bends" "drainContact" "sourceContact" "jg" "jd" "js" "leftGuard" "topGuard" "rightGuard" "bottomGuard" "Substrate" "ad" "as" "pd" "ps" "nrd" "nrs" "version" "ld" "ls" "off" "Vds" "Vgs" "Vbs" "trise" "region" "rdc" "rsc" "dtemp" "geo" "lxStopList" "m" "ivCellType" "eldoParam" "ownerflag" "hkflag")
+(get cdfgData 'userParams) 
+
+
+
+;; pour virer les property Add Delete Modify de la fenetre property qui ne sont plus utiles
+inst=css()
+cdfgData=(cdfGetInstCDF inst)
+cdsList=cdfgData~>parameters~>name
+foreach(mapcar pp inst~>prop
+unless(member(pp~>name cdsList) dbDeletePropByName(inst pp~>name)))
+
+defun(delUnUsedProp (@optional (cv nil))
+unless(cv cv=geGetWindowCellView())
+printf("cv=%s\n" cv~>cellName)
+foreach(mapcar inst cv~>instances printf("%s %s\n" inst~>name inst~>cellName)
+foreach(mapcar pp inst~>prop
+unless(member(pp~>name cdsList) dbDeletePropByName(inst pp~>name)))
+))
+
+
+printf("hexa ? 0x%x\n" 15) ;=> 
+sprintf(nil "hexa ? 0x%x\n" 15) ;=> "hexa ? 0xf\n"
+sprintf(nil "hexa ? 0x%03x\n" 15) ;=> "hexa ? 0x00f\n"
+
+(ymax(VT("/I0/net019"))-VDC("/I0/net019"))/VAR("Qin")
+
+plot((VDC("/I0/net019")-ymax(VT("/I0/net019")))/VAR("Qin"))
+
+ymax(OP("/I0/I4/T5" "vdsat"));=> 0.07047024
+ymax(OP("/I0/I4/T1" "vdsat"));=> 0.08182962
+
+
+rexMatchAssocList("^[a-z][0-9]*$" '((abc "ascii") ("123" "number") (a123 "alphanum") (a12z "ana")));=> ((a123 "alphanum"))
+rexMatchAssocList("^[a-z]*[0-9]*$" '((abc "ascii") ("123" "number") (a123 "alphanum") (a12z "ana")));=> ((abc "ascii") ("123" "number") (a123 "alphanum"))
+
+setplist( 'U235 '( x 200 y 300 ) ) => ( x 200 y 300 );=> ((abc "ascii") ("123" "number") (a123 "alphanum"))
+plist( 'U235 );=> (x 200 y 300)
+U235.x;=> 200
+getqq( U235 x );=> 200 identique to U235.x The qq suffix informally indicates that both arguments are implicitly quoted.
+
+
+designator = 'U235
+U235.x = 200 
+U235.y = 300
+designator->x;=> 200
+designator->y;=> 300
+
+designator->x = 250
+U235.x => 250
+designator->x = 250
+putpropq( designator 250 x )
+
+x = 0
+let( ( x ) 
+      x = 2 
+      x.example = 5 
+      ) ; let
+
+x
+plist( 'x ); => (example 5)
+
+
+x = tconc(nil 1);=> ((1) 1)
+y = list(3 4);=> (3 4)
+lconc(x y);=> x==((1 3 4) 4) ; y remains
+lconc(x list(5 6)) ;=> ((1 3 4 5 6) 6) ; y is changed to (3 4 5 6) why ?
+; lconc - it is documented as being destructive. 
+; danger dont do again : lconc(x y)  ;=> long long ... list
+
+
+
+awvPlotWaveform(currentWindow() || newWindow() list(signal) ?expr list(signal_name) ?stripNumber list(strip))
+; plot is a wrapper around either awvSimplePlotWaveform or awvPlotExpression - which are all very similar to awvPlotWaveform.
+
+
+
+
+
+defMathConstants('MyConsts)
+MyConsts.?
+MyConsts.PI
+printf("%.14f\n" MyConsts.PI); =>3.14159265358979
+sstatus(fullPrecision t)
+MyConsts.??
+
+
+
+pv("I1.MP16" "total" ?result "tran_noise-tran_noise")
+
+plot(pv("I1.MP16" "fn" ?result "tran_noise-tran_noise"))
+plot(pv("I1.MP16" "total" ?result "tran_noise-tran_noise"))
+
+plot(
+pv("I1.MP16" "total" ?result "tran_noise-tran_noise")+
+pv("R11.R2" "total" ?result "tran_noise-tran_noise")+
+pv("R11.R1" "total" ?result "tran_noise-tran_noise")
+)
+
+
+plot(pv("I1.MN4\<7\>" "total" ?result "tran_noise-tran_noise"))
+pv("I1.MN4\\<0\\>" "total" ?result "tran_noise-tran_noise")
+
+
+
+
+sweepNames(VN2());=> ("time" "freq")
+drGetElem(VN2() 0);=> nil
+
+drGetWaveformYVec(VN2());=> srrVec:0x2177f940
+drGetWaveformXVec(VN2());=> srrVec:0x2177f960
+
+
+
+swVals=sweepVarValues("time"  ?result "tran_noise-tran_noise");=> (0.0 1e-05)
+swVal=cadr(swVals)
+swVal=car(swVals)
+
+pfile = outfile(fname=sprintf(nil "%s/%s%L.txt" pwd() "tranNoise81_" swVal||""))
+
+noiseSummary('integrated ?result "tran_noise-tran_noise" 
+?output pfile
+?noiseUnit "V" ?truncateType 'byNumber ?truncateData 60 ?paramValues swVal)
+
+edit(eval(fname))
+
+openResults(); =>"/home/validmgr/ebecheto/Work/IC6/Sim/CSA_Chopable2_sim/spectre/schematic/psf"
+results();=> (designParamVals subckts dcOp noise tran_info tranOp tran dcOpInfo primitives variables)
+results(); suivant qu'il y ait une simu PA-noise en plus=> elle se trouve dans : noise (la 'dernière/ou permiere...dunno' simu noise effectuee)
+(designParamVals subckts dcOp noise "tran_noise-tran_noise" tran_info tranOp tran dcOpInfo primitives variables)
+selectResult('noise)~>??;=> (dataFile stdobj@0x20fdac50 name "tran_noise-tran_noise" wave nil obj \*slotUnbound\* type "noise" sweepValue nil _pDistoHarmonicListCache nil _pDistoHarmonicFreqListCache nil _pacHarmonicFreqListCache nil sweepName "time" sweepValues ((0.0 1e-05) 1e-05) sweepTable table:sweepTable analysisSignals nil)
+
+famIsFamily(VN2());=> t
+selectResult("tran_noise-tran_noise")~>??
+selectResult('noise)~>??;=> (dataFile stdobj@0x210a9e30 name "PA3-noise" wave nil obj dr:0x21dcef60 type "noise" sweepValue nil _pDistoHarmonicListCache nil _pDistoHarmonicFreqListCache nil _pacHarmonicFreqListCache nil inst nil)
+selectResult('noise)~>sweepValues;=> ((0.0 1e-05) 1e-05)
+
+
+noiseSummary('spot ?frequency 10K ?result "tran_noise-tran_noise" ?output poport ?noiseUnit "V" ?truncateType 'byNumber ?truncateData 60 ?paramValues 0.0)
+noiseSummary('spot ?frequency 398K ?result "tran_noise-tran_noise" ?output poport ?noiseUnit "V" ?truncateType 'byNumber ?truncateData 60 ?paramValues 0.0)
+
+
+plot(getData("MP3:ron" ?result "tran-tran"))
+plot(getData("I61.MP8:ron" ?result "tran-tran"))
+;; ocnPrint(getData("I61.MP8:region" ?result "tran-tran"))
+
+
+
+data='(
+ ("sourceMet" type "rect" layer "Metal1" width 0.5)
+ ("gate" type "path" layer "Poly" width 0.2)
+ ("drainDiff" type "rect" layer "diffusion" width 0.6)
+)
+
+assoc("gate" data)->layer
+
+a=assoc("gate" data)->layer;=> "Poly"
+a;=> "Poly"
+
+
+
+geGetSelectedSet()~>??
+geGetSelectedSet()~>orient;=> ("R0" "R0" "R0" "R0")
+
+
+
+; tourne les labels
+foreach(mapcar g geGetSelectedSet() g~>orient="R90")
+
+
+cv=geGetWindowCellView()
+cv~>??
+
+
+cdsParam(1) opParamExprList definit :
+("pwrR2" "OP(mappedRoot(\".R2\") \"pwr\")")
+("iR1" "OP(mappedRoot(\".R1<0>\") \"i\")")
+("iR2" "OP(mappedRoot(\".R2\") \"i\")")
+("iR6" "OP(mappedRoot(\".R6\") \"i\")")
+
+
+("irpolyhc" "OP(mappedRoot(\".R6.R1\") \"i\")")
+
+("enareg1" "OP(mappedRoot(\".MN181\") \"region\")")
+("iout" "8*OP(mappedRoot(\".MN4<0>\") \"region\")")
+("iout" "OP(mappedRoot(\".MN4<0>\") \"region\")")
+
+
+
+("idt" "OP(mappedRoot(\".MN4<0>\") \"id\")")
+("idt" "8*OP(mappedRoot(\".MN4\<0\>\") \"id\")")
+
+("idr" "OP(mappedRoot(\".R6\") \"i\")")
+
+
+;; If you use cdfDump() to dump the CDF and then edit it, the
+;; opParamExprList in the simInfo will look something like this:
+
+opParamExprList (
+    ("nodeVolt" "VDC(mappedRoot(\".3\") )-VDC(mappedRoot(\".6\") )")
+    ("gmid" "OP(mappedRoot(\".M0\") \"gm\") / OP(mappedRoot(\".M0\")
+\"id\")")
+)
+
+
+apply('geEcEventCB '("asiiPrintInstDataMenuActionOP" "newSelSet" (ptrnum@0x18b94cc0) (22 t ((db:0x21a8979e nil)))))
+
+
+
+
+cdfDump( "LARZIC_2014" "~/cdf.dump" ?cellName "sinkT1" ?edit 't ?level 'base)
+load("~/cdf.dump")
+cdfDump( "test_op" "~/cdf2.dump" ?cellName "sub1" ?edit 't ?level 'base)
+cdfDump( "PRIMLIB" "~/cdf3.dump" ?cellName "rpolyhc" ?edit 't ?level 'base)
+cdfDump( "PRIMLIB" "~/cdf4.dump" ?cellName "nmos4" ?edit 't ?level 'base)
+
+rpolyhc appele deja une sous valeur : "OP(mappedRoot(\".R1\") \"i\" ) "
+
+
+("seuil" "pv(\"I4.MN4\\\\<7\\\\>\" \"vth\" ?result \"dcOpInfo\")")
+("seuil" "pv(mappedRoot(\"I4.MN4\\\\<7\\\\>\") \"vth\" ?result \"dcOpInfo\")")
+
+
+("pwrR2" "OP(mappedRoot(\".R0\") \"pwr\")") ("iR2" "OP(mappedRoot(\".R2\") \"i\")") ("iR6" "OP(mappedRoot(\".R6\")")
+("iR1" "OP(mappedRoot(\".R1<0>\") \"i\")")
+
+
+
+
+
+
+width  = abs(apply('difference mapcar('car bBox)))    length = abs(apply('difference mapcar('cadr bBox)))

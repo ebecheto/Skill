@@ -4,7 +4,7 @@
 ; ^^ Not faster?
 ;______________________________________________________________________________
 defun(lpp2Set (@optional (lpp '("METAL1" "pin"))(purp nil)(insts geGetSelectedSet()))
-let((cv nlpp)
+let((cv nlpp verb)
 cv=geGetWindowCellView()
 ;; inst=css()
 ;; inst~>lpp;=> ("METAL1" "drawing")

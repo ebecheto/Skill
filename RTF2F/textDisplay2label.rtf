@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.37 in inline-css mode. -->
+<html>
+  <head>
+    <title> *temp*</title>
+  </head>
+  <body style="color: #000000; background-color: #ffffff; font-weight: bold;">
+    <pre>
+
+;; copyleft : ebecheto
+
+; load("genBox.il")
+; transform every textDisplay associated to a pin into a label (for ams_c35)
+
+defun(textDisplay2label (@optional (cv nil))
+unless(cv cv=geGetWindowCellView())
+terms=cv~&gt;terminals
+;; mistake : pin is in fact a terminal in this case
+foreach(term terms
+;pin=car(pins);=&gt; db:0x2f50839a
+tdps=term~&gt;assocTextDisplays
+foreach(tdp tdps
+; tdp=car(tdps)
+label=dbCreateLabel(cv tdp~&gt;lpp tdp~&gt;xy term~&gt;name tdp~&gt;justify tdp~&gt;orient tdp~&gt;font tdp~&gt;height)
+;;label~&gt;parent=car(term~&gt;pins)~&gt;fig
+label~&gt;parent=tdp~&gt;parent
+dbDeleteObject(tdp)
+)
+)
+)</pre>
+  </body>
+</html>

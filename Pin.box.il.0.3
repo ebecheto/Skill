@@ -1,0 +1,114 @@
+/**************************************************
+* Authors : Edouard BECETHOILLE               	  *
+*			IPNL (IN2P3-CNRS / UCBL ) *
+* Version : 0.3   October 2008                    *
+* History :    first trials                       *
+***************************************************/
+
+;  load("~/Skill/Pin.box.il.0.3")
+
+procedure(createSch( l_pins @optional (library getEditRep()~>libName ) (cell getEditRep()~>cellName) )
+let((nPad nSide padLib mn tmp tmpList B R T L hstep lstep cstep xst yst edge Xstep Ystep)
+padLib = "PAD_cell"
+padCap = "PAD_capa"
+(setq nPad length(l_pins) )
+printf("%d %d *\n" length(l_pins) nPad)
+nSide=nPad/4
+hstep = 0.125  xstep = 0.375
+lstep = 0.375  ystep = 0.375
+mn=0 cstep = 0.3125
+edge = 0
+rotate = 0
+;cv=getEditRep()~>cellView
+;library=getEditRep()~>libName
+;cell=getEditRep()~>cellName
+
+
+tmp=nil B=nil R=nil T=nil L=nil ;  coupe la liste en quatre suivant : Bottom Right Top Left
+tmpList=l_pins
+for(i 1 nPad tmp=tconc(tmp car(tmpList)) tmpList=cdr(tmpList)) B=car(tmp) tmp=nil
+for(i 1 nPad tmp=tconc(tmp car(tmpList)) tmpList=cdr(tmpList)) R=car(tmp) tmp=nil
+for(i 1 nPad tmp=tconc(tmp car(tmpList)) tmpList=cdr(tmpList)) T=car(tmp) tmp=nil
+for(i 1 nPad tmp=tconc(tmp car(tmpList)) tmpList=cdr(tmpList)) L=car(tmp) tmp=nil
+T=reverse(T) L=reverse(L)
+
+cvSch = dbOpenCellViewByType( library cell "schematic" "schematic" "w")
+cvSym = dbOpenCellViewByType( library cell "symbol" "schematicSymbol" "w")
+wireId=schCreateWire( cvSch "route" "direct" list(lstep:-4*cstep lstep:hstep*nPad) 0.0625 0.0625 0.03125 ); <== creat wire line
+schPin = dbOpenCellViewByType("basic" "iopin" "symbol")
+symPin=dbOpenCellViewByType("basic" "sympin" "symbolNN" nil "r")
+
+labelId = schCreateSymbolLabel( cvSym 0:1.875 "instance label" "[@instanceName]" "lowerLeft" "R0" "fixed" 0.125 "NLPLabel" )
+shapeId = schCreateSymbolShape( cvSym "rectangle" "outline" list(0:0 1:1) )
+shapeId = schCreateSymbolShape( cvSym "line" "outline" list(0:0 0:hstep*nPad) ); <== create green line in symbol
+dbCreateRect(cvSym list("instance" "drawing") list(0:0 hstep*nPad:1)) ; <== selection box rect
+
+;; loop on pins
+foreach(mapcar pad l_pins 
+when(zerop(mod(mn nSide)) ; test on each first edge
+case(edge 
+(1 Xq=1 	Yq=0 	Xlabel=0 	Ylabel=-hstep	) 
+(2 Xq=0 	Yq=1 	Xlabel=hstep 	Ylabel=0 	) 
+(3 Xq=-1 	Yq=0   	Xlabel=0 	Ylabel=hstep 	) 
+(4 Xq=0 	Yq=-1 	Xlabel=-hstep	Ylabel=0 	)
+);fin case
+Xstep=Xq*xst Ystep=Yq*yst
+X=Xstep+cstep*xst
+Y=Ystep+cstep*yst
+dbCreateInstByMasterName(cvSch padLib padCap "symbol" sprintf(nil "corner_%d" edge) X:Y rot)
+rot=sprintf(nil "R%d" rotate)
+rotate = mod(rotate+90 360)
+edge++
+); fin when
+
+pinId = schCreatePin( cvSch schPin car(pad) "inputOutput" nil X:Y rot )
+pinId~>children~>xy=(X+Xlabel:Y+Ylabel)  ; règle orientation pin label
+pinId~>children~>justify="centerRight"   ; règle orientation pin label
+
+symPinId = schCreateSymbolPin( cvSym symPin car(pad) "inputOutput" X:Y "R0" )
+dbCreateLabel(cvSym list("pin" "drawing") X+Xlabel:Y+Ylabel cadr(pad) "centerLeft" "R0" "stick" 0.0625); label du symbol
+
+dbCreateInstByMasterName(cvSym padLib cadr(pad) "symbol"  sprintf(nil "PAD_%d" mn) X:Y rot)
+dbCreateInstByMasterName(cvSch padLib cadr(pad) "symbol"  sprintf(nil "PAD_%d" mn) X:Y rot)
+
+X=X+Xstep Y=Y+Ystep
+mn=mn+1
+);end foreach mapcar
+);end let
+);end proc
+
+
+innoPadList='(("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("Vbi_diff" "PAD_IO") ("Vbi_cmfb" "PAD_IO") ("vdda!" "PAD_ALIM") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("gnd!" "PAD_GND") ("gnd!" "PAD_GND") ("vdda!" "PAD_ALIM") ("IN1" "PAD_IO") ("IN2" "PAD_IO") ("Vcons" "PAD_IO") ("Vbias_casc" "PAD_IO") ("gnd!" "PAD_GND")) 
+
+
+createSch( innoPadList "INNOTEP_v4" "box" )
+
+padLib = "PAD_cell"
+cv=getEditRep()~>cellView
+library=getEditRep()~>libName
+cell=getEditRep()~>cellName
+cvSch = dbOpenCellViewByType( library cell "schematic" "schematic" "w")
+cvSym = dbOpenCellViewByType( library cell "symbol" "schematicSymbol" "w")
+schPin = dbOpenCellViewByType("basic" "iopin" "symbol")
+symPin=dbOpenCellViewByType("basic" "sympin" "symbolNN" nil "r")
+hstep = 0.125  xst = 0.375
+lstep = 0.375  yst = 0.375
+mn=0 cstep = 0.3125
+
+rotate = 0
+rotate = mod(rotate+90 360) rot=sprintf(nil "R%d" rotate)
+
+pXstep = 0
+pYstep = -hstep
+step = hstep
+Xstep = 'pXstep
+Xstep = 'pYstep
+
+dbCreateInstByMasterName(cvSch padLib "PAD_IO" "symbol"  sprintf(nil "PAD_%d" mn) 0:hstep*mn rot)
+pinId = schCreatePin( cvSch schPin "TATA" "inputOutput" nil 0:mn*hstep "R90")
+pinId~>children~>xy=(0:-hstep)  ; cadr(pinId~>children~>xy)
+pinId~>children~>justify="centerRight"
+
+
+symPinId = schCreateSymbolPin( cvSym symPin  "inputOutput" 0:mn*hstep "R0" )
+; boxId = schCreateInstBox( cv ) <== insert SelectionBox (red rectangle for descend edit) at max pin bBox

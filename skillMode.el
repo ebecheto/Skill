@@ -179,12 +179,18 @@
     (end-of-line) (exchange-point-and-mark)
 )
 
+(defun send-error-from-icfb-insert () "" (interactive)
+    (move-end-of-line 1) (push-mark) (insert ";=> ") 
+    (insert-file-contents "~/.virtuoso2error.txt")(end-of-line) (exchange-point-and-mark))
+
+
 (define-key skill-mode-map "\C-c\C-f" 'send-func-to-icfb)
 (define-key skill-mode-map "\C-c\C-b" 'send-buffer-to-icfb)
 (define-key skill-mode-map "\C-c\C-r" 'send-region-to-icfb)
 (define-key skill-mode-map "\C-c\C-l" 'send-line-to-icfb)
 (define-key skill-mode-map "\C-c\C-v" 'send-line-to-icfb-mv-forward)
 (define-key skill-mode-map "\C-c\C-s" 'send-function-from-icfb-insert)
+(define-key skill-mode-map "\C-c\C-e" 'send-error-from-icfb-insert)
 
 
 

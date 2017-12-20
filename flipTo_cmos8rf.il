@@ -9,8 +9,11 @@ unless(fboundp('mkFlipList) load("mkFlipList.il"))
 
 
 equiv='( ("^INVERT_" "^INV") ("^NAND2_" "^NAND2" ) ("^NAND3_" "^NAND3" ) ("^NAND4_" "^NAND4" ) ("^AND2_" "^AND2" ) ("^AND3_" "^AND3" ) ("^AND4_" "^AND4" ) ("^NOR2_" "^NOR2" ) ("^NOR3_" "^NOR3" ) ("^NOR4_" "^NOR4" )  ("^BUF" "^BUFFER_") ("^DF" "^DF" ) ("^AO" "^AO") ("^MUX21_" "^MUX2") ("^MUX31_" "^MUX3") ("^MUX41_" "^MUX4") ("^IMUX2" "^IMUX2") ("^IMUX3" "^IMUX3") ("^IMUX4" "^IMUX4")("^CLK_" "^CLKBU"))
+
+
 mkFlipList2("cmos8rf" "CORELIB" equiv) ; IBM130->AMS_C35
 flip=mkFlipList2("CORELIB" "cmos8rf" foreach(mapcar equ equiv reverse(equ)))  ; AMS_C35->IBM130
+
 
 flip=append(flip '(("DF1" "DFF_E" "cmos8rf" (("flipPin" (("Q" "Q")("QN" "QBAR")("D" "D")("C" "CLK")) ))) ))
 

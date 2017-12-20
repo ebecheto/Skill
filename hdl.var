@@ -1,0 +1,5 @@
+include $AMS_PATH/tools/inca/files/hdl.var
+define ncuse5x
+define cdslib cds.lib
+define WORK AMS_WORK
+define MODELPATH $AMS_DIR/spectre/h18/mcparams.scs:$AMS_DIR/spectre/h18/design.scs(noitm):$AMS_DIR/spectre/h18/cap.scs(captm):$AMS_DIR/spectre/h18/res.scs(restm):$AMS_DIR/spectre/h18/bip.scs(biptm):$AMS_DIR/spectre/h18/esddi.scs(esdditm):$AMS_DIR/spectre/h18/cmos53.scs(cmostm)

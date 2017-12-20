@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.37 in inline-css mode. -->
+<html>
+  <head>
+    <title>shell.sh</title>
+  </head>
+  <body style="color: #ffffff; background-color: #000000;">
+    <pre>
+rm sum.txt
+<span style="color: #00ffff; font-weight: bold;">for</span> file<span style="color: #00ffff; font-weight: bold;"> in</span> *.il;<span style="color: #00ffff; font-weight: bold;">do if</span> grep -q <span style="color: #ffa07a;">";; copyleft ebecheto"</span> $<span style="color: #eedd82;">file</span> ; <span style="color: #00ffff; font-weight: bold;">then</span> cat $<span style="color: #eedd82;">file</span> |sed <span style="color: #ffa07a;">'/^;/d;/^$/d'</span> |wc -l&gt;&gt;sum.txt;<span style="color: #00ffff; font-weight: bold;">fi</span>;<span style="color: #00ffff; font-weight: bold;">done</span>
+sum sum.txt <span style="color: #ff4500; font-style: italic;">#</span><span style="color: #ff4500; font-style: italic;">==&gt; 20529
+</span></pre>
+  </body>
+</html>

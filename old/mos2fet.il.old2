@@ -1,0 +1,69 @@
+;; load "~/Skill/mos2fet.il"
+
+cv = geGetWindowCellView()
+flip='(("INV0" "INVERT_A")("INV1" "INVERT_B")("INV2" "INVERT_C")("INV3" "INVERT_D")("INV4" "INVERT_E")("INV6" "INVERT_F")("INV8" "INVERT_H")("INV10" "INVERT_I")("INV12" "INVERT_J")("INV15" "INVERT_K"))
+flip=append(flip '(("NOR20" "NOR2_A")("NOR21" "NOR2_B")("NOR22" "NOR2_C")("NOR23" "NOR2_D")("NOR24" "NOR2_E")("NOR26" "NOR2_F")("NOR28" "NOR2_H")) )) )
+flip=append(flip '(("BUF2" "BUFFER_C")("BUF4" "BUFFER_D")("BUF6" "BUFFER_E")("BUF8" "BUFFER_F")("BUF12" "BUFFER_H")("BUF15" "BUFFER_I")) )
+flip=append(flip '(("NAND20" "NAND2_A")("NAND21" "NAND2_B")("NAND22" "NAND2_C")("NAND23" "NAND2_D")("NAND24" "NAND2_E")("NAND26" "NAND2_F")("NAND28" "NAND2_H")) )
+flip=append(flip '(("DF1" "DFFR_E") ))
+flip=append(flip '(("rpolyhc" "oprppres")("rpoly2c" "oprppres")("cpoly" "mimcap") ))
+
+foreach(mapcar inst cv~>instances
+when(inst~>libName=="PRIMLIB"
+printf("___ Changing Instance %s %s" inst~>name inst~>cellName)
+when(inst~>cellName=="pmos4" inst~>master=dbOpenCellViewByType("cmrf8sf" "pfet" "symbol") )
+when(inst~>cellName=="nmos4" inst~>master=dbOpenCellViewByType("cmrf8sf" "nfet" "symbol") )
+printf(" to -> %L >>>\n" inst~>cellName)
+when(inst~>cellName=="pmos4"||inst~>cellName=="nmos4" 
+printf("-> into  %L ___\n" inst~>name)
+; printf("PROP: %L %L %L %L\n" prop~>name prop~>value prop~>object prop~>objType)
+;; inst~>libName="cmrf8sf" ;<== impossible de changer libname, il faut passer par le master.
+flip='("w" "wf")
+oldProp=car(setof( oldProp   inst~>prop oldProp~>name==car(flip) ))
+when(not(setof( newProp   inst~>prop newProp~>name==cadr(flip) )) newProp=dbCreateProp(inst cadr(flip) "string" oldProp~>value))
+newProp~>value=oldProp~>value
+printf("PROP: %s=%L %s=%L\n" oldProp~>name oldProp~>value newProp~>name newProp~>value)
+flip='("wtot" "wt")
+oldProp=car(setof( oldProp   inst~>prop oldProp~>name==car(flip) ))
+when(not(setof( newProp   inst~>prop newProp~>name==cadr(flip) )) newProp=dbCreateProp(inst cadr(flip) "string" oldProp~>value))
+newProp~>value=oldProp~>value
+printf("PROP: %s=%L %s=%L\n" oldProp~>name oldProp~>value newProp~>name newProp~>value)
+flip='("ng" "nf")
+oldProp=car(setof( oldProp   inst~>prop oldProp~>name==car(flip) ))
+when(not(setof( newProp   inst~>prop newProp~>name==cadr(flip) )) newProp=dbCreateProp(inst cadr(flip) "string" oldProp~>value))
+newProp~>value=oldProp~>value
+printf("PROP: %s=%L %s=%L\n" oldProp~>name oldProp~>value newProp~>name newProp~>value)
+);end when nmos
+);end when_PRIMLIB
+
+when(inst~>libName=="CORELIB"||inst~>libName=="CORELIB_3B"
+foreach(mapcar fp flip
+printf("Trying %s<->%s\n" car(fp) cadr(fp))
+when(inst~>cellName==car(fp)||inst~>cellName==strcat(car(fp) "_3B") 
+	printf("___ Changing Instance %s %s" inst~>name inst~>cellName) 
+	inst~>master=dbOpenCellViewByType("cmos8rf" cadr(fp) "symbol") 
+	printf("-> into  %L ___\n" inst~>cellName)
+	);end when element of list fp
+);end foreach element to replace
+);end CORELIB
+);end foreach
+
+
+
+
+;; fp='("NOR20" "NOR2_A")
+;; tata~>cellName==
+
+; when(tata~>cellName==car(fp)||strcat(car(fp) "_3B") tata~>master=dbOpenCellViewByType("cmos8rf" cadr(fp) "symbol") )
+
+
+;; ih = car(setof( instHead cv~>instHeaders instHead~>libName == "origLibName" && instHead~>cellName == "origCellName")
+;; dbSetInstHeaderMasterName(ih "NEW_PROCESS" ih~>cellName ih~>viewName)
+;; setof( oldProp  css()~>prop  oldProp~>name == "wf" )
+;; setof( newProp  css()~>prop  newProp~>name == "w" )
+;; css()~>prop~>??
+;; foreach(mapcar prop css()~>prop  when(prop~>name=="w" printf("oldProp %s=%s convert to : \n" prop~>name prop~>value)))
+;; dbCreateProp(inst "w" "float" )
+;; tata~>prop~>??
+;; when(setof( newProp   css()~>prop newProp~>name=="wf" ) newProp=dbCreateProp(css() "w" "float" ))
+

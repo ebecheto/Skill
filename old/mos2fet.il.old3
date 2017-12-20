@@ -1,0 +1,92 @@
+;; load "~/Skill/mos2fet.il"
+load "~/Skill/mos2fet.proc.il" ;<= defines additional procedures and flipList
+
+procedure(c35toc18(@optional (cv geGetWindowCellView()) (flip flip))
+let((inst A B sA sB Axy newName newLib oldProp newProp flipProp aPoint bPoint special flipPin pA pB pAB mvA mvB netName carPoint mvPoints)
+
+foreach(mapcar inst cv~>instances
+printf("___ Changing Instance %s %s" inst~>name inst~>cellName)
+Axy=inst~>xy
+; ie:fp= ("pmos4" "pfet" "cmrf8sf" ("flipProp" (("w" "wf") ("wtot" "wt") ("ng" "nf"))))
+;          car     cadr   caddr
+foreach(mapcar fp flip
+flipPin='()
+when(inst~>cellName==car(fp)
+newName=cadr(fp)
+newLib=caddr(fp)
+
+when(newName=="oprppres"
+aPoint=getTermPoint(inst "PLUS")
+foreach(mapcar net cv~>nets
+foreach(mapcar fig net~>figs
+foreach(mapcar point fig~>points
+when(point==aPoint printf("Moving : %s from %L\n" net~>name  point))
+)))
+schHiObjectProperty()  ;<== refresh pin term names in order to getTermPoint to have acces to refreshed values
+hiFormDone(schObjPropForm)
+bPoint=getMasterTermPoint(B "S")
+printf("%L %L\n BB=dbOpenCellViewByType(%s %s %L)\n" aPoint bPoint     newLib        newName "symbol")
+dbMoveFig(inst nil list(rodSubPoints(aPoint bPoint) "R0"))
+);resistance
+
+;special Case Handling : AST 4th element
+when(length(fp)>=4
+foreach(mapcar special nth(3 fp)
+when(car(special)=="flipProp"
+foreach(mapcar flop cadr(special)
+oldProp=car(setof( oldProp   inst~>prop oldProp~>name==car(flop) ))
+when(not(setof( newProp   inst~>prop newProp~>name==cadr(flop) )) newProp=dbCreateProp(inst cadr(flop) "string" oldProp~>value))
+newProp~>value=oldProp~>value        printf("PROP: %s=%L %s=%L\n" oldProp~>name oldProp~>value newProp~>name newProp~>value)
+));special Case flipProp
+when(car(special)=="flipPin"
+flipPin=cadr(special)
+);;special Case flipPin
+));special Case Handling
+
+;; A=old B=new
+A=dbOpenCellViewByType(inst~>libName inst~>cellName "symbol")
+B=dbOpenCellViewByType(       newLib        newName "symbol")
+
+; #### move nets of pins location modification
+sA=sort(A~>terminals~>name nil)
+sB=sort(B~>terminals~>name nil)
+when(sA==sB flipPin=foreach(mapcar x sA append(flipPin list(x x))))
+when(flipPin 
+printf("FLIPPING  %L TOFLIP \n" flipPin)
+foreach(mapcar pAB flipPin
+pA=car(pAB); ie. pin name "S"
+pB=cadr(pAB)
+mvB=rodAddPoints(Axy getMasterTermPoint(B pB))
+mvA=rodAddPoints(Axy getMasterTermPoint(A pA))
+
+netName=getInstNetName(inst pA) ;get net name connected to inst "S" ie. => "net079"
+when(mvA!=mvB
+foreach(mapcar net cv~>nets
+when(net~>name==netName||net~>name==strcat(netName "!")
+isBetweenPoints(mvB netName cv); change to 'flight lines' a possible crossing net when netNames are differents
+foreach(mapcar fig net~>figs
+mvPoints=foreach(mapcar point fig~>points
+if(point==mvA then mvB else point); move to same point => not moved
+);move old point A to new point B
+when(fig~>points!=mvPoints fig~>points=mvPoints
+printf("\n** changing %L %s form %L to %L\n" fig netName fig~>points mvPoints)
+)
+);end check all nets
+);pass unecessary nets
+);
+); postions pins are != mvA!=mvB
+);end check all pins pAB to flip off selected instance   0x0fb18393
+); when flipPin list is not nil
+
+; ####CHANGE MASTER###
+; inst~>master=dbOpenCellViewByType("cmrf8sf" "pfet" "symbol")
+; B=dbOpenCellViewByType("cmrf8sf" "oprppres" "symbol")
+inst~>master=B
+printf("-> into  %L ___\n" inst~>cellName)
+
+));when ;for
+) t ;end foreach instances in cellView
+));;let proc
+printf("c35toc18\n");
+
+

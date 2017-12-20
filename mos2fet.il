@@ -9,20 +9,21 @@
 * + change property type enable                   *
 ***************************************************/
 
-;; TODO : move the cell out ouf bBox and back to xy, to force the redraw of th wire (if in route mode)
 ;; TODO : rename the function in : symbolSwap or something
 ;; TODO : scale w/l ratio for transistor when scaled down... 350n => 65n 
 ;; TODO : re-code alphaNum to work without sort (multi list for multy parttern name '(INV21 INV23 NOR33 INV22 ...)
 ;; DONE : adapt flip list to existing symbol in the cellView => shorten the foreach( flip) loop rplaca or something
 ;; DONE : Update Hierarchy when symbol exist ! See function : updateCellviews
+;; DONE : move the cell out ouf bBox and back to xy, to force the redraw of th wire (if in route mode)
 
 ;; load("~/Skill/mos2fet.il")
 setSkillPath(cons("~/../ebecheto/Skill" getSkillPath()))
 load("mos2fet.proc.il")   ;<= defines additional procedures and flipList
 ; load "flipTo_cmos8rf.il"     ;<= defines flipList amsc35->ibm130 ; 
+load "flipTo_tsmc130.il"     ;<= defines flipList amsc35->tsmc130 ; 
 ; flip=revertFlip(flip) ;<== permet de faire ibm130->amsc35
 ; flip=removeInFlip(flip '("subc"))
-load("flipTo_cmhv7sf.il")    ;<= defines flipList amsc35->amsh18
+; load("flipTo_cmhv7sf.il")    ;<= defines flipList amsc35->amsh18
 ; loadi("flipTo_cmrf8sf_t18.il")  ;<= defines flipList ibm130->tower180
 ineed('(moveBackAndForth))
 
@@ -41,7 +42,7 @@ when(assoc(f flip ) instList=append(instList list(cvi)	))
 unless(member(f rmDouble ) ;printf("%L %L %L \n" f rmDouble assoc(f flip ))
 rmDouble=append(rmDouble list(f)) assoc(f flip ))))
 ; printf("FLIP : %L\n" flip)
-unless(instList printf("Nothing to do for %s_%s. No instances matching filpList %L\n" cv~>libName||"NoLibName?" cv~>cellName||"NoCellName?" cv~>??))
+unless(instList printf("Nothing to do for %s,%s. No instances matching filpList %L\n" cv~>libName||"NoLibName?" cv~>cellName||"NoCellName?" cv~>??))
 
 foreach(inst instList
 ; printf("\n___ Changing Instance %s %s from %L\n" inst~>name inst~>cellName instList~>??)
@@ -153,7 +154,8 @@ printf("load(\"flipTo_cmos8rf.il\")     ;<= defines flipList amsc35->ibm130\n")
 printf("load(\"flipTo_cmhv7sf.il\")     ;<= defines flipList amsc35->amsh18\n")
 printf("load(\"flipTo_cmrf8sf_t18.il\") ;<= defines flipList ibm130->tower180\n")
 printf("c35toc18\n");
-printf("translateLib(\"T2K_V5\") ;=> create T2K_V5_TRANSLATE")
+printf("translateLib(\"T2K_V5\") ;=> create T2K_V5_TRANSLATE\n")
+printf("translateLib(\"afs_ldo_design\") ;=> create afs_ldo_design_TRANSLATE\n")
 printf("flipList='((\"mem_1cell\" \"mem_1cell_modif\" \"xtract_ed\" ((\"flipPin\" ((\"read_cell\" \"READ\")(\"phi\" \"WRITE\"))))))\n")
 printf("c35toc18(flipList);;<== those two lines will change the symbol into another, addapting pin nodifications:read_cell into READ...\n")
 
@@ -161,6 +163,7 @@ printf("; Simple USAGE :\n")
 
 printf("flipList='((\"INVD4\" \"INVD12\" \"tcb013ghp\" ));<== define change cells INVD4 with INVD12 from tcb013ghp lib\n")
 printf("c35toc18(flipList nil t t);<= viewing cellView is afected\n")
+printf("c35toc18(flip nil t t);<= viewing cellView is afected\n")
 
 
 

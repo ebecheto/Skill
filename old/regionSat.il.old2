@@ -1,0 +1,99 @@
+cv = dbOpenCellViewByType( "Ed" "regionSat" "schematic" "schematic" "w");; region 2 schematic to gm gds
+mos=css() ;; OP("/MN0","region")
+mos~>name ;=> "MN0"
+hier_name=eval(strcat("/" mos~>name))
+OP(hier_name,"region");<== marche pas : OP est fonction Calculator ne fait pas dans l'analyse de skill
+pv( "MN0" "region" ?result "dcOpInfo-info" ?resultsDir "/data/ebecheto/Sim/low_gds_sim/spectre/schematic" )
+
+ron1=pv( "MO1" "ron" ?result "dcOpInfo-info")
+ron2=pv( "MO2" "ron" ?result "dcOpInfo-info")
+sign="<"  when( ron1>ron2 sign=">")
+printf("ron12 : %.0f %s %.0f\n" ron1 sign ron2)
+
+pv( mos~>name "region" ?result "dcOpInfo-info")
+pv( "I0.MO1" "region" ?result "dcOpInfo-info")
+
+res = dbOpenCellViewByType( "analogLib" "res" "symbol" "schematicSymbol" "r")
+Ibias = dbOpenCellViewByType( "analogLib" "idc" "symbol" "schematicSymbol" "r")
+;dbCreateParamInstByMasterName( d_cellView t_libName t_cellName t_viewName t_name l_origin l_orient [ x_numInst [ l_params [ b_physOnly ] ] ] )
+; (dbCreateParamInst cv (dbOpenCellViewByType padLib inter lay) nil (list isL*dX+isH*sizeL isH*dX) RH 1 list(list("width" "float" step-30)))  ; "RO" ou R90
+;; (dbCreateParamInst cv res nil (list 0 0) "R0" 1 list(list("value" "string" "3k") list("R" "string" "4k") list("r" "string" "5k")))
+
+cv = dbOpenCellViewByType( "Ed" "regionSat" "schematic" "schematic" "w");; region 2 schematic to gm gds
+(dbCreateParamInst cv res nil (list 0 0) "R0" 1 list(list("r" "string" "5k")))
+(dbCreateParamInst cv Ibias nil (list 0.5 0) "R0" 1 list(list("idc" "string" "3k") list("R" "string" "4k") list("r" "string" "1u")))
+dbSave(cv) dbClose(cv)
+geOpen(?lib "Ed" ?cell "regionSat" ?view "schematic" ?mode "r")
+; dbReplaceParam(d_cellViewId t_name t_type g_value ) ;=> d_prop | nil
+
+
+procedure(singleList(aList) bList=nil foreach(elt aList unless(member(elt bList) bList = append(bList list(elt) )) ) bList)
+setof( x cv~>shapes~>objType x=="rect")  ;;<== sauvegarde les attributs
+setof( x cv~>shapes x~>objType=="rect")  ;;<== sauvegarde les pointeurs ==> mieux!
+wid = geGetWindowCellView()
+singleList(wid~>shapes~>objType)
+foreach(mapcar x singleList(wid~>shapes~>objType) concat(x "Count"))
+wid~>instances
+
+setof( x wid~>instances~>cellName x=="nmos4")
+setof( x wid~>instances x~>cellName=="pmos4")
+
+car(wid~>instances)~>??
+openResults("/data/ebecheto/Sim/buf_adaptivRes_sim/spectre")
+
+
+xT = 1.1;<== coefficient de translation en x
+yT = 1 ;<==  coefficient de translation en y
+; selectResult('tran)
+;; openResults("/data/ebecheto/Sim/buf_adaptivRes_sim/spectre/schematic")
+;; region 2 schematic to gm gds
+cv = dbOpenCellViewByType( "Ed" "regionSat" "schematic" "schematic" "w")
+res = dbOpenCellViewByType( "analogLib" "res" "symbol" "schematicSymbol" "r")
+Ibias = dbOpenCellViewByType( "analogLib" "idc" "symbol" "schematicSymbol" "r")
+foreach(mapcar x wid~>instances 
+	when( x~>cellName=="nmos4" 
+;;		printf("pv(%s %s ?result %s)\n" x~>name "region" "dcOpInfo-info") 
+    hierInstName=x~>baseName
+    when(!geGetHierMemInst(hiGetCurrentWindow())
+        hierInstName="" i=0
+        printf("Hierarchical Scope is :%s\n " caar(geGetHierMemInst(hiGetCurrentWindow()))~>cellView~>cellName)
+        foreach(mapcar hierNb geGetHierMemInst(hiGetCurrentWindow())
+        	hierName=car(hierNb)~>baseName
+        	printf("Level %d %L~>baseName:%L\n" i++ car(hierNb) hierName)
+        	if((hierInstName=="") then hierInstName=car(hierNb)~>baseName 
+        			      else hierInstName=sprintf(nil "%s.%s" hierInstName car(hierNb)~>baseName))
+        	when(!cadr(hierNb) hierInstName=sprintf(nil "%s<%d>" hierInstName cadr(hierNb)))
+        ) hierInstName
+    );when hierarchy
+		when( pv( hierName "region" ?result "dcOpInfo-info")==2 printf("%s Saturated\n" hierName))
+
+;(dbCreateParamInst cv res nil (list 0 0) "R0" 1 list(list("r" "string" "5k")))
+;(dbCreateParamInst cv Ibias nil (list 0.5 0) "R0" 1 list(list("idc" "string" "3k")))
+; dbReplaceParam(d_cellViewId t_name t_type g_value ) ;=> d_prop | nil
+
+
+	);when nmos4
+); foreach
+dbSave(cv) dbClose(cv)
+geOpen(?lib "Ed" ?cell "regionSat" ?view "schematic" ?mode "r")
+
+wid~>prop~>??
+wid~>?
+wid~>instanceMasters~>??
+wid~>instHeader~>??
+
+;; foreach(mapcar hierNb geGetHierMemInst(hiGetCurrentWindow()) printf("%s<%d>" car(hierNb)~>baseName cadr(hierNb)))
+caar(geGetHierMemInst(hiGetCurrentWindow()))
+when(!geGetHierMemInst(hiGetCurrentWindow())
+hierInstName="" i=0
+printf("Hierarchical Scope is :%s\n " caar(geGetHierMemInst(hiGetCurrentWindow()))~>cellView~>cellName)
+foreach(mapcar hierNb geGetHierMemInst(hiGetCurrentWindow())
+	hierName=car(hierNb)~>baseName
+	printf("Level %d %L~>baseName:%L\n" i++ car(hierNb) hierName)
+	if((hierInstName=="") then hierInstName=car(hierNb)~>baseName 
+			      else hierInstName=sprintf(nil "%s.%s" hierInstName car(hierNb)~>baseName))
+	when(!cadr(hierNb) hierInstName=sprintf(nil "%s<%d>" hierInstName cadr(hierNb)))
+) hierInstName
+) ;when hierarchy descend edit/read
+
+simulator('spectre)

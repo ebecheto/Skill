@@ -1,0 +1,13 @@
+;;TODO : try something like dbTransformPoint(epinBox RH 1) ;transform=list(inst~>xy orient inst~>mag)
+(setq dX dX+step)  ; <== incrémente point car RL flipped et next RH incrémenté
+;; INSERTION PAD ROW1 ;;
+(dbCreateInst cv (dbOpenCellViewByType caddr(cListH) cadr(cListH) lay) nil (list isL*dX+isH*sizeL isH*dX) RH)	;ie. "PAD_IO" "RO" ou R90
+when((RH=="R90") epinBox = list(-y0:x0 -y1:x1) etextBox = list(y0:x0 y1:x1) )
+when((RH=="R0")  epinBox = list(x0:y0 x1:y1)   etextBox = list(x0:-y0 x1:-y1) )
+refpBox=foreach( mapcar x epinBox   rodAddPoints(x (list isL*dX+isH*sizeL isH*dX))) ;; cgt de referenciel, suivant Origin du PAD
+reftBox=foreach( mapcar x etextBox  rodAddPoints(x (list isL*dX+isH*sizeL isH*dX))) ;; cgt de referenciel, suivant Origin du PAD
+leCreatePin(  cv pinLay "rectangle" refpBox car(cListH) "inputOutput" list("left" "right") )
+dbCreateLabel(cv pinLay  centerBox(refpBox) car(cListH) "centerCenter" "R0" "roman" 3)
+dbCreateLabel(cv "text"  centerBox(reftBox) car(cListH) "centerRight" sprintf(nil "R%d" 90*(norient+1)) "stick" 40)
+
+

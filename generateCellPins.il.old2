@@ -1,0 +1,41 @@
+;; copyleft ebecheto
+ineed('(getInstTermPointLPP createPinLPP textDisplay2label metalPin2pinDrawing bus2flat bus2list lay2schName) )
+
+inst=css()
+cv=inst~>cellView ;<== layout cellview
+cvs=dbOpenCellViewByType(cv~>libName cv~>cellName "schematic")
+
+inst~>name;=> "|MULT(0)"
+sname=lay2schName(inst~>name);=> "MULT<0>"
+baseName=car(parseString(inst~>name "|()"));=> "MULT"
+; sinst=car(setof(x cvs~>instances x~>name==sname));=> nil <== because instname is MULT<0:3>
+sinst=car(setof(x cvs~>instances x~>baseName==baseName));<= OKI MULT==MULT event for <:>
+;; sinst~>instTerms~>??
+;; sinst~>instTerms~>net~>??
+;; schi=cadr(sinst~>instTerms)
+
+mapTable=schInst2mapTable(sinst)
+
+lppi=getInstTermPointLPP(inst)
+; mat=car( mapTable)
+;=> ("IN<0>" "|MULT(0)" "dedans<0>" "inputOutput")
+foreach(mat mapTable
+when(nth(1 mat)==inst~>name
+pn=nth(2 mat);=> "dedans<0>"
+apn=assoc(pn lppi)
+;=> ("dedans<0>" (-13.57 -3.6475) ("METAL1" "pin") ((-13.685 -4.005) (-13.455 -3.29)) db:0x2e6ce69e)
+bBox=nth(3 apn) lpp=nth(2 apn); dir=nth(4 apn)~>pin~>term~>direction
+sigName=nth(0 mat)
+dir=nth(3 mat);=> "inputOutput"
+printf("createPinLPP%L\n" list(sigName bBox lpp dir))
+unless(bBox_lpp_check(lpp bBox cv) ; printf("no pins here. OK?!")
+if(bBox&&lpp then npin=createPinLPP(sigName bBox lpp dir) else printf("NO LPP or bBox for:%L\n" list(sigName bBox lpp dir)))
+)))
+
+
+;______________________________________________________________________________
+defun(generateCellPins (@optional (cv t)(only1 t)(labelPin t))
+let( (cvs  its flatBus noBus flats sig dir ins pn apn iname)
+when(cv==t cv=geGetWindowCellView())
+cvs=dbOpenCellViewByType(cv~>libName cv~>cellName "schematic")
+unless(cvs printf("Hey dude, where is your schematic ? %L\n" list(cv~>libName cv~>cellName )))

@@ -1,0 +1,24 @@
+procedure(createBox( l_pins @optional (IO "PAD_IO") (GND "PAD_GND") (PWR "PAD_ALIM") (inter "PAD_inter0") (corner "PAD_capa") (library "PAD_cell"))
+let( (nPad nMiss cList rList sx sy)  ; nb of pads, missingPads, currentListElement,  remainingList, step in x, step in y
+(setq lay "layout")
+printf("**** : %L\n" l_pins)
+nPad = floor(length(l_pins)/4.0)
+printf("lllll : %L\n" l_pins)
+when( length(l_pins)/4 != length(l_pins)/4.0 
+nPad = nPad+1
+nMiss = nPad*4 - length(l_pins)
+for( i 0 nMiss-1  l_pins=append( l_pins list(list(inter inter))))
+); when
+rList = foreach( mapcar x l_pins if(!listp(x) then append(list(x) list("PAD_IO")) else x))
+
+
+l_pins
+);let
+);proc
+
+createBox( '(
+"in0" ("in1" "PAD_IO") ("in2" "PAD_IO") ("in3" "PAD_IO") 
+("gnd!" "PAD_GND" )("gnd!" "PAD_GND" )("gnd!" "PAD_GND" )("gnd!" "PAD_GND" ) 
+("out0" "PAD_IO") ("out1" "PAD_IO") ("out2" "PAD_IO") ("out3" "PAD_IO")  
+("vdd!" "PAD_ALIM" )("vdd!" "PAD_ALIM" )
+))

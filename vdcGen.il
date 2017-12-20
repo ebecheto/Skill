@@ -57,3 +57,12 @@ printf("vdcGen(\"ZC\" t 1 '(0 5) t 3.3 0)\n")
 
 ; ineed('abBinaryStrToInt)
 ; abIntToBinaryStr(11 4);=>"1011"
+
+
+;; study cdfgData=(cdfGetInstCDF css())~>parameters~>value
+
+;; foreach(mapcar p (cdfGetInstCDF css())~>parameters list(p~>name p~>value))
+;; ; a=setof(p (cdfGetInstCDF css())~>parameters when(p~>value!="" list(p~>name p~>value)))
+;; params=foreach(mapcar p (cdfGetInstCDF css())~>parameters when(p~>value!="" list(p~>name p~>value)))
+;; qpar=setof(p params p)
+;; assoc("t3" qpar) ;=> ("t3" "T0+RT")

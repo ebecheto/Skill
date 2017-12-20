@@ -1,0 +1,515 @@
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+
+sweep = swapComment                                    
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           0                                              0                                              0                                              
+27                                             0                                              0                                              0                                              
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = swapComment                                    
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           0                                              0                                              0                                              
+27                                             0                                              0                                              0                                              
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = swapComment                                    
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           0                                              0                                              0                                              
+27                                             0                                              0                                              0                                              
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = swapComment                                    
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             0                                              0                                              0                                              
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsub_ot                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsub_ot                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsub_ot                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsub_ot                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgb_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgb_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vds_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vds_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vds_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vds_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgs_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgs_ot                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgs_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -1                                             -1                                             -1                                             
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgs_ot                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -1                                             -1                                             -1                                             
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmin                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               1.725                                          1.725                                          1.725                                      
+27                                                 2.081                                          2.081                                          2.081                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmin                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               1.725                                          1.725                                          1.725                                      
+27                                                 2.081                                          2.081                                          2.081                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmin                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               1.543                                          1.543                                          1.543                                      
+27                                                 1.899                                          1.899                                          1.899                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmin                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 1.899                                          1.899                                          1.899                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmin                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                               3.61                                           3.61                                           3.61                                       
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmin                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                 3.61                                           3.61                                           3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmax                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -4.285                                         -4.285                                         -4.285                                      
+27                                                -3.929                                         -3.929                                         -3.929                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmax                                      
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -4.285                                         -4.285                                         -4.285                                      
+27                                                -3.929                                         -3.929                                         -3.929                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmax                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -4.467                                         -4.467                                         -4.467                                      
+27                                                -4.111                                         -4.111                                         -4.111                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vbpsubmax                                      
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                -4.111                                         -4.111                                         -4.111                                      
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vsbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                           -500m                                          -500m                                          -500m                                          
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                             -500m                                          -500m                                          -500m                                          
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgbmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vdsmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capwp,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmax                                         
+modelFiles = cmos53.scs:cmoswp,res.scs:restm,cap.scs:capws,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm    
+Cdet                                           0                                              100p                                           250p                                           
+-168                                              -3.61                                          -3.61                                          -3.61                                       
+27                                                -3.61                                          -3.61                                          -3.61                                       
+
+temperature                                    OP("I0.I1.csa\\<0\\>.I34.MP2.soac_m1" "??")
+sweep = vgsmax                                         
+modelFiles = cmos53.scs:cmostm,res.scs:restm,cap.scs:captm,bip.scs:biptm,ind.scs:indtm,esddiode.scs:esddiodetm,noise.LARZIC_2014.scs    
+Cdet                                           0                                              100p                                           250p                                           
+27                                                -3.61                                          -3.61                                          -3.61                                       
+

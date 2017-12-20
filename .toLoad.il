@@ -1,0 +1,6 @@
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/8_indepPWR") ?expr list("8_indepPWR" "8_indepPWR" ))
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/indep_PWR") ?expr list("indep_PWR" "indep_PWR" ))
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/8_equalVDDT1_noLoad") ?expr list("8_equalVDDT1_noLoad" "8_equalVDDT1_noLoad" ))
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/8_equalVDDT1_4inj") ?expr list("8_equalVDDT1_4inj" "8_equalVDDT1_4inj" ))
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/equal_VDD_T1") ?expr list("equal_VDD_T1" "equal_VDD_T1" ))
+ plot(VT("/OUT_1"  "/data/ebecheto/Sim/afs_T2K_V5/1_8CHen_sim_bounding/adexl/results/data/Interactive.20/psf/8_equalVDDT1") ?expr list("8_equalVDDT1" "8_equalVDDT1" ))

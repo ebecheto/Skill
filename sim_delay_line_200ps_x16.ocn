@@ -1,0 +1,182 @@
+;load "~/time_stamp/ocn_dll_mem/sim_delay_line_200ps_x16.ocn"
+
+
+ocnWaveformTool( 'wavescan )
+simulator( 'spectre )
+design(	 "/home/vallerand/time_stamp/Sim/sim_delay_line_200ps_x16/spectre/schematic/netlist/netlist")
+resultsDir( "/home/vallerand/time_stamp/Sim/sim_delay_line_200ps_x16/spectre/schematic" )
+modelFile( 
+    '("/cds/AMS3.70/spectre/c35/mcparams.scs" "")
+    '("/cds/AMS3.70/spectre/c35/cmos53.scs" "cmostm")
+    '("/cds/AMS3.70/spectre/c35/res.scs" "restm")
+    '("/cds/AMS3.70/spectre/c35/cap.scs" "captm")
+    '("/cds/AMS3.70/spectre/c35/bip.scs" "biptm")
+    '("/cds/AMS3.70/spectre/c35/ind.scs" "indtm")
+)
+analysis('tran ?stop "15n"  )
+analysis('dc ?saveOppoint t  )
+desVar(	  "wp_I" 15u	)
+desVar(	  "wn_inv2" 8u	)
+desVar(	  "wn_inv1" 8u	)
+desVar(	  "wn_I" 5u	)
+desVar(	  "coef" 1	)
+desVar(	  "c_np2" 2	)
+desVar(	  "c_np" 2	)
+desVar(	  "wp" 6.3u	)
+desVar(	  "wn" 1u	)
+desVar(	  "val_cap_i" 0	)
+desVar(	  "val_cap" 20f	)
+desVar(	  "v_3cells" 2	)
+desVar(	  "v_2" 2.325	)
+desVar(	  "r_load" 100k	)
+desVar(	  "tw" 1.25n	)
+desVar(	  "tt" 2.5n	)
+desVar(	  "l" 0	)
+temp( 27 ) 
+run()
+selectResult( 'dc )
+plot(getData("/out_cell_buf<0>") getData("/out_cell_buf<1>") getData("/out_cell_buf<2>") getData("/out_cell_buf<3>") getData("/out_cell_buf<4>") getData("/out_cell_buf<5>") getData("/out_cell_buf<6>") getData("/out_cell_buf<7>") getData("/out_cell_buf<8>") getData("/out_cell_buf<9>") getData("/out_cell_buf<10>") getData("/out_cell_buf<11>") getData("/out_cell_buf<12>") getData("/out_cell_buf<13>") getData("/out_cell_buf<14>") getData("/out_cell_buf<15>") getData("/ck_buf") )
+selectResult( 'tran )
+plot(getData("/out_cell_buf<0>") getData("/out_cell_buf<1>") getData("/out_cell_buf<2>") getData("/out_cell_buf<3>") getData("/out_cell_buf<4>") getData("/out_cell_buf<5>") getData("/out_cell_buf<6>") getData("/out_cell_buf<7>") getData("/out_cell_buf<8>") getData("/out_cell_buf<9>") getData("/out_cell_buf<10>") getData("/out_cell_buf<11>") getData("/out_cell_buf<12>") getData("/out_cell_buf<13>") getData("/out_cell_buf<14>") getData("/out_cell_buf<15>") getData("/ck_buf") )
+
+
+
+
+
+tab_n = nil
+tab_delay = nil
+tab_tab_delay = nil
+ 
+n=1
+while(n<20
+        tab_n=cons(n tab_n)
+        n=n+1
+)
+ 
+ 
+tab_n= reverse(tab_n)
+;***************************************************************
+chaine = nil
+ 
+for(i 0 15
+                q = outfile("conv.out")
+                fprintf(q "/out_cell_buf<%L>" i)
+                close(q)
+ 
+                q = infile("conv.out")
+                gets(a q)
+                chaine = cons(a chaine)
+		
+                close(q)
+ 
+)
+  
+
+chaine = reverse(chaine)
+ 
+ 
+tab_tab_delay = nil
+ 
+ 
+ 
+;       boucle du nombre de coups de clock
+ 
+ 
+        for(cycle 1 3
+ 
+tab_delay = nil
+ 
+nb=0
+tab_tm =nil
+;***************************
+;**   calcul du delay     **
+;***************************
+        for(i 0 14
+ 
+                sig1 = nth(i chaine)
+ 
+                if((i<15)
+ 
+                        then  sig2 = nth(i+1 chaine)
+                        )
+ 
+                if((i==15)
+                        then  sig2 = nth(0 chaine)
+                        nb=  1
+                        )
+                           
+ 
+ 
+                printf("sig1= %s /t sig2= %s /t  i= %L /n" sig1 sig2 i )
+ 
+                delay = delay(VT(sig1) 1.65 cycle  "rising" VT(sig2) 1.65 (cycle+nb) "rising")
+                tab_delay = cons(delay tab_delay)
+                tm = delay(VT(sig1) 0.33 cycle "rising" VT(sig1) 2.97 cycle "rising")
+                tab_tm = cons(tm tab_tm)
+        )
+ 
+ 
+ 
+tab_tab_delay = cons(tab_delay tab_tab_delay)
+ 
+ 
+        )
+ 
+ 
+ 
+tab_delay_cp = nil
+tab_cycle = nil
+ 
+ 
+        for(cycle 1 70
+ 
+ 
+ 
+;delay = delay(VT("/I28/clk_0") 1.65 17 "rising" VT("/I28/out_cp<15>") 1.65 16 "rising")
+ 
+ 
+ 
+delay = delay( VT("/I28/out_cp<15>") 1.65 cycle "rising" VT("/I28/clk_0") 1.65 (cycle+1) "rising")
+ 
+tab_cycle = cons(cycle tab_cycle)
+ 
+tab_delay_cp = cons(delay tab_delay_cp)
+ 
+ 
+)
+ 
+tab_tab_delay_cp = nil
+tab_tab_delay_cp = cons( tab_delay_cp tab_tab_delay_cp)
+nom3 =list("cp delay"  )
+ 
+ 
+ 
+                windowID3 = awvCreatePlotWindow()
+                ;awvPlotList(windowID3 tab_tab_delay tab_tab_delay  ?subwindow 1 )
+ 
+                awvPlotList(windowID3 tab_tab_delay_cp tab_cycle  ?subwindow 1 ?expr
+                nom3)
+ 
+ 
+ 
+;delay = delay(VT("/I26/delay<0>") 1.65 15 "rising" VT("/I26/delay<1>") 1.65 15 "rising")
+ 
+ 
+ 
+ 
+ 
+ 
+;       delay = delay(VT(out) 1.65 (1+nb) "rising" VT(sig2) 1.65 1 "rising")
+;       delay = delay(VT("/out_dll<0>") 1.65 35 "rising" VT("/out_dll<15>") 1.65 34 "rising")
+ 
+ 
+ 
+ 
+                q = outfile("save_lay_cp3.out")
+                fprintf(q "%L %L " tab_tab_delay tab_tm)
+                close(q)
+  
+                q = infile("save_data1.out")
+                gets(a q)
+                chaine = cons(a chaine)
+                close(q)

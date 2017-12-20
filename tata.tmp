@@ -1,0 +1,30 @@
+
+# Set No. 1 
+
+(temp = -150, Qin = -300e-15)
+Cdet              ymax((ENC_PA_1 = ((sqrt(iinteg((getData("out" ?result "PA_1-noise")**2))) * -1 * VAR("Qin")) / 1.6e-19 / ((((VAR("Qin") - abs(VAR("Qin"))) / (2 * VAR("Qin"))) * (ymax(VT("/PA_1")) - VDC("/PA_1"))) - (((VAR("Qin") + abs(VAR("Qin"))) / (2 * VAR("Qin"))) * (VDC("/PA_1") - ymin(VT("/PA_1"))))))))
+    0               378.774         
+   33.3333e-12      493.385         
+   66.6667e-12      611.55          
+  100e-12           720.555         
+  133.333e-12       820.931         
+  166.667e-12       914.333         
+  200e-12             1.0022e3      
+  233.333e-12         1.0857e3      
+  266.667e-12         1.1655e3      
+  300e-12             1.2423e3      
+
+# Set No. 2 
+(temp = 30, Qin = -300e-15)
+Cdet              ymax((ENC_PA_1 = ((sqrt(iinteg((getData("out" ?result "PA_1-noise")**2))) * -1 * VAR("Qin")) / 1.6e-19 / ((((VAR("Qin") - abs(VAR("Qin"))) / (2 * VAR("Qin"))) * (ymax(VT("/PA_1")) - VDC("/PA_1"))) - (((VAR("Qin") + abs(VAR("Qin"))) / (2 * VAR("Qin"))) * (VDC("/PA_1") - ymin(VT("/PA_1"))))))))
+    0               592.232         
+   33.3333e-12      821.533         
+   66.6667e-12        1.0495e3      
+  100e-12             1.2570e3      
+  133.333e-12         1.4473e3      
+  166.667e-12         1.6243e3      
+  200e-12             1.7910e3      
+  233.333e-12         1.9497e3      
+  266.667e-12         2.1021e3      
+  300e-12             2.2490e3      
+

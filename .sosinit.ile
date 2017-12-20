@@ -1,0 +1,5 @@
+sosDisplayAttributesTabG = makeTable( 'sosDisplayAttributesTabG nil )
+sosDisplayAttributesColOrderG = list(  )
+sosProjectLibInfoPromptIgnoreG = t
+MLibSelStateG = 0
+MLibCurListG = list( "skill_TUTORIAL"  )

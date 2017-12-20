@@ -1,0 +1,59 @@
+
+Device                                               Param            Noise Contribution    % Of Total
+
+/I0/re77500                                          rn               9.6955e-15            9.04      
+/I0/rg26042                                          rn               2.91063e-15           2.71      
+/I0/I1|csa(0)|I34|R11/R1                             thermal_noise    2.50458e-15           2.33      
+/I0/I1|csa(0)|I34|I1|I1|MP16                         id               2.48199e-15           2.31      
+/I0/I1|csa(0)|I34|I1|I11|R20/R1                      thermal_noise    1.79747e-15           1.68      
+/I0/I1|csa(0)|I34|I1|I11|R20/R2                      thermal_noise    1.79747e-15           1.68      
+/I0/I1|csa(0)|I34|I1|I11|R19/R1                      thermal_noise    1.67602e-15           1.56      
+/I0/I1|csa(0)|I34|I1|I11|R19/R2                      thermal_noise    1.67602e-15           1.56      
+/I20/R0                                              rn               1.64436e-15           1.53      
+/I0/I1|csa(0)|I34|R11/R2                             thermal_noise    1.6385e-15            1.53      
+/I0/I1|csa(0)|I34|I1|I11|I4|MP0                      id               1.34523e-15           1.25      
+/I0/I1|csa(0)|I34|I1|R10/R2                          thermal_noise    1.23788e-15           1.15      
+/I0/I1|csa(0)|I34|I1|R10/R1                          thermal_noise    1.23788e-15           1.15      
+/I0/I1|csa(0)|I34|I1|I11|I4|MP17                     id               1.11125e-15           1.04      
+/I0/rg44148                                          rn               5.13714e-16           0.48      
+/I0/rg44135                                          rn               3.99279e-16           0.37      
+/I0/I1|csa(7)|I0|I52|MN2                             fn               3.81085e-16           0.36      
+/I0/I1|csa(6)|I0|I52|MN2                             fn               3.80865e-16           0.36      
+/I0/I1|csa(0)|I0|I52|MN2                             fn               3.80828e-16           0.35      
+/I0/I1|csa(1)|I0|I52|MN2                             fn               3.80579e-16           0.35      
+/I0/I1|csa(5)|I0|I52|MN2                             fn               3.80447e-16           0.35      
+/I0/I1|csa(2)|I0|I52|MN2                             fn               3.80311e-16           0.35      
+/I0/I1|csa(3)|I0|I52|MN2                             fn               3.8017e-16            0.35      
+/I0/I1|csa(4)|I0|I52|MN2                             fn               3.79843e-16           0.35      
+/I0/I1|csa(9)|I0|I52|MN2                             fn               3.73154e-16           0.35      
+/I0/I1|csa(10)|I0|I52|MN2                            fn               3.72205e-16           0.35      
+/I0/I1|csa(11)|I0|I52|MN2                            fn               3.71333e-16           0.35      
+/I0/I1|csa(12)|I0|I52|MN2                            fn               3.70491e-16           0.35      
+/I0/I1|csa(13)|I0|I52|MN2                            fn               3.70185e-16           0.35      
+/I0/I1|csa(14)|I0|I52|MN2                            fn               3.69925e-16           0.34      
+/I0/I1|csa(15)|I0|I52|MN2                            fn               3.69701e-16           0.34      
+/I0/I1|csa(8)|I0|I52|MN2                             fn               3.6948e-16            0.34      
+/I0/I1|csa(8)|I0|I50|MN0                             fn               2.90639e-16           0.27      
+/I0/re243543                                         rn               2.86454e-16           0.27      
+/I0/re77573                                          rn               2.75644e-16           0.26      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(1)|MN_one            id               2.39725e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(1)|MN_one_2__rcx     id               2.39517e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(1)|MN_one_1__rcx     id               2.39517e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(9)|MN_one            id               2.39504e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(9)|MN_one_1__rcx     id               2.39504e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(17)|MN_one           id               2.39498e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(9)|MN_one_2__rcx     id               2.39498e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(17)|MN_one_2__rcx    id               2.39374e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(17)|MN_one_1__rcx    id               2.39372e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(2)|MN_one            id               2.38776e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(2)|MN_one_2__rcx     id               2.38566e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(2)|MN_one_1__rcx     id               2.38566e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(10)|MN_one_1__rcx    id               2.38491e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(10)|MN_one           id               2.38491e-16           0.22      
+/I0/I1|csa(0)|I34|I1|I1|MN4|MN0(10)|MN_one_2__rcx    id               2.38475e-16           0.22      
+
+Spot Noise Summary (in V^2/Hz) at 400K Hz Sorted By Noise Contributors
+Total Summarized Noise = 1.07279e-13
+Total Input Referred Noise = 8.2761e-26
+The above noise summary info is for noise data
+

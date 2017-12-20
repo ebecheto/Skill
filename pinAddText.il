@@ -103,7 +103,7 @@ disp~>isNameVisible=nil ;makes the 'name=' invisible
 disp~>parent=pin~>fig    ;makes the text moving with the rect pin
 ))
 
-printf("createInstPins();<= cree les pins de l'instance layout selectionnee\n")
+printf("createInstPins();<= cree les pins de l'instance layout selectionnee. No LVS proof\n")
 printf("createInstPinsch();<= cree les pins de l'instance schematic selectionnee pr IBM c cool!\n")
 
 (setq cv geGetWindowCellView())

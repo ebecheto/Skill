@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.37 in inline-css mode. -->
+<html>
+  <head>
+    <title>shell.sh</title>
+  </head>
+  <body style="color: #000000; background-color: #ffffff; font-weight: bold;">
+    <pre>
+<span style="color: #ffff00; font-weight: bold;">list</span>=(0.5 0.6 0.7 0.8 0.9); <span style="color: #ff0000; font-weight: bold;">echo</span> ${<span style="color: #ffff00; font-weight: bold;">list</span>[@]}; <span style="color: #ff0000; font-weight: bold;">echo</span> ${<span style="color: #ffff00; font-weight: bold;">list</span>[2]}
+
+<span style="color: #ffff00; font-weight: bold;">list</span>=(1053 1051 1047 1041 1039 1033 1029 1027 1021 1019 1015 1009 1007 1001 997 995 991 985 981 979 973 971 967 961 959 953 949 947 941 939 935 929 925 923 919 913 911 905 901 899 895 889 885 883 877 875 871 865 861 859 855 849 847 841 837 835 829 827 823 817 815 809 805 803)
+
+<span style="color: #ff00ff; font-weight: bold;">for</span> i<span style="color: #ff00ff; font-weight: bold;"> in</span> {0..3}; <span style="color: #ff00ff; font-weight: bold;">do</span>
+    <span style="color: #ff0000; font-weight: bold;">eval</span> <span style="color: #00ff00; font-weight: bold;">"declare -a a$i=( $(for j in {0..4}; do echo 0; done) )"</span>
+<span style="color: #ff00ff; font-weight: bold;">done</span>
+
+<span style="color: #ff00ff; font-weight: bold;">for</span> file<span style="color: #ff00ff; font-weight: bold;"> in</span> *.il;<span style="color: #ff00ff; font-weight: bold;">do if</span> grep -q <span style="color: #00ff00; font-weight: bold;">";; copyleft ebecheto"</span> $<span style="color: #ffff00; font-weight: bold;">file</span> ; <span style="color: #ff00ff; font-weight: bold;">then </span><span style="color: #ff0000; font-weight: bold;">echo</span> <span style="color: #00ff00; font-weight: bold;">"git add $file"</span>;<span style="color: #ff00ff; font-weight: bold;">fi</span>;donefor file<span style="color: #ff00ff; font-weight: bold;"> in</span> *.rtf;<span style="color: #ff00ff; font-weight: bold;">do</span> mv $<span style="color: #ffff00; font-weight: bold;">file</span> ${<span style="color: #ffff00; font-weight: bold;">file</span>%.rtf}.html;<span style="color: #ff00ff; font-weight: bold;">done</span>
+
+
+rm sum.txt
+<span style="color: #ff00ff; font-weight: bold;">for</span> file<span style="color: #ff00ff; font-weight: bold;"> in</span> *.il;<span style="color: #ff00ff; font-weight: bold;">do if</span> grep -q <span style="color: #00ff00; font-weight: bold;">";; copyleft ebecheto"</span> $<span style="color: #ffff00; font-weight: bold;">file</span> ; <span style="color: #ff00ff; font-weight: bold;">then</span> cat $<span style="color: #ffff00; font-weight: bold;">file</span> |sed <span style="color: #00ff00; font-weight: bold;">'/^;/d;/^$/d'</span> |wc -l&gt;&gt;sum.txt;<span style="color: #ff00ff; font-weight: bold;">fi</span>;<span style="color: #ff00ff; font-weight: bold;">done</span>
+sum sum.txt <span style="color: #ff0000; font-weight: bold; font-style: italic;">#</span><span style="color: #ff0000; font-weight: bold; font-style: italic;">==&gt; 20529
+</span>
+</pre>
+  </body>
+</html>

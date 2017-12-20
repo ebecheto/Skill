@@ -1,0 +1,45 @@
+\i pp(gplinFit)
+\o procedure( gplinFit(wave)
+\o     let((dname fp fo i out
+\o 	    fname daname nextLine
+\o 	) 
+\o 	(dname = sprintf(nil "%s/%s" 
+\o 		pwd() "data.dat"
+\o 	    )) 
+\o 	ocnPrint(wave ?output dname ?format "engineering") 
+\o 	(fp = infile(dname)) 
+\o 	(fo = outfile((daname = strcat(dname "a"))))
+\o 	(i = 0) 
+\o 	while( 
+\o 	    (nextLine = _gets(fp))
+\o 	    when((i <= 2) 
+\o 		fprintf(fo "# ")
+\o 	    )
+\o 	    fprintf(fo nextLine)
+\o 	    i++
+\o 	) 
+\o 	close(fo) 
+\o 	(out = outfile((fname = sprintf(nil "%s/%s" 
+\o 			pwd() "gplinFit.gp"
+\o 		    ))
+\o 	    )) 
+\o 	fprintf(out "f(x) = a*x + b\n")
+\o 	fprintf(out "a=%g\n" 
+\o 	    average(deriv(wave))
+\o 	) 
+\o 	fprintf(out "b=%g\n" 
+\o 	    value(wave 0)
+\o 	) 
+\o 	fprintf(out "fit f(x) '%s' u 1:2  via a, b\n" daname) 
+\o 	fprintf(out "plot '%s', f(x)\n" daname) 
+\o 	fprintf(out "set ytics format '%s.1s%sc'\n" "%" "%")
+\o 	fprintf(out "set xtics format '%s.1s%sc'\n" "%" "%") 
+\o 	fprintf(out "set title titre=sprintf('lin fit f(x)=%s.2g*x+%s.2f', a, b)\n" "%" "%") 
+\o 	fprintf(out "replot\n") 
+\o 	fprintf(out "pr titre, ' [%s]' \n" daname) 
+\o 	fprintf(out "pause(1)\n" daname)
+\o 	close(out) 
+\o 	printf("gnuplot %s --persist &" fname) 
+\o 	system(sprintf(nil "gnuplot %s --persist &" fname))
+\o     )
+\o )

@@ -1,0 +1,1 @@
+shapeId = schCreateSymbolShape( cvSym "rectangle" "outline" list(X0:Y0 X1:Y1) )

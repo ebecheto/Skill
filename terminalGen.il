@@ -53,6 +53,7 @@ printf("terminalGen(\"IN\" 32 1 nil 0.25 t t) ;=> Generate IN<1>->IN<32> pins wi
 printf("terminalGen('%L 1 1 '%L t nil nil t nil t) ;=> ok\n" '("pin1" "pin2" "pin3") '("ipin" "ipin"))
 printf("terminalGen (@optional (pinName t) (N2 20) (N1 1) (io t) (Ys t) (lbl t) (bus nil) (cv t)(XY nil)(Xs t))\n")
 printf("ineed('netMakeBus)")
+printf("terminalGen('(\"ONE\" \"TWO\" \"THREE\") 1 1 t 0.25 )\n")
 printf("terminalGen(netMakeBus(\"Q\" 5 t \"_\") 1 1 t 0.25 )\n")
 printf("terminalGen(netMakeBus(\"Q\" 5 t \"_\"))\n")
 printf("terminalGen(netMakeBus(\"P\" 64 t \"_\") 1 1 t 0.125)\n")

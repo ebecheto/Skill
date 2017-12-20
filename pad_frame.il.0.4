@@ -1,0 +1,73 @@
+/**************************************************
+* Authors : Edouard BECETHOILLE               	  *
+*			IPNL (IN2P3-CNRS / UCBL ) *
+* Version : 0.4   October 2008                    *
+* History :                                       *
+***************************************************/
+
+
+;procedure( placePadFrame( @optional nbPad (library "PAD_cell") ) 
+procedure( placePadFrame( @optional nbPad (library "PAD_cell") ) 
+(if (null nbPad) then
+(setq nbPad (enterNumber ?prompts '("Please enter the number of pads on a side"))))
+
+(setq startx 0) (setq starty 0)
+(setq spaceL 50) (setq spaceH 5) (setq sL spaceL-30) (setq sH spaceH-30)  ; spacerOffset
+(setq padLength 100) (setq inter "PAD_inter0") (setq lay "layout")
+(setq xpointh 271.95)  ; motif capa length to increment   ; (setq xpointh 291)
+(setq ypointh 271.95)  ; motif capa heigh		  ; (setq ypointh 201)
+(setq xpointv 271.95)  ; motif capa length		  ; (setq xpointv 201)
+(setq ypointv 271.95)  ; motif capa heigh  to increment	  ; (setq ypointv 291)
+(setq sizeL 2*ypointh+nbPad*padLength+(nbPad+1)*spaceL)   ; length gives the X size
+(setq sizeH 2*ypointh+nbPad*padLength+(nbPad+1)*spaceH)   ; heigth gives the Y size
+
+(for i 1 nbPad
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list xpointh starty) "R0" 1 list(list("width" "float" sL)))
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list xpointh+spaceL sizeH) "R180" 1 list(list("width" "float" sL)))
+(setq xpointh xpointh+spaceL) ; <== incrémente xpoint
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_IO" lay) nil (list xpointh starty) "R0")
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_IO" lay) nil (list xpointh+padLength sizeH) "R180")
+(setq xpointh xpointh+padLength) ; <== incrémente xpoint
+)
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list xpointh starty) "R0" 1 list(list("width" "float" sL)))
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list xpointh+spaceL sizeH) "R180" 1 list(list("width" "float" sL)))
+
+(setq spaceL spaceH)
+(for i 1 nbPad
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list startx ypointv+spaceL) "R270" 1 list(list("width" "float" sH)))
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list sizeL ypointv) "R90" 1 list(list("width" "float" sH)))
+(setq ypointv ypointv+spaceL) ; <== incrémente ypoint
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_IO" lay) nil (list startx ypointv+padLength) "R270")
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_IO" lay) nil (list sizeL ypointv) "R90")
+(setq ypointv ypointv+padLength) ; <== incrémente ypoint
+)
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list startx ypointv+spaceL) "R270" 1 list(list("width" "float" sH)))
+(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library inter lay) nil (list sizeL ypointv) "R90" 1 list(list("width" "float" sH)))
+
+
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_capa" lay) nil (list startx starty) "R0")
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_capa" lay) nil (list sizeL starty) "R90")
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_capa" lay) nil (list sizeL sizeH) "R180")
+(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_capa" lay) nil (list startx sizeH) "R270")
+printf("sizeL = %L _ sizeH = %L " sizeL sizeH)
+)
+placePadFrame 3
+
+leCreateAutoPin( geGetWindowCellView()  list(10:10) "term1" "inputOutput" )
+;leCreatePin( geGetEditRep() "MET1" "rectangle" list(0:0 10:10) "term1" "inputOutput" list("left" "right") )
+
+pinBox = list(0:0 10:10)
+textBox = list(0:0 10:-10)
+name = "term1"
+pinLayer = list( "PIN" "metal1")
+leCreatePin(  geGetEditRep() pinLayer "rectangle" pinBox name "inputOutput" list("left" "right") )
+dbCreateLabel(geGetEditRep() pinLayer  centerBox(pinBox) name "centerCenter" "R0" "roman" 3)
+dbCreateLabel(geGetEditRep() "text"  centerBox(textBox) name "centerCenter" "R0" "stick" 3)
+
+peri=(dbCreateParamInst (getEditRep) (dbOpenCellViewByType library "PAD_inter" "layout") nil (list xpointh starty) "R0" 1 list(list("width" "float" -25.0)) )
+peri~>prop~>??
+setof(lpp peri lpp~>prop~>name=="width")
+
+
+
+peri=(dbCreateInst (getEditRep) (dbOpenCellViewByType library "PAD_inter" "layout") nil (list xpointh starty) "R0")

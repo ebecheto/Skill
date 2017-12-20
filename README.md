@@ -5,9 +5,9 @@ Some function where written in the beginning and so less 'clean'.
 1. in ~/.bashrc : export SKILLDIR=$HOME/Skill
 2. copy skillMode.el in ~/.emacs.d/
 3. add load("~/.emacs.d/skillMode.el") in ~/.emacs
-4. add load(strcat(getShellEnvVar("SKILLDIR") "/menu.il")) in your ~/.cdsinit_personal
+4. add loadi(strcat(getShellEnvVar("SKILLDIR") "/menu.il")) in your ~/.cdsinit_personal
 
-Since i created the funcion (file) named 'ineed' (ineed.il), I used the convention : one function, one file.
+Since i created the function (file) named 'ineed' (ineed.il), I used the convention : one function, one file.
 
 I still do not know how to handle package for skill function properly. Something like python 'import' philosophy would be nice.
 

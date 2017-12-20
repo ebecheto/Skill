@@ -1,3 +1,6 @@
 ;; copyleft ebecheto
 
-defun(bBoxHeight (bBox) cadadr(bBox)-cadar(bBox))
+defun(bBoxHeight (bBox) 
+cadadr(bBox)-cadar(bBox)
+)
+

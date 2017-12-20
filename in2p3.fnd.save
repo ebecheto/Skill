@@ -1,0 +1,30 @@
+; fichier d'aide sur les fonctions : help(maFonction) renvoie les commentaires ci-dessous
+;("functionName"
+;	"function syntax"
+;	"Abstract information")
+
+;help(centerAlignXY)
+("centerAlignXY"
+"centerAlignXY( 
+x_value 
+[ t_XorY ]
+[ l_selectedSetOfObjects ]
+) ==> t ;(copyleft)IN2P3"
+"centerAlignXY(2)
+centerAlignXY(2 \"X\")		; align with steepness 2
+centerAlignXY( 0.5 \"X\")  	; align with steepness 1/2
+centerAlignXY(1 \"Y\")		; align with steepness 1
+centerAlignXY(1 \"Y\" geGetSelectedSet())
+centerAlignXY(0) ; align horizontally"
+)
+
+;help(touche)
+("touche"
+"touche([x_offset][l_XorY][l_selectedSet])==> t (copyleft)IN2P3
+"
+"touche		 ; make the selected set to touch
+touche(10)	 ; make the selected set to touch with 10 spacing
+touche(20)
+touche(5 \"Y\")  ; vertical touching
+touche(10 \"Y\" geGetSelectedSet()); default"
+)

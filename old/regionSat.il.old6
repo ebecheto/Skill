@@ -1,0 +1,63 @@
+load("~/Skill/regionSat.il.proc.il")
+idWin=hiGetCurrentWindow()
+wid=idWin~>cellView
+
+;;openResults("/data/ebecheto/Sim/buf_adaptivRes_sim/spectre/schematic")
+openResults(idWin~>artistSimulationDataDir)
+
+x=car( wid~>instances )
+x=car(last( wid~>instances ));;<== pmos for sure is the schematic
+
+xS=0.5 yS=0 ;<== x et y space between gm et gds
+xT = 1.5;<== coefficient de translation en x
+yT = 1.2 ;<==  coefficient de translation en y
+yw=-0.375;<== line on the other side of the origin of res or idc
+
+;; region 2 schematic to gm gds
+res = dbOpenCellViewByType( "analogLib" "res" "symbol" "schematicSymbol" "r")
+Ibias = dbOpenCellViewByType( "analogLib" "idc" "symbol" "schematicSymbol" "r")
+
+cv = dbOpenCellViewByType( wid~>libName wid~>cellName "schematic_smallSig" "schematic" "w")
+foreach(mapcar x wid~>instances 
+	when( ( x~>cellName=="nmos4" || x~>cellName=="pmos4" )
+;;	when( pv( t_name "region" ?result "dcOpInfo-info")!=0
+;;		printf("pv(%s %s ?result %s)\n" x~>name "region" "dcOpInfo-info") 
+	t_name=strcat(getHierName() x~>baseName)
+	xc=car(x~>xy)*xT
+	yc=cadr(x~>xy)*yT
+	printf("\n %s is Saturated. Position:%L\n" t_name list(xc yc))
+Gate=car(setof(term x~>instTerms term~>name=="G"))   gNet=car(Gate~>net~>sigNames)
+Drain=car(setof(term x~>instTerms term~>name=="D"))  dNet=car(Drain~>net~>sigNames)
+Source=car(setof(term x~>instTerms term~>name=="S")) sNet=car(Source~>net~>sigNames)
+	printf("%L" list( gNet dNet sNet pv( t_name "gm" ?result "dcOpInfo-info") ))
+
+upNet=sNet
+downNet=dNet
+when( (x~>cellName=="nmos4") upNet=dNet downNet=sNet)
+	printf("%L" list( upNet downNet pv( t_name "gds" ?result "dcOpInfo-info") ))
+
+;;gds
+(dbCreateParamInst cv res strcat("R_" x~>baseName) (list xc yc) "R0" 1 list(list("r" "string" "5k")))
+when( pv( t_name "region" ?result "dcOpInfo-info")==2 
+;;gm
+(dbCreateParamInst cv Ibias strcat("I_" x~>baseName) (list xc+xS yc+yS) "R0" 1 list(list("idc" "string" "3k")))
+); when Saturated
+
+
+wireId=car(schCreateWire( cv "draw" "direct" list(xc+xS:yc+yS xc:yc) 0.0625 0.0625 0.0125  )); <== creat wire line
+wireBox=((lambda (arg) (append list(caar(arg)+caadr(arg)) list(cadar(arg)+ cadadr(arg)) )) list(centerBox(wireId~>bBox) list(0 0.05) ) )
+lbId=schCreateWireLabel( cv wireId wireBox upNet "lowerCenter" "R0" "fixed" 0.0625 nil ) 
+
+wireId=car(schCreateWire( cv "draw" "direct" list(xc+xS:yw+yc+yS xc:yw+yc) 0.0625 0.0625 0.0125  )); <== creat wire line
+wireBox=((lambda (arg) (append list(caar(arg)+caadr(arg)) list(cadar(arg)+ cadadr(arg)) )) list(centerBox(wireId~>bBox) list(0 -0.1) ) )
+lbId=schCreateWireLabel( cv wireId wireBox downNet "lowerCenter" "R0" "fixed" 0.0625 nil ) 
+
+;; ?? );when not bloked
+); when nmos4||pmos4 saturated
+); foreach
+dbSave(cv) 
+geOpen(?lib cv~>libName ?cell cv~>cellName ?view "schematic_smallSig" ?mode "r")
+;; dbClose(cv)
+simulator('spectre)
+
+;; load("~/Skill/regionSat.il")

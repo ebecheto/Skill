@@ -14,6 +14,7 @@ when(not(rexMatchList(skillDir getSkillPath())) setSkillPath(cons(skillDir getSk
 load("padRing.proc.il")
 load("padRing.sch.il")
 
+;<== for backward compatibility
 defun(padRing (@rest rest) apply('createPadRing rest))
 
 procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()~>libName) (cellname getEditRep()~>cellName)  @rest rest)
@@ -241,8 +242,13 @@ dbCreateLabel(cv car(_plp)~>lpp dbTransformPoint(car(_plp)~>xy d_inst~>transform
 
 ;; lor layout_p might be useless
 when(pBox=getMaxPointsLayer(inst "PAD" ) pBox=dbTransformBBox(pBox d_inst~>transform)           ; for additionnal
-leCreatePin(  cvp '("PIN" "pad") "rectangle" pBox termName "inputOutput" list("left" "right") ) ; pin for TOP cell
-dbCreateLabel(cvp '("PIN" "pad") centerBox(pBox)  termName "centerCenter" "R0" "roman" 10))     ;
+lpppad1='("PIN" "pad")
+when(member(lpppad1 leGetValidLayerList(techGetTechFile(geGetWindowCellView()))) lpppad=lpppad1)
+lpppad2='("AP" "pin")
+when(member(lpppad2 leGetValidLayerList(techGetTechFile(geGetWindowCellView()))) lpppad=lpppad2)
+
+leCreatePin(  cvp lpppad "rectangle" pBox termName "inputOutput" list("left" "right") ) ; pin for TOP cell
+dbCreateLabel(cvp lpppad centerBox(pBox)  termName "centerCenter" "R0" "roman" 10))     ;
 X=X+sign*dX*mod(norient+1 2) Y=Y+sign*dX*mod(norient 2)
 ); for nPad (elements in instanceList)
 ;ending spacer before corner
@@ -273,7 +279,7 @@ when(verb printf("norient:%d_XY:%L dX:\n" norient X:Y dX))
 cmt=dbCreateLabel(cv "text"  (cornerW:0) sprintf(nil "bBox (L, H) :\n%L\nArea :\n%L mm2" bBox car(bBox)*cadr(bBox)/1000000.0) "upperRight" "R0" "stick" 40)
 printf("bBox(L,H):%L price: %L " bBox price*(240+car(bBox))*(240+cadr(bBox))*1.0u)  printf(" Pad:%L nMiss %L\n" nPad*4 nMiss)
 
-assuraPinPatch(cv)
+; assuraPinPatch(cv)
 printf("Si coreLimited : generateAllPins(t nil t) && metalPin2pinDrawing()\n")
 printf("assuraPinPatch()\n")
 printf("netSetPatch()\n")

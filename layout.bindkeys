@@ -1,0 +1,172 @@
+;                  Bind Key Aliases
+; Compactor, Dracula Interactive, Other-Layout, Other-MaskLayout, Other-Symbolic, Pcell, Spectre-Layout, Spectre-MaskLayout, Spectre-Symbolic, Structure-Compiler, UltraSim-Layout, UltraSim-MaskLayout, UltraSim-Symbolic, VPCM LE, Verilog-XL-MaskLayout, Virtuoso Turbo, Virtuoso XL, Voltage Storm, analogArtist-MaskLayout, parasitics-MaskLayout
+
+hiSetBindKeys( "Layout" list(
+
+;	Key			[;alternate encodings used for same key]
+;				Normal Action
+;				[Enter Function Action	;EF]
+
+list("<DrawThru1>"		"leSelBoxOrStretch()"
+				"geSingleSelectBox()")	;EF
+list("<DrawThru3>"		"hiZoomIn()"
+				"hiZoomIn()")	;EF
+list("<Key>BackSpace"		nil
+				"deletePoint()")	;EF
+list("<Key>Delete"		"leHiDelete()"
+				"leHiDelete()")	;EF
+list("<Key>Down"		"geScroll(nil \"s\"	nil)")
+list("<Key>Escape"		nil
+				"cancelEnterFun()")	;EF
+list("<Key>F1"			;"<key>F1"
+				"")
+list("<Key>F2"			"geSave()")
+list("<Key>F3"			nil
+				"hiToggleEnterForm()")	;EF
+list("<Key>F4"			"geTogglePartialSelect()")
+list("<Key>F5"			"deOpen()")
+list("<Key>F6"			"leToggleMaintainConnections()")
+list("<Key>F7"			;"<key>F7"
+				"leUnmapLSW()")
+list("<Key>F9"			"geToggleFilterSize()")
+list("<Key>KP_Add"		"leHiSetRefPoint()")
+list("<Key>KP_Divide"		"legRpDelta = 1.0")
+list("<Key>KP_Enter"		"mouseAddPt()")
+list("<Key>KP_Equal"		"legRpDelta = 0.5")
+list("<Key>KP_Multiply"		"legRpDelta = 2.0")
+list("<Key>KP_Subtract"		"leSetRefPointInactive(geGetEditCellView())")
+list("<Key>Left"		"geScroll(nil \"w\"	nil)")
+list("<Key>R11"			"geScroll(nil \"\"	nil)")
+list("<Key>R13"			"geScroll(nil \"sw\"	nil)")
+list("<Key>R15"			"geScroll(nil \"se\"	nil)")
+list("<Key>R4"			"legRpDelta = 0.5")
+list("<Key>R5"			"legRpDelta = 1.0")
+list("<Key>R6"			"legRpDelta = 2.0")
+list("<Key>R7"			"geScroll(nil \"nw\"	nil)")
+list("<Key>R9"			"geScroll(nil \"ne\"	nil)")
+list("<Key>Right"		"geScroll(nil \"e\"	nil)")
+list("<Key>Tab"			"hiPan()")
+list("<Key>Up"			"geScroll(nil \"n\"	nil)")
+list("<Key>a"			"geSingleSelectPoint()")
+list("<Key>b"			"geReturnToLevel()")
+list("<Key>c"			"leHiCopy()")
+list("<Key>d"			"geSubSelectPoint()")
+list("<Key>e"			"leHiEditDisplayOptions()")
+list("<Key>f"			"hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)")
+list("<Key>g"			"leToggleGravity()")
+list("<Key>h"			"lxToggleIncNets()")
+list("<Key>i"			"leHiCreateInst()")
+list("<Key>k"			"leHiCreateRuler()")
+list("<Key>l"			"leHiCreateLabel()")
+list("<Key>m"			"leHiMove()")
+list("<Key>n"			"leSetFormSnapMode(\"diagonal\")")
+list("<Key>o"			"leHiCreateContact()")
+list("<Key>p"			"leHiCreatePath()")
+list("<Key>q"			"leHiEditProp()")
+list("<Key>r"			"leHiCreateRect()")
+list("<Key>s"			"leHiStretch()")
+list("<Key>space"		nil
+				"leSpaceBarFunc(hiGetCurrentWindow() t)")	;EF
+list("<Key>t"			"leHiLayerTap()")
+list("<Key>u"			"hiUndo()")
+list("<Key>v"			"leHiAttach()")
+list("<Key>w"			"hiPrevWinView(hiGetCurrentWindow())")
+list("<Key>x"			"leHiEditInPlace()")
+list("<Key>y"			"leHiYank()")
+list("<Key>z"			"hiZoomRelativeScale(hiGetCurrentWindow( ) 2.0)")
+list("<key>F8"			"leRemapLSW()")
+list("Ctrl <Key>c"		"leHiCreateMPP()")
+list("Ctrl Shift<Key>r"		"leHiCreateRoute()")
+list("Ctrl Shift<Key>s"		"leWeHiStretch()")
+list("Ctrl Shift<Key>w"		"leWeHiCreateWire()")
+list("Ctrl<Btn1Down>"		"mouseSubSelectPt"
+				"mouseSubSelectPt")	;EF
+list("Ctrl<Btn3Down>"		nil
+				"cmdCtrlOption()")	;EF
+list("Ctrl<Btn4Down>"		"hiZoomInAtMouse()")
+list("Ctrl<Btn5Down>"		"hiZoomOutAtMouse()")
+list("Ctrl<DrawThru1>"		"geSubSelectBox()"
+				"geSubSelectBox()")	;EF
+list("Ctrl<Key>Down"		"geScroll(nil \"s\"	t)")
+list("Ctrl<Key>Left"		"geScroll(nil \"w\"	t)")
+list("Ctrl<Key>R11"		"geScroll(nil \"\"	t)")
+list("Ctrl<Key>R13"		"geScroll(nil \"sw\"	t)")
+list("Ctrl<Key>R15"		"geScroll(nil \"se\"	t)")
+list("Ctrl<Key>R7"		"geScroll(nil \"nw\"	t)")
+list("Ctrl<Key>R9"		"geScroll(nil \"ne\"	t)")
+list("Ctrl<Key>Right"		"geScroll(nil \"e\"	t)")
+list("Ctrl<Key>Up"		"geScroll(nil \"n\"	t)")
+list("Ctrl<Key>a"		"geSelectAllFig()")
+list("Ctrl<Key>d"		"geDeselectAllFig()")
+list("Ctrl<Key>e"		"leToggleDrdMode()")
+list("Ctrl<Key>f"		"hiGetCurrentWindow()->stopLevel = 0")
+list("Ctrl<Key>g"		"geZoomToGrid(hiGetCurrentWindow())")
+list("Ctrl<Key>l"		"lxProbeRemoveAll()")
+list("Ctrl<Key>m"		"lxHiSwapComps()")
+list("Ctrl<Key>n"		"leSetFormSnapMode(\"L90XFirst\")")
+list("Ctrl<Key>p"		"leHiCreateChoiceOfPin()")
+list("Ctrl<Key>r"		"hiRedraw()")
+list("Ctrl<Key>s"		"leHiSplit()")
+list("Ctrl<Key>t"		"leZoomToSelSet()")
+list("Ctrl<Key>v"		"hiFocusToCIW(hiGetCurrentWindow())")
+list("Ctrl<Key>w"		"leCloseWindow()")
+list("Ctrl<Key>x"		"leEIPZoomAbsoluteScale(hiGetCurrentWindow() 0.9)")
+list("Ctrl<Key>y"		"geCycleSelectNext()")
+list("Ctrl<Key>z"		"hiZoomRelativeScale(hiGetCurrentWindow() 2.0)")
+list("None<Btn1Down>"		"mouseSingleSelectPt"
+				"mouseAddPt()")	;EF
+list("None<Btn1Down>(2)"	nil
+				"mouseApplyOrFinishPoint()")	;EF
+list("None<Btn2Down>"		"leHiMousePopUp()"
+				"leHiMousePopUp()")	;EF
+list("None<Btn2Down>(2)"	"leHiEditProp()"
+				"hiToggleEnterForm()")	;EF
+list("None<Btn3Down>"		"hiRepeat()"
+				"lxCmdOptions()")	;EF
+list("Return"			nil
+				"mouseApplyOrFinishPoint()")	;EF
+list("Shift<Btn1Down>"		"mouseAddSelectPt"
+				"mouseAddSelectPt")	;EF
+list("Shift<Btn3Down>"		""
+				"lxCmdShiftOptions()")	;EF
+list("Shift<DrawThru1>"		"geAddSelectBox()"
+				"geAddSelectBox()")	;EF
+list("Shift<DrawThru3>"		"hiZoomOut()"
+				"hiZoomOut()")	;EF
+list("Shift<Key>Down"		"leMoveCursor(0           -legRpDelta)")
+list("Shift<Key>F4"		"geToggleAreaSelectOption()")
+list("Shift<Key>F5"		"leFullSelectFigOfSelSet()")
+list("Shift<Key>Left"		"leMoveCursor(-legRpDelta           0)")
+list("Shift<Key>R11"		"leMoveCursorToRefPoint()")
+list("Shift<Key>R13"		"leMoveCursor(-legRpDelta -legRpDelta)")
+list("Shift<Key>R15"		"leMoveCursor( legRpDelta -legRpDelta)")
+list("Shift<Key>R7"		"leMoveCursor(-legRpDelta  legRpDelta)")
+list("Shift<Key>R9"		"leMoveCursor( legRpDelta  legRpDelta)")
+list("Shift<Key>Right"		"leMoveCursor( legRpDelta           0)")
+list("Shift<Key>Up"		"leMoveCursor(          0  legRpDelta)")
+list("Shift<Key>a"		"geSingleSelectBox()")
+list("Shift<Key>b"		"geReturn()")
+list("Shift<Key>c"		"leHiChop()")
+list("Shift<Key>d"		"geSubSelectBox()")
+list("Shift<Key>e"		" leHiDescend( hiGetCurrentWindow() \"edit\" )")
+list("Shift<Key>f"		"hiGetCurrentWindow()->stopLevel = dbGetMaxHierDepth()")
+list("Shift<Key>g"		"leHiCreateGuardRing()")
+list("Shift<Key>k"		"leHiClearRuler()")
+list("Shift<Key>l"		"lxHiProbe()")
+list("Shift<Key>m"		"leHiMerge()")
+list("Shift<Key>n"		"leSetFormSnapMode(\"orthogonal\")")
+list("Shift<Key>o"		"leHiRotate()")
+list("Shift<Key>p"		"leHiCreatePolygon()")
+list("Shift<Key>q"		"leEditDesignProperties()")
+list("Shift<Key>r"		"leHiReShape()")
+list("Shift<Key>s"		"leHiSearch()")
+list("Shift<Key>space"		nil
+				"leSpaceBarFunc(hiGetCurrentWindow() t t)")	;EF
+list("Shift<Key>t"		"leHiTree()")
+list("Shift<Key>u"		"hiRedo()")
+list("Shift<Key>v"		"hiOpenWorldView(hiGetCurrentWindow())")
+list("Shift<Key>w"		"hiNextWinView(hiGetCurrentWindow())")
+list("Shift<Key>x"		"leHiDescend()")
+list("Shift<Key>y"		"leHiPaste()")
+list("Shift<Key>z"		"hiZoomRelativeScale(hiGetCurrentWindow() 0.5)")
+))

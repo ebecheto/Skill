@@ -1,0 +1,138 @@
+
+
+*******************************************************************************
+Tue Jun  2 02:40:38 2015
+
+
+FIT:    data read from '/home/validmgr/ebecheto/Work/IC6/ams410/c35b4/data.dat' u 1:2
+        format = x:z
+        #datapoints = 13
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 2.79571e+07       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 0.707107
+
+initial set of free parameter values
+
+a               = 1
+b               = 1
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 3.02803e+06
+rel. change during last iteration : -1.66931e-09
+
+degrees of freedom    (FIT_NDF)                        : 11
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 524.667
+variance of residuals (reduced chisquare) = WSSR/ndf   : 275276
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 1.01036          +/- 1.329e+12    (1.315e+14%)
+b               = 1385.78          +/- 185.5        (13.39%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.620  1.000 
+
+
+*******************************************************************************
+Tue Jun  2 03:01:35 2015
+
+
+FIT:    data read from '/home/validmgr/ebecheto/Work/IC6/ams410/c35b4/data.data' u 1:2
+        format = x:z
+        #datapoints = 13
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 13481.5           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 0.707107
+
+initial set of free parameter values
+
+a               = 6.46719e+12
+b               = 566.074
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 7733.32
+rel. change during last iteration : -1.50713e-10
+
+degrees of freedom    (FIT_NDF)                        : 11
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 26.5147
+variance of residuals (reduced chisquare) = WSSR/ndf   : 703.029
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.46719e+12      +/- 9.827e+10    (1.52%)
+b               = 545.046          +/- 14.74        (2.704%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.867  1.000 
+
+
+*******************************************************************************
+Tue Jun  2 03:02:53 2015
+
+
+FIT:    data read from '/home/validmgr/ebecheto/Work/IC6/ams410/c35b4/data.data' u 1:2
+        format = x:z
+        #datapoints = 13
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 13481.5           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 0.707107
+
+initial set of free parameter values
+
+a               = 6.46719e+12
+b               = 566.074
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 7733.32
+rel. change during last iteration : -1.50713e-10
+
+degrees of freedom    (FIT_NDF)                        : 11
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 26.5147
+variance of residuals (reduced chisquare) = WSSR/ndf   : 703.029
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.46719e+12      +/- 9.827e+10    (1.52%)
+b               = 545.046          +/- 14.74        (2.704%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.867  1.000 

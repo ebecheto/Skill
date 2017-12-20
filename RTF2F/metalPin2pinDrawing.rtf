@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.37 in inline-css mode. -->
+<html>
+  <head>
+    <title> *temp*</title>
+  </head>
+  <body style="color: #000000; background-color: #ffffff; font-weight: bold;">
+    <pre>
+
+; load("genBox.il")
+
+defun(metalPin2pinDrawing (@optional (cv nil)(purp "pin"))
+let((tab vlpp)
+tab='(("MET1" "metal1")("MET2" "metal2")("MET3" "metal3")("MET4" "metal4")("PAD" "pad"))
+unless(cv cv=geGetWindowCellView())
+terms=cv~&gt;terminals
+;; mistake : pin is in fact a terminal in this case
+foreach(term terms ;term=car(terms);=&gt; db:0x2f50839a
+foreach(pin term~&gt;pins ; pin=car(term~&gt;pins)
+lpp=pin~&gt;fig~&gt;lpp;=&gt; ("MET1" "pin")
+; "pin" purpose why not drawing too
+; buggy tech name used with function liIsValid... metal1 and not MET1 ...
+; if( leIsLayerValid( vlpp=list("PIN" cadr(assoc(car(lpp) tab)))) ...)
+if(and(
+cadr(lpp)==purp  
+purpose=cadr(assoc(car(lpp) tab))
+leIsLayerValid( vlpp=list("PIN" purpose))
+);and
+then vlpp=list("PIN" purpose)
+pin~&gt;fig~&gt;lpp=vlpp
+else printf("No PIN %s layer found\n" car(lpp))
+)
+foreach(child pin~&gt;fig~&gt;children 
+if(and(
+cadr(child~&gt;lpp)==purp 
+purpose=cadr(assoc(car(child~&gt;lpp) tab))
+vlpp=list("PIN" purpose)
+);and
+then
+child~&gt;lpp=vlpp
+else printf("No child of PIN %L for %s lpp%L?\n" vlpp||"nul" child~&gt;theLabel child~&gt;lpp)
+))))))
+
+
+;; leIsLayerValid(list("PIN" "metal2"));=&gt; t
+;; leIsLayerValid(list("PIN" "M2"));=&gt; nil
+
+printf("metalPin2pinDrawing()\n")
+printf("metalPin2pinDrawing(geGetWindowCellView()) \n")
+printf("metalPin2pinDrawing(nil \"drawing\")\n")</pre>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+(load  "/afs/in2p3.fr/group/micrhau/CADENCE/Skill/.emacs.d/dotemacsil")
+
+
+(add-to-list 'load-path "/afs/in2p3.fr/group/micrhau/CADENCE/Skill/.emacs.d/")
+(load "htmlize.el")
+
+(add-to-list 'load-path "~/../ebecheto/.emacs.d/spectre-mode/")
+
+
+(setq auto-mode-alist
+      (append
+       (list
+	'("\\netlist$" . spectre-mode)
+	'("\\.ocn$" . spectre-mode) 
+ 	'("\\.scs$" . spectre-mode)
+ 	'("\\.sp$" . spectre-mode)
+ 	'("\\.ultrasim.out$" . spectre-mode)
+ 	'("\\.ckt$" . spectre-mode)
+;; 	'("\\.cdf$" . spectre-mode)
+ 	'("\\.il$" . skill-mode)
+ 	'("\\.simrc$" . skill-mode)
+ 	'("\\.ils$" . skill-mode)
+ 	'("\\.fnd$" . skill-mode)
+ 	'("skill.*" . skill-mode)
+ 	'("my-log.txt" . skill-mode)
+ 	'("\\.cdsinit_personal.*" . skill-mode)
+ 	'("\\.cdsinit" . skill-mode)
+ 	'("\\.va$" . verilog-mode)
+)
+auto-mode-alist))
+
+(load "skillMode.el")
+;;; skill-mode activating
+(autoload 'skill-mode "skill-mode" "Skill-mode" t)
+(autoload 'spectre-mode "spectre-mode" "Spectre-mode" t)
+(autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
+;; (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
+
+(require 'color-theme)
+(color-theme-dark-laptop)
+(tool-bar-mode -1) ;(tool-bar-mode nil);<== only toggle tool-bar
