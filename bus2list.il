@@ -19,5 +19,6 @@ res)))
 ;; bus2list("MULT<15:18>");=> ("MULT<15>" "MULT<16>" "MULT<17>" "MULT<18>")
 ;; bus2list("MULT<31:28>");=> ("MULT<31>" "MULT<30>" "MULT<29>" "MULT<28>")
 ;; bus2list("MULT<31>");=> ("MULT<31>")
-; bus2list("MULT");<= failed, not needed
+; bus2list("MULT");<= --failed, not needed-- SOLVED
+; foreach(mapcan name geGetWindowCellView()~>terminals~>name bus2list(name))
 
