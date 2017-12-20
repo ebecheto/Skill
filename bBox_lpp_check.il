@@ -3,12 +3,13 @@ ineed('pointInbBox)
 
 
 defun(bBox_lpp_check (@optional (lpp '("METAL1" "pin")) (bBox css()~>bBox) (cv css()~>cellView) (debug nil))
-let((flag objs checks egal)
-unless(cv css()~>cellView)
+let((flag objs checks egal verb)
+unless(cv cv=css()~>cellView)
 unless(lpp lpp='("METAL1" "pin"))
 ;unless(bBox '((-13.685 -4.005) (-13.455 -3.29)))
-setof(s cv~>shapes s~>objType=="rect")~>bBox
+; setof(s cv~>shapes s~>objType=="rect")~>bBox
 objs=setof(s cv~>shapes s~>objType=="rect")
+when(verb printf("[SETOF OBJ BEGIN]  : %L %L [SETOF OBJ END]\n" objs~>lpp objs~>bBox))
 checks=foreach(mapcar fig objs
 egal=and(fig~>lpp==lpp pointInbBox(fig~>bBox bBox))
 when(egal flag=t) egal
@@ -16,6 +17,10 @@ when(egal flag=t) egal
 if(debug checks flag)
 )
 )
+
+;; ;; USAGE :
+;; foreach(mapcar inst geGetWindowCellView()~>instances 
+;; bBox_lpp_check(inst~>lpp inst~>bBox geGetWindowCellView()))
 
 
 ;; defun(bBox_lpp_checks (@optional (lpp '("METAL1" "pin")) (bBox css()~>bBox) (cv css()~>cellView) (debug nil))
