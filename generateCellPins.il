@@ -13,8 +13,8 @@ ineed('(getInstTermPointLPP createPinLPP textDisplay2label metalPin2pinDrawing b
 
 ;______________________________________________________________________________
 defun(generateCellPins (@optional (cv t)(insts nil)(force nil))
-let( (cvs baseName sinst mapTable lpp lppi pn apn sigName bBox dir verb termNames)
-verb=nil; <= verbose 
+let( (sinst cvs baseName sinst mapTable lpp lppi pn apn sigName bBox dir verb termNames)
+verb=t; nil; <= verbose 
 when(cv==t cv=geGetWindowCellView())
 cvs=dbOpenCellViewByType(cv~>libName cv~>cellName "schematic")
 unless(cvs printf("Hey dude, where is your schematic ? %L\n" list(cv~>libName cv~>cellName )))
@@ -55,7 +55,7 @@ when(verb printf("lppi %L___%L__\n" lppi list(inst~>name inst~>cellName)))
 ; mat=car(mapTable)
 foreach(mapcar mat mapTable
 ;when(nth(1 mat)==sinst~>name) ;<== should i filter, if mapTableis ok?
-when(nth(1 mat)==inst~>name ;<== should i filter, if mapTableis ok?
+when(car(parseString(nth(1 mat) "|"))==inst~>name ;<== should i filter, if mapTableis ok?
 pn=nth(2 mat);=> "dedans<0>"
 apn=assoc(pn lppi)
 ;=> ("dedans<0>" (-13.57 -3.6475) ("METAL1" "pin") ((-13.685 -4.005) (-13.455 -3.29)) db:0x2e6ce69e)
