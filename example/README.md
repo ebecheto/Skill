@@ -137,10 +137,10 @@ When placing the instance manually in a layout, i generally don't want to place 
 *emacs_ipcPipe.il* function example
 -----------------------------------
 When clicking one menu->emacs_ipcPipe, it creates a named pipe in /tmp/ipcPipe2CAT_$USER
-Then a line in emacs in skillMode can be executed in virtuoso with a shortcut bindkey (C-c-f or C-cv). The outputed result from virtuoso can be pasted back into emacs with bindkey C-c-s.
+Then a line in emacs in skillMode can be executed in virtuoso with a shortcut bindkey (C-c-f or C-c-v). The outputed result from virtuoso can be pasted back into emacs with bindkey C-c-s.
 Possibly, it can be used by another external script. 
 ```
 echo -e '1+1' >  ~/.emacs2icfb.il
 echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto 
 ```
-VERY VERY VERY HANDY, I could not code anymore without this feature.
+VERY VERY VERY HANDY, I could not code anymore without this feature. I come-up with this solution inspired by gnuplot-mode.
