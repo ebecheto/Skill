@@ -1,1 +1,0 @@
-ymin(clip(deriv(IS("/MN0/D")) / (IS("/MN0/D") - (deriv(IS("/MN0/D")) * VAR("vdd"))) 0.5 3))
