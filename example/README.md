@@ -144,3 +144,5 @@ echo -e '1+1' >  ~/.emacs2icfb.il
 echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto 
 ```
  ![#f03c15](VERY VERY VERY HANDY) `#f03c15`, I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
+
+- ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `#1589F0`
