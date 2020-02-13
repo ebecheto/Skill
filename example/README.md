@@ -143,4 +143,4 @@ Possibly, it can be used by another external script.
 echo -e '1+1' >  ~/.emacs2icfb.il
 echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto 
 ```
-VERY VERY VERY HANDY, I could not code anymore without this feature. I come-up with this solution inspired by gnuplot-mode.
+ ![#f03c15](VERY VERY VERY HANDY) `#f03c15`, I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
