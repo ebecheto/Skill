@@ -148,3 +148,7 @@ echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto
 VERY VERY VERY HANDY
 &#x1F34E;
 I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
+
+```diff
+- if you read until here you probaly learnt something.
+```
