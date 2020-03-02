@@ -13,7 +13,10 @@ I still do not know how to handle package for skill function properly. Something
 
 ab*.il files are not mine obviously, but since i use them once in a while i added them here to keep my scripts functionnal
 
-See [ example directory ](example/) for explained pictures
+See  &#x1F34E;
+ [ example directory ](example/) 
+&#x1F34E;
+for explained pictures
 
 
 ``` lisp
