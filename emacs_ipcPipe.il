@@ -1,7 +1,7 @@
 ;; copyleft ebecheto
 ;; Needs ~/.emacs.d/skillMode.el to work with
 
-defun( socketHandler (ipcId data)
+defun( socketHandlerIPC (ipcId data)
 let((fp res inPort)
 (errset eval(t))
 ; printf("RCV:%L\n" data)
@@ -34,7 +34,7 @@ sh("rm -f ~/.emacs2icfb.il");<== prevent loop ?
 
 sh("rm -f ~/.emacs2icfb.il");<== prevent loop ?
 
-ipcBeginProcess(strcat(getShellEnvVar("SKILLDIR") "/" "ipcPipe2CAT.sh") "" 'socketHandler)
+ipcBeginProcess(strcat(getShellEnvVar("SKILLDIR") "/" "ipcPipe2CAT.sh") "" 'socketHandlerIPC)
 
 printf("Try something like :\t\tControl-c-v\n")
 printf("get result back with :\t\tControl-c-s\n")
