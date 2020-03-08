@@ -144,9 +144,12 @@ echo -e '1+1' >  ~/.emacs2icfb.il
 echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto 
 ```
 
+![example](./emacs2virtuoso_insert_result.gif)
+
 &#x1F34E;
 VERY VERY VERY HANDY
 &#x1F34E;
+:star: :star: :star: 
 I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
 
 ```diff

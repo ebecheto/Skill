@@ -4,15 +4,14 @@
 ;; TODO : verify the post to prevent designkit to remove my menu
 
 ;___vv___ the only thing TODO for new user : ___vv___
-; export SKILLDIR=~/Skill
-; chose to do :
-; in ~/.bashrc : 
+;;; in ~/.bashrc : 
 ; export SKILLDIR=$HOME/Skill
-; or
-; in ~/.cdsinit_personnal :
-; setShellEnvVar(strcat("SKILLDIR=" getShellEnvVar("HOME") "/Skill"))
+;;; AND
+;;; in ~/.cdsinit_personnal :
+; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))
+; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
-;; TODO : make a second menu "__ defun _2"
+
 let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
 unless(skdir skdir="/home/validmgr/ebecheto/Skill") ;<== hardcode default location if any
 dirs=list(skdir strcat(skdir "/ab") )
