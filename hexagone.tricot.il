@@ -4,32 +4,36 @@
 ;load("~/Skill/hexagone.tricot.il")
 ;create hexagon pads in an opended layout. based on ams drawing layers.
 
+;; NX=3 NY=3
+;; NX=1 NY=1
+;; NX=90 NY=100
+;; NX=5 NY=5
+;; NX=10 NY=10
+NX=2 NY=3
+
+
 cv=geGetWindowCellView()
-when(cv~>viewName!="layout" lib1=car(sort(setof(lib ddGetLibList() lib~>isWritable)~>name nil))
+;when(cv~>viewName!="layout" lib1=car(sort(setof(lib ddGetLibList() lib~>isWritable)~>name nil))
 lib1="picmic0_master"
-cv=dbOpenCellViewByType(lib1 "hexagoneTricot"  "layout" "maskLayout" "a"))
+cv=dbOpenCellViewByType(lib1 sprintf(nil "hexagoneTricot_%d-%d" NX NY)  "layout" "maskLayout" "a")
+; )
 tech = techGetTechFile(cv)
 
-via3="ML_M5_2"
+via3="ML_M5_S"
 via2="M5_M4_S"
 via1="M4_M3_S"
 
-MET1="MET1"
-MET2="MET2"
-MET3="MET3"
+MET1="M3"
+MET2="M4"
+MET3="M5"
 
-viat3 = techFindViaDefByName(tech via3)
-viat2 = techFindViaDefByName(tech via2)
-viat1 = techFindViaDefByName(tech via1)
-;; via1 = dbCreateVia(cv viat1 list(5 5) "R0")
-;; via2 = dbCreateVia(cv viat2 list(5 5) "R0")
-;; via3 = dbCreateVia(cv viat3 list(5 5) "R0")
-
-
+viat3 = techFindViaDefByName(tech via3)  ;; via1 = dbCreateVia(cv viat1 list(5 5) "R0")
+viat2 = techFindViaDefByName(tech via2)	 ;; via2 = dbCreateVia(cv viat2 list(5 5) "R0")
+viat1 = techFindViaDefByName(tech via1)	 ;; via3 = dbCreateVia(cv viat3 list(5 5) "R0")
 
 unless(fboundp('createHexagon) load("hexagone.proc.il"))
-xStep=6
-xStep=3
+;xStep=6
+xStep=5
 yStep=xStep/sqrt(3)*2
 xCon=0.5 yCon=0.5
 r=xStep/sqrt(3)
@@ -57,18 +61,21 @@ l_V3=list(via3 "drawing"); contact (via colour pour C
 l_M3=list(MET3 "drawing"); pad colour for C
 l_W3=list(MET3 "drawing"); wire for C
 
-NX=5 NY=5
-NX=3 NY=3
-NX=2 NY=2
-NX=1 NY=1
+;             xa ya     xa ya
+AST=list(list(0 0) list(xStep xStep*sqrt(3)))
+;; AST represent the even and odd ROWS
 
+foreach(mapcar xya AST
+xa0=car(xya)  ; 0 puis xStep
+ya0=cadr(xya) ; 0 puis xStep*sqrt(3)
+xa=xa0
 for(row 0 NX
-	ya=0
+	ya=ya0
 	for(col 0 NY
 ;; creation du premier demi motif pour A
 		createHexagon(xa ya "TOP_M" cv r)
 foreach(mapcar v list(viat1 viat2 viat3) dbCreateVia(cv v centerBox(list((xva+xa-xCon:yva+ya-yCon) (xva+xa+xCon:yva+ya+yCon))) "R0"))
-		rodCreatePath(?cvId cv ?layer l_W1 ?width pw ?pts  list((xva+xa:yva+ya) (xva+xa:yva+ya+3*yStep)))
+		rodCreatePath(?cvId cv ?layer l_W1 ?width pw ?pts  list((xva+xa:yva+ya) (xva+xa+2*xStep:yva+ya)))
 ;; creation du premier demi motif pour B
 		xb=xa yb=ya+yStep
 		createHexagon(xb yb "TOP_M" cv r)
@@ -83,35 +90,8 @@ foreach(mapcar v list(viat3) CVIA=dbCreateVia(cv v centerBox(list((xvc+xc-xCon:y
 	);for col
 xa=xa+2*xStep
 );for row
+)
 
-
-;; colonnes paires
-xa=xStep
-for(row 0 NX
-	ya=xStep*sqrt(3)
-	for(col 0 NY
-		createHexagon(xa ya "TOP_M" cv r)
-;		rodCreateRect(?cvId cv ?layer l_V1 ?bBox list((xva+xa-xCon:yva+ya-yCon) (xva+xa+xCon:yva+ya+yCon)))
-foreach(mapcar v list(viat1 viat2 viat3) dbCreateVia(cv v centerBox(list((xva+xa-xCon:yva+ya-yCon) (xva+xa+xCon:yva+ya+yCon))) "R0"))
-		rodCreatePath(?cvId cv ?layer l_W1 ?width pw ?pts  list((xva+xa:yva+ya) (xva+xa:yva+ya+3*yStep)))
-		xb=xa yb=ya+yStep
-		createHexagon(xb yb "TOP_M" cv r)
-;		rodCreateRect(?cvId cv ?layer l_V2 ?bBox list((xvb+xb-xCon:yvb+yb-yCon) (xvb+xb+xCon:yvb+yb+yCon)))
-foreach(mapcar v list(viat2 viat3) dbCreateVia(cv v centerBox(list((xvb+xb-xCon:yvb+yb-yCon) (xvb+xb+xCon:yvb+yb+yCon))) "R0"))
-		rodCreatePath(?cvId cv ?layer l_W2 ?width pw ?pts  list((xvb+xb:yvb+yb) (xvb+xb+xStep:yvb+yb+xStep*sqrt(3))))
-		xc=xa yc=yb+yStep
-		createHexagon(xc yc "TOP_M" cv r)
-;		rodCreateRect(?cvId cv ?layer l_V3 ?bBox list((xvc+xc-xCon:yvc+yc-yCon) (xvc+xc+xCon:yvc+yc+yCon)))
-foreach(mapcar v list(viat3) dbCreateVia(cv v centerBox(list((xvc+xc-xCon:yvc+yc-yCon) (xvc+xc+xCon:yvc+yc+yCon))) "R0"))
-		rodCreatePath(?cvId cv ?layer l_W3 ?width pw ?pts  list((xvc+xc:yvc+yc) (xvc+xc+xStep:yvc+yc-xStep*sqrt(3))))
-
-	ya=ya+3*yStep
-	);for col
-	
-xa=xa+2*xStep
-);for row
-
-; load("~/Skill/hexagone.proc.il")
 ; geSelectAllFig() leHiMerge() leHiConvertShapeToPolygon()
 if(apply('or foreach(mapcar win hiGetWindowList() win~>cellView~>cellName==cv~>cellName)) then printf("%s already opened\n" cv~>cellName) else 
 printf("Opening %s\n" cv~>cellName) geOpen( ?lib cv~>libName ?cell cv~>cellName  ?view cv~>viewName )) ;; <== check results

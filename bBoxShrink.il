@@ -2,7 +2,7 @@
 ineed('(bBoxHeight bBoxWidth))
 
 
-defun(bBoxShrink (@optional (bBox css()~>bBox) (coef 0.9))
+defun(bBoxShrink (@optional (bBox css()~>bBox) (coef 0.5))
 let((c w h cx cy)
 ; bBox=css()~>bBox;=> ((-2.619 -2.27) (2.621 2.27))
 c= centerBox(bBox);=> (0.001 0.0)

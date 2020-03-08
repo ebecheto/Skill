@@ -14,7 +14,8 @@ pin))
 
 
 ; createPinLPP(name bBox lpp dir)
-
+; createPinLPP( "GND" list(0:0 0.2:0.2) '("M1" "pin"))
+; createPinLPP( "GND" list(0:0 0.2:0.2) '("TOP_M" "drawing"))
 ; textDisplay oki for IBM but not for AMS : label !
 
 

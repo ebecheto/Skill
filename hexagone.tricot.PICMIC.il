@@ -3,6 +3,9 @@
 ;load("hexagone.tricot.PICMIC.il")
 ;create hexagon pads in an opended layout. based on ams drawing layers.
 
+
+;; TJ180 : xSnap=ySnap= 0.005
+
 cv=geGetWindowCellView()
 when(cv~>viewName!="layout" lib1=car(sort(setof(lib ddGetLibList() lib~>isWritable)~>name nil))
 lib1="BB_035"
@@ -110,3 +113,7 @@ printf("Opening %s\n" cv~>cellName) geOpen( ?lib cv~>libName ?cell cv~>cellName 
 ;; leZoomToPoint( getCurrentWindow() list(101.6906 180.1333))
 ;; lf("Zoom")
 ;; hiZoomIn(getCurrentWindow() CVIA~>bBox)
+;; pi=acos(-1)
+;; sin(pi/6)
+;; dbCreateLine( geGetWindowCellView() list("text" "drawing1") list(0:0 -100*sqrt(3)/2:100/2.0))
+
