@@ -23,3 +23,5 @@ list(list(cx-w/2*coef cy-h/2*coef) list(cx+w/2*coef cy+h/2*coef))
 ;; bBoxHeight(newBox)
 ;; bBoxShrink(css()~>bBox)
 ;; bBoxShrink(css()~>bBox 1.1) ;=> inflate instead of shrinking
+;; css()~>bBox;=> ((-2.619 -2.27) (2.621 2.27))
+;; bBoxShrink(css()~>bBox 0.1);=> ((-0.261 -0.227) (0.263 0.227)) #<= 10% small

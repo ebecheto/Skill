@@ -1,14 +1,23 @@
 ;; copyleft ebecheto ;; load("ABCpix.il")
-ineed('(CreateVias createHexagon bBoxShrink))
+ineed('(CreateVias createHexagon bBoxShrink textDisplay2label createPinLPP))
 
 ;; NXmax=10000
 ;; NYmax= 4500
 ;; NX=NXmax/(2*1.5*pitch/sqrt(3));=> 1154.701
 ;; NY=NYmax/(3*pitch) ;=> 300
+;; nbpixels=1154*300*6 ;=> 2 077 200 : 2Mega-pixels 
+;; 10000 * 4500 /(5**2*sqrt(3)/2);=> 2078461.0 ;<= verification with hexagon surface area calculation.
+;; ; aire d'un hexagone : 3*sqrt(3)*a²/2   2b=a.sqrt(3)=pitch => a=pitch/sqrt(3) => Aire =pitch²*sqrt(3)/2
 ;; NX=11 NY=3
 ;; NX=1154 NY=300
+ 
 NX=115/2 NY=30/2
+NX=115/4 NY=30/4
+printf("%d-A, %d-B, %d-C for Dist_Y=%d[um], Dist_X=%d[um]\n" 2*NY NX+NY NX+NY round(NY*3*pitch) round(NX*sqrt(3)*pitch ))
+printf("%d-discri for Dist_Y=%d[um], Dist_X=%d[um]\n" 2*NY+NX+NY+NX+NY round(NY*3*pitch) round(NX*sqrt(3)*pitch ))
 
+
+label=""
 ; cv=geGetWindowCellView() ; lib="picmic0_master"
 lib="picmic0_ebecheto"
 cv=dbOpenCellViewByType(lib sprintf(nil "hexagoneTricot_%d-%d" NX NY)  "layout" "maskLayout" "a")
@@ -33,8 +42,10 @@ AST=list(list(0 0) list(xStep xStep*sqrt(3)))
 names=list("A" "B" "C")
 xya=car(AST)
 ;; AST represent the even and odd ROWS
-
-foreach(mapcar xya AST  ;<== equiv for(paire 0 1 ...)
+pair=0
+;; foreach(mapcar xya AST) ) ;<== equiv for(paire 0 1 ...)
+for(pair 0 1;<= oddOReven
+xya=nth(pair AST)
 xa0=car(xya)  ; 0 puis xStep
 ya0=cadr(xya) ; 0 puis xStep*sqrt(3)
 xa=xa0
@@ -51,11 +62,24 @@ wxyp=nth(i wireSteps) wxy=mapcar('plus X:Y wxyp)
 rodCreatePath(?cvId cv ?layer nth(i layers) ?width pw ?pts  list((X:Y) wxy))
 hex=createHexagon( X Y "TOP_M" cv r)
 CreateVias(via321 X Y cv)
-;;when(row==0 createPinLPP(sprintf(nil "%s_%d" nth(i names) col) bBoxShrink(hex~>bBox) '("TOP_M" "drawing")))
+
+;; PIN NAMES ADJUSTMENT
+;when(row==0 ;<= check first row only for now =< to remove later
+; i=0 => A
+; i=1 => B
+; i=2 => C
+(cond 
+((i==0) label=sprintf(nil "%s_%d" nth(i names) col*2+pair))
+((i==1) label=sprintf(nil "%s_%d" nth(i names) col-row   ))
+((i==2) label=sprintf(nil "%s_%d" nth(i names) col+row+pair  ))
 )
+createPinLPP(label bBoxShrink(hex~>bBox 0.1) '("TOP_M" "drawing"))
+;);end row
+); end loop 3 : ABC
 ya=ya+3*pitch
 )
 xa=xa+2*xStep
 ))
 
 printf("Opening %s\n" cv~>cellName) geOpen( ?lib cv~>libName ?cell cv~>cellName  ?view cv~>viewName )) ;; <== check results
+textDisplay2label(cv)
