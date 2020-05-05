@@ -1,10 +1,11 @@
 ;; copyleft ebecheto
 ;; see also createInstPins in  pinAddText.il
 ;; /!\ cv is global ???§§§!!!!!! TOCHANGE  :!
-defun(createPinLPPcv (@optional (name "GND")(bBox list(0:0 0.2:0.2))(lpp '("M1" "pin"))(dir "inputOutput")
+defun(createPinLPPcv (@optional (name "GND")(bBox list(0:0 0.2:0.2))(lpp '("M1" "pin"))(dir nil)
 (cv geGetWindowCellView()))
 let((pin term disp rot accessDir)
 unless(rot rot="R0")
+unless(dir dir="inputOutput"
 unless(accessDir accessDir='("top" "bottom" "left" "right"))
 printf("bBox:%L\n" bBox)
 pin=leCreatePin(cv lpp "rectangle" bBox name dir accessDir)
@@ -16,7 +17,7 @@ pin))
 
 
 
-; createPinLPP(name bBox lpp dir)
+; createPinLPP(name bBox lpp dir cv)
 
 ; textDisplay oki for IBM but not for AMS : label !
 
