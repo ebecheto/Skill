@@ -1,4 +1,6 @@
 ;copyleft ebecheto
+; "change voltage transient name VT(xx) to v(xx ?resultsDir)"
+
 defun(VT2v (@optional (nets "/I0/I17/I17/Ireg<9>/Q<10>"))
 let(( pnets cnts dnets)
 unless(listp(nets) nets=list(nets))
