@@ -20,7 +20,7 @@ Ibias = dbOpenCellViewByType( "analogLib" "idc" "symbol" "schematicSymbol" "r")
 
 cv = dbOpenCellViewByType( wid~>libName wid~>cellName "schematic_smallSig" "schematic" "w")
 foreach(mapcar x wid~>instances 
-	if( ( x~>cellName=="nmos4" || x~>cellName=="pmos4" ) then
+	if( ( rexMatchp("nmos" x~>cellName ) || rexMatchp("pmos" x~>cellName ) ) then
 ;;	when( pv( t_name "region" ?result "dcOpInfo-info")!=0
 ;;		printf("pv(%s %s ?result %s)\n" x~>name "region" "dcOpInfo-info") 
  printf("BEGIN MAPCAR %s %s \n" x~>baseName x~>cellName )
@@ -37,7 +37,7 @@ Source=car(setof(term x~>instTerms term~>name=="S")) sNet=car(Source~>net~>sigNa
 upNet=sNet
 downNet=dNet
 rot="R0"
-when( (x~>cellName=="nmos4") upNet=dNet downNet=sNet rot="R0" )
+when( rexMatchp("nmos" x~>cellName ) upNet=dNet downNet=sNet rot="R0" )
 	printf("%L" list( upNet downNet pv( t_name "gds" ?result "dcOpInfo-info") ))
 
 ;; when ohmique, gds=KoxW/L.(Vgs-Vth-Vds) else numeric value
@@ -50,7 +50,7 @@ when( pv( t_name "region" ?result "dcOpInfo-info")==2
 ;;gm
 igm=(dbCreateParamInst cv Ibias strcat("I_" x~>baseName) (list xc+xS yc+yS) rot 1 list(list("idc" "string" gmVGS)))
 ; when( x~>cellName=="pmos4" dbMoveFig(igm nil list(car(igm~>xy):cadr(igm~>xy) "R180")))
-when( (x~>cellName=="pmos4") dbMoveFig(igm nil list(0:2*cadr(igm~>xy)+yw "MX")))
+when( rexMatchp("pmos" x~>cellName ) dbMoveFig(igm nil list(0:2*cadr(igm~>xy)+yw "MX")))
 ); when Saturated
 
 
