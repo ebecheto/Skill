@@ -105,3 +105,9 @@ let((hierInstName i)
 );when hierarchy
 hierInstName
 ))
+
+
+
+;; cv=geGetWindowCellView() insts=cv~>instances
+;; foreach(mapcan inst insts when(region=pv( inst~>name "region" ?result "dcOpInfo-info") if(region!=2 list(list(inst~>name region)))))
+;; => simple detection of non satureted transistors in cell
