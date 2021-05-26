@@ -2,7 +2,7 @@
 
 defun(bus2square (@optional (net "io<2:3>")) let((pa)
 pa=parseString(net "<>");=> ("io" "2:3")
-if(length(pa)>= 2 strcat(car(pa) "[" cadr(pa) "]") pa)
+if(length(pa)>= 2 strcat(car(pa) "[" cadr(pa) "]") net)
 ;=> "io[2:3]"
 ))
 
