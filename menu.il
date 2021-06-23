@@ -14,7 +14,8 @@
 
 let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
 unless(skdir skdir="/home/validmgr/ebecheto/Skill") ;<== hardcode default location if any
-dirs=list(skdir strcat(skdir "/ab") )
+;dirs=list(skdir strcat(skdir "/ab")  )
+dirs=list(skdir strcat(skdir "/ab") strcat(skdir "/PICMIC") ) ;<= must be done better ;-(
 dir=skdir
 foreach(mapcar dir  dirs
 when(system(strcat("ls " dir ">/dev/null" ))==0
@@ -81,7 +82,7 @@ cazNet   = hiCreateMenuItem(?name 'cazNet ?itemText "edit_netlist" ?callback "ed
 
 cazFct = hiCreateMenuItem(?name 'cazFct ?itemText "Functions"
 ?callback "
-printf(\"dbCreateLine( geGetWindowCellView() list(\\\"text\\\" \\\"drawing1\\\") list(-0.5:-100 100:-100)) leSetLayerValid('(\\\"text\\\" \\\"drawing1\\\") t)\")
+printf(\"dbCreateLine( geGetWindowCellView() list(\\\"text\\\" \\\"drawing1\\\") list(-0.5:-100 100:-100)) leSetLayerValid('(\\\"text\\\" \\\"drawing1\\\") t) leSetLayerSelectable( '(\\\"text\\\" \\\"drawing1\\\") nil)\")
 printf(\"\\nsystem(\\\"xterm&\\\")\")
 cmd=sprintf(nil \"echo cd %s\" hiGetCurrentWindow()->cellView->fileName) system( cmd)
 "  )
