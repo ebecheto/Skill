@@ -1,13 +1,7 @@
-; ineed('wirePinName t)
-inst=css()
-wl=0.6
-pat=nil
-genConn='io
+;; copyleft : ebecheto
 
-;term=car(
-tlist~>name
-term=nth(9 tlist)
-term~>name;=> "load"
+; ineed('wirePinName t)
+; corrected : schCreatePin(cv iop term~>name term~>direction nil XYw rot ) [OK]
 
 defun(wirePinName (@optional (genConn 'io)(pat nil)(wl nil)(gss geGetSelectedSet())(verb t))
 (let (olist ori XYt rot wid nocRot i nocName cv tlist XYL)
