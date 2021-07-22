@@ -133,6 +133,11 @@ procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEdit
 When placing the instance manually in a layout, i generally don't want to place the pins manually. So the script loop on the pins of the schematic, and created the layout pin rectangle and label where the should be on the layout instance.
 ![example](./generateAllPins.png)
 
+*createInstPinsch* function example
+--------------------------
+Take a list of instance and put wire with label on it, but change names of wanted pinName.
+![example](./createInstPinsch.png)
+
 
 *emacs_ipcPipe.il* function example
 -----------------------------------
