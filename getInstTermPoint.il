@@ -1,12 +1,23 @@
 ;; copyleft ebecheto
-
+;; inst=css()
+;; pointList='()
 procedure(getInstTermPoint(@optional (inst css()) )
-let((point master pointList) 
-master=inst~>master printf("INST:%L\n" list(inst master~>terminals) )
-foreach( conn master~>terminals 
+let((point master pointList)  pointList='()
+master=inst~>master printf("INST:%L\n" list(inst master~>terminals setof(shape master~>shapes shape~>objType=="label")) )
+foreach( conn master~>terminals
 point=centerBox(caar(conn~>pins~>figs)~>bBox);<= OK car une seul pin "PLUS" dans le symbol(figs)
 pointList=append(pointList list(list(conn~>name dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)))))
-) pointList ));let proc
+)
+unless(master~>terminals 
+if(
+LABs=setof(shape master~>shapes shape~>objType=="label") then
+printf("LABEL PATH\n")
+LAB=car(LABs)
+foreach(LAB LABs 
+point=LAB~>xy
+pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)))))
+)))
+pointList ));let proc
 
 
 procedure(getInstTermPoint1(@optional (inst css()) )
