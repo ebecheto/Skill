@@ -10,14 +10,11 @@ pointList=append(pointList list(list(conn~>name dbTransformPoint(point inst~>tra
 )
 unless(master~>terminals 
 if(
-LABs=setof(shape master~>shapes shape~>objType=="label") then
-printf("LABEL PATH\n")
+LABs=setof(shape master~>shapes shape~>objType=="label") then ;printf("LABEL PATH\n")
 LAB=car(LABs)
-foreach(LAB LABs 
-point=LAB~>xy
+foreach(LAB LABs point=LAB~>xy
 pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)))))
-)))
-pointList ));let proc
+))) pointList ));let proc
 
 
 procedure(getInstTermPoint1(@optional (inst css()) )
