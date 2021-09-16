@@ -3,19 +3,23 @@
 ;; pointList='()
 ;; add lpp in 3rd position of the output list
 procedure(getInstTermPoint(@optional (inst css()) )
-let((point master pointList)  pointList='()
+let((point master pointList itrans relBBox)  
+pointList='()
 master=inst~>master printf("INST:%L\n" list(inst master~>terminals setof(shape master~>shapes shape~>objType=="label")) )
+itrans=inst~>transform||list(inst~>xy car(inst~>tileArray) 1.0);<= mosaic patch
 ;conn=car(master~>terminals)
 foreach( conn master~>terminals
 point=centerBox(caar(conn~>pins~>figs)~>bBox);<= OK car une seul pin "PLUS" dans le symbol(figs)
-pointList=append(pointList list(list(conn~>name dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)) car(conn~>pins)~>fig~>lpp)))
+relBBox =dbTransformBBox(caar(conn~>pins~>figs)~>bBox||list(0:0 0:0) itrans)
+pointList=append(pointList list(list(conn~>name dbTransformPoint(point itrans) car(conn~>pins)~>fig~>lpp relBBox)))
 )
 unless(master~>terminals 
 if(
 LABs=setof(shape master~>shapes shape~>objType=="label") then ;printf("LABEL PATH\n")
 LAB=car(LABs)
 foreach(LAB LABs point=LAB~>xy
-pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)) LAB~>lpp)))
+relBBox =dbTransformBBox(LAB~>bBox||list(0:0 0:0) itrans)
+pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point itrans) LAB~>lpp relBBox)))
 ))) pointList ));let proc
 
 
