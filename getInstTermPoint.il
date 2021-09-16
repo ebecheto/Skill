@@ -5,9 +5,10 @@
 procedure(getInstTermPoint(@optional (inst css()) )
 let((point master pointList)  pointList='()
 master=inst~>master printf("INST:%L\n" list(inst master~>terminals setof(shape master~>shapes shape~>objType=="label")) )
+;conn=car(master~>terminals)
 foreach( conn master~>terminals
 point=centerBox(caar(conn~>pins~>figs)~>bBox);<= OK car une seul pin "PLUS" dans le symbol(figs)
-pointList=append(pointList list(list(conn~>name dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)))))
+pointList=append(pointList list(list(conn~>name dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)) car(conn~>pins)~>fig~>lpp)))
 )
 unless(master~>terminals 
 if(
