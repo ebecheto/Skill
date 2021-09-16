@@ -13,7 +13,7 @@ if(
 LABs=setof(shape master~>shapes shape~>objType=="label") then ;printf("LABEL PATH\n")
 LAB=car(LABs)
 foreach(LAB LABs point=LAB~>xy
-pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)))))
+pointList=append(pointList list(list(LAB~>theLabel dbTransformPoint(point inst~>transform||list(inst~>xy car(inst~>tileArray) 1)) LAB~>lpp)))
 ))) pointList ));let proc
 
 
