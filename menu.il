@@ -8,6 +8,7 @@
 ; export SKILLDIR=$HOME/Skill
 ;;; AND
 ;;; in ~/.cdsinit_personnal :
+; setShellEnvVar("SKILLDIR" "~/../ebecheto/Skill") #<= if not defined in ~/.bashrc
 ; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))
 ; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
