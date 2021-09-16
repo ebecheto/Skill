@@ -1,6 +1,7 @@
 ;; copyleft ebecheto
 ;; inst=css()
 ;; pointList='()
+;; add lpp in 3rd position of the output list
 procedure(getInstTermPoint(@optional (inst css()) )
 let((point master pointList)  pointList='()
 master=inst~>master printf("INST:%L\n" list(inst master~>terminals setof(shape master~>shapes shape~>objType=="label")) )
