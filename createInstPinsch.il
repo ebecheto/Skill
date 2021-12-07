@@ -1,22 +1,27 @@
 ;; copyleft : ebecheto
-
+; ineed('createInstPinsch t)
 ;(setq cv geGetWindowCellView())
 ;; inst=css()
 ;; (setq nlist '(("D" "Zi")("CLK" "Zi")))
 
+ineed('angleBox)
+
 defun( createInstPinsch (@optional (insts t) (cv nil)(nlist '(("D" "Zi")("CLK" "Zi")))(inc -1)(skip nil)(inci t)(incL '("A" "B" "C" "D" "E" "F" "H" "I" "J" "K" "L") )(rev nil))
-((let dx ic insts terms pinName sbBox bBox os x y orient wid lab label)
+let(( dx ic terms pinName sbBox bBox os x y orient wid lab label)
 ;inc="name" ||t || number(ie. 1)
 unless(skip skip='("VDD" "NW" "SX" "GND"))
-printf("inc=%L__%L\n" inc incL )
+; printf("inc=%L__%L\n" inc incL )
 (setq font "euroStyle")
 dx=0.125;*2
 ic=0
 unless(cv cv=geGetWindowCellView())
 when(insts=='t insts=geGetSelectedSet())
 unless(insts insts=cv~>instances)
+;unless(listp(insts) insts=list(insts))
 insts=setof(inst insts inst~>objType=="inst")
-foreach(inst insts ;inst=css()
+;; printf("** CV=%L\n" cv~>?? )
+;inst=css()
+foreach(inst insts 
 when(inci ic++)
 terms=inst~>terminals
 ;term=car(terms)
@@ -26,7 +31,8 @@ unless(
 term~>net~>figs
 when( point=cadr(assoc(pinName getInstTermPoint(inst)))
 unless(inci ic++)
-sbBox=car(setof(x inst~>master~>shapes x~>layerName=="instance" && x~>objType=="rect")~>bBox)
+;printf("%L\n" inst~>??)
+sbBox=car(setof(x inst~>master~>shapes x~>layerName=="instance" && x~>objType=="rect")~>bBox);||list(0:0 0:0)
 bBox=dbTransformBBox(sbBox inst~>transform)
 os=angleBox(point bBox)
 ;printf("os='%L point='%L bBox='%L pinName='%L\n"  os point bBox pinName)
@@ -55,7 +61,7 @@ printf("createInstPinsch(geGetSelectedSet() cv nil t)\n")
 printf("createInstPinsch(list(css()) nil '%L t)\n" '(("instpin_A" "netToPut_Z_")))
 printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() nil -1 nil nil);<= last one in use\n")
 printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() '%L -1 nil t '%L)\n" '(("A" "Zi_")) '("L" "1" "2" "3" "4" "6" "8"))
-printf("CHECK AND SAVE BEFORE USING : createInstPinsch\n")
+printf("schCheck(cv) dbSave(cv) : CHECK AND SAVE BEFORE USING : createInstPinsch\n")
 ;css()~>terminals~>net~>figs
 ;; a='() for(i 1 11 a=append(a list("INVERT_B")))
 ;; addCell(a)
