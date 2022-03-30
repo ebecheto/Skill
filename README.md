@@ -7,7 +7,7 @@ Some function where written in the beginning and so less 'clean'.
 3. add load("~/.emacs.d/skillMode.el") in ~/.emacs
 4. add loadi(strcat(getShellEnvVar("SKILLDIR") "/menu.il")) in your ~/.cdsinit_personal
 
-Since i created the function (file) named 'ineed' (ineed.il), I used the convention : one function, one file.
+Since i created the function (file) named 'ineed' (ineed.il), I used the convention : one function, one file. It is similar to "require/import/include"-like feature. From that command, i load all the files that << I need >>.
 
 I still do not know how to handle package for skill function properly. Something like python 'import' philosophy would be nice.
 
