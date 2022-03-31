@@ -1,10 +1,15 @@
 ;; source /pbs/throng/omme/bin/tsmc65n_grid
 ;load("nmos_sim.il")
-
 ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoint getPropList))
 ;unless(rexFindCell("nmos_sim" '("TSMC65_ebecheto" )) )
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
-cv=dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "schematic" "w");<= modifiable
+
+defun(nmos_sim (@optional (cv nil) (nmos "nch")(lib "tsmcN65"))
+let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win)
+unless(cv 
+cv=geGetWindowCellView()
+)
+;cv=dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "schematic" "w");<= modifiable
 
 XY=0:0
 v1=dbCreateInstByMasterName(cv "analogLib" "vdc" "symbol" "V1" rodAddPoints(XY 0:0) "R0")
@@ -27,7 +32,7 @@ wid=schCreateWire( cv "draw" "direct" list(Pxy rodAddPoints(Pxy 0:.25)) 0.0625 0
 schCreateWireLabel(cv car(wid) rodAddPoints(Pxy -0.125:0.125) "vds" "centerCenter" "R0" "euroStyle" 0.0625 nil)
 
 XY=1:0
-inst=dbCreateInstByMasterName(cv "tsmcN65" "nch" "symbol" "M1" rodAddPoints(XY 0:0) "R0")
+inst=dbCreateInstByMasterName(cv lib nmos "symbol" "M1" rodAddPoints(XY 0:0) "R0")
 ; getPropList(inst)
 pp='(("l" "string" "1u") ("w" "string" "400n"))
 foreach(mapcar p pp param=cdfFindParamByName(cdfGetInstCDF(inst) car(p)) param~>value=nth(2 p))
@@ -51,3 +56,10 @@ schCreateWireLabel(cv car(wid) rodAddPoints(Dxy -0.125:0.125) "vds" "centerCente
 
 win=geOpenOrRaisecv(cv)
 ;;)
+)
+
+
+;; libmos=car(rexFindCell("nmos4"))
+;; libmos=car(rexFindCell("nch"))
+;libmos=car(rexFindCell("MOS_N3"))
+;nmos_sim(nil nth(1 libmos) nth(0 libmos) )
