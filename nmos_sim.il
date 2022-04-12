@@ -1,5 +1,6 @@
 ;; source /pbs/throng/omme/bin/tsmc65n_grid
 ;load("nmos_sim.il")
+; ineed('nmos_sim t)
 ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoint getPropList))
 ;unless(rexFindCell("nmos_sim" '("TSMC65_ebecheto" )) )
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
@@ -59,7 +60,8 @@ win=geOpenOrRaisecv(cv)
 )
 
 
-;; libmos=car(rexFindCell("nmos4"))
-;; libmos=car(rexFindCell("nch"))
+;libmos=car(rexFindCell("nmos4"))
+;libmos=nth(2 rexFindCell("nmos"));=> ("techno_blabla" "nmos")
+;;libmos=car(rexFindCell("nch"))
 ;libmos=car(rexFindCell("MOS_N3"))
-;nmos_sim(nil nth(1 libmos) nth(0 libmos) )
+nmos_sim(nil nth(1 libmos) nth(0 libmos) )
