@@ -6,9 +6,11 @@
 ;___vv___ the only thing TODO for new user : ___vv___
 ;;; in ~/.bashrc : 
 ; export SKILLDIR=$HOME/Skill
+; export SKILLDIR=/pbs/home/e/ebecheto/Skill
 ;;; AND
 ;;; in ~/.cdsinit_personnal :
 ; setShellEnvVar("SKILLDIR" "~/../ebecheto/Skill") #<= if not defined in ~/.bashrc
+; setShellEnvVar("SKILLDIR" "/pbs/home/e/ebecheto/Skill")
 ; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))
 ; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
