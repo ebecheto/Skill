@@ -5,11 +5,9 @@ ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoin
 ;unless(rexFindCell("nmos_sim" '("TSMC65_ebecheto" )) )
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
 
-defun(nmos_sim (@optional (cv nil) (nmos "nch")(lib "tsmcN65"))
+defun(nmos_sim (@optional (cv nil) (nmos "nch") (lib "tsmcN65"))
 let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win)
-unless(cv 
-cv=geGetWindowCellView()
-)
+unless(cv cv=geGetWindowCellView())
 ;cv=dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "schematic" "w");<= modifiable
 
 XY=0:0
@@ -56,12 +54,18 @@ schCreateWireLabel(cv car(wid) rodAddPoints(Dxy -0.125:0.125) "vds" "centerCente
 ;; TO BE CONTINUED
 
 win=geOpenOrRaisecv(cv)
-;;)
+)
 )
 
-
+;libmos=nth(1 rexFindCell("nmos4"))
 ;libmos=car(rexFindCell("nmos4"))
 ;libmos=nth(2 rexFindCell("nmos"));=> ("techno_blabla" "nmos")
 ;;libmos=car(rexFindCell("nch"))
 ;libmos=car(rexFindCell("MOS_N3"))
-nmos_sim(nil nth(1 libmos) nth(0 libmos) )
+
+;nmos_sim(nil nth(1 libmos) nth(0 libmos) )
+
+printf("USAGE : identify the transistor you want : nmos nmos4 nch nfet MOS_N3\n")
+printf("USAGE : check correct library you want rexFindCell(\"nmos4\")\n")
+printf("USAGE : if second Find is OK, define libmos=nth(1 rexFindCell(\"nmos4\"))\n")
+printf("USAGE : nmos_sim(nil nth(1 libmos) nth(0 libmos) )\n")
