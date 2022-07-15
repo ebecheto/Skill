@@ -6,21 +6,22 @@ ineed('mkFlipList t)
 flip=mkFlipList2("CORELIB" "tcb013ghp" foreach(mapcar equ equiv reverse(equ)) t t)  ; AMS_C35->TSMC130
 
 ;; ;; studdy 
-;; foreach(mapcar inst geGetSelectedSet() foreach(mapcar prop inst~>prop list(prop~>name prop~>value)))
+;; foreach(mapcar inst geGetSelectedSet()
+;; foreach(mapcar prop inst~>prop list(prop~>name prop~>value)))
 ;; OR :
 ;; inst=css() cdfgData=(cdfGetInstCDF inst)
 ;; foreach(mapcar param cdfgData~>parameters list(param~>name param~>value))
 
 
-flip=append(flip '(("pmos4" "pmos1v" "tsmc13rf"   (("flipProp" (("wtot" "w")("ng" "fingers")))))))
-flip=append(flip '(("nmos4" "nmos1v" "tsmc13rf"   (("flipProp" (("wtot" "w")("ng" "fingers")))))))
-flip=append(flip '(("rpoly2c" "rppoly_dis" "tsmc13rf" )))
-flip=append(flip '(("rpoly2" "rplpoly" "tsmc13rf" )))
+flip=append(flip '(("pfet" "pmos1v" "tsmc13rf"   (("flipProp" (("wt" "w")("nf" "fingers")))))))
+flip=append(flip '(("nfet" "nmos1v" "tsmc13rf"   (("flipProp" (("wt" "w")("nf" "fingers")))))))
+flip=append(flip '(("opppcres" "rppoly_dis" "tsmc13rf" )))
+flip=append(flip '(("oprppres" "rplpoly" "tsmc13rf" )))
 ;; flip=append(flip '(("rpolyhc" "rppolywo_dis" "tsmc13rf"  )))
 flip=append(flip '(("rpolyhc" "rppolyhri_dis" "tsmc13rf"  )))
 flip=append(flip '(("rpolyh" "rphpoly" "tsmc13rf" )))
 flip=append(flip '(("cpolyc" "crtmom" "tsmc13rf" (("flipPin" (("PLUS" "PLUS")("MINUS" "MINUS")("SUB" "BULK")))))))
-flip=append(flip '(("cpoly" "mimcap" "tsmc13rf" (("flipPin" (("PLUS" "TOP")("MINUS" "BOTTOM")))))))
+flip=append(flip '(("mimcap" "mimcap" "tsmc13rf" (("flipPin" (("G" "D")("MINUS" "BOTTOM")))))))
 
 
 resList='("rplpoly" "rphpoly")
