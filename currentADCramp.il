@@ -1,4 +1,5 @@
-
+;; copyleft ebecheto
+;; Note used anymore. For the sake of tuto
 awvGetWaveNameList(w_id=awvGetCurrentWindow())
 procedure(currentADCramp(@optional (T1 1.8m) (T2 3.7m))
 (let ( f_fr t_step dt tr net pn name i pf netName bitList T1s T2s)

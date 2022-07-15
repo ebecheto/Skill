@@ -33,6 +33,22 @@ GNDCELL="SIOGND"
 VDDCELL="SIOVDD"
 SUBCELL="SIODVSS"
 METAL="MG"
+) ; TSMC ?
+(member("tsmc13rf" ddGetLibList()~>name) 
+IOCELL="PDB3A"
+PERICELL="PFILLER20A"
+COMPCELL="PFILLER20A"
+CORNERCELL="PCORNERA"
+GNDCELL="PVSS2AC"
+VDDCELL="PVDD3AC"
+SUBCELL="PVSS2AC"
+METAL="METAL3"
+;; IOCELL="PDB3A_with_PAD"
+;; PERICELL="PFILLER10"
+;; COMPCELL="PRCUTA"
+;; CORNERCELL="PCORNER"
+;; GNDCELL="PVSS2CDG_with_PAD"
+;; VDDCELL="PVDD3A_with_PAD"
 ) ; AMS ?
 (t; member("IOLIB_ANA_3B_4M" ddGetLibList()~>name)
 IOCELL		=strcat("APRIO" amsopt1 amsopt2)
@@ -80,7 +96,7 @@ filename;<= return what... filename or a better thing ?
 )
 
 printf("\n** Now just type :** \ngenBox()\n")
-printf("genBox(nil t \"vdd!\");<= treat vdd! with AVDD3ALLP_3B for AMS SIOVDD for IBM\n")
+printf("genBox(nil t \"vdd!\");<= treat vdd! with AVDD3ALLP_3B for AMS, SIOVDD for IBM, PVDD3AC for tsmc\n")
 printf("genBox(nil t \"vdd!\" \"gnd!\")\n")
 printf("genBox(nil t \"VDD\" \"GND\")\n")
 printf("genBox(nil nil \"VDD\" \"GND\"); <= wait you to load box_n.il manually\n")
