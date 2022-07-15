@@ -6,9 +6,11 @@
 ;___vv___ the only thing TODO for new user : ___vv___
 ;;; in ~/.bashrc : 
 ; export SKILLDIR=$HOME/Skill
+; export SKILLDIR=/pbs/home/e/ebecheto/Skill
 ;;; AND
 ;;; in ~/.cdsinit_personnal :
 ; setShellEnvVar("SKILLDIR" "~/../ebecheto/Skill") #<= if not defined in ~/.bashrc
+; setShellEnvVar("SKILLDIR" "/pbs/home/e/ebecheto/Skill")
 ; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))
 ; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
@@ -38,7 +40,7 @@ concat('caz file))
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
 ; __ menu __ defun __--> too crowded => second one
-files2='("rexFindCell" "whereIncludeCell" "categorySet" "terminalGen" "bBoxView" "sch2layName" "lpp2Set" "nbSimilarList" "prBoundaryAlign" "wirePinName" "showOnly" "createInstPinsch")
+files2='("rexFindCell" "whereIncludeCell" "categorySet" "terminalGen" "bBoxView" "sch2layName" "lpp2Set" "nbSimilarList" "prBoundaryAlign" "wirePinName" "showOnly" "createInstPinsch" "nmos_sim")
 cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)
