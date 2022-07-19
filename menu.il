@@ -10,15 +10,15 @@
 ;;; AND
 ;;; in ~/.cdsinit_personnal :
 ; setShellEnvVar("SKILLDIR" "~/../ebecheto/Skill") #<= if not defined in ~/.bashrc
-; setShellEnvVar("SKILLDIR" "/pbs/home/e/ebecheto/Skill")
-; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))
+; setShellEnvVar("SKILLDIR" "/pbs/home/e/ebecheto/Skill") #<= another possible default path
+; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))#<= useless
 ; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
 
 let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
-unless(skdir skdir="/home/validmgr/ebecheto/Skill") ;<== hardcode default location if any
+unless(skdir skdir="/pbs/home/e/ebecheto/Skill" setShellEnvVar("SKILLDIR" skdir) ) ;<== hardcode default location if any
 ;dirs=list(skdir strcat(skdir "/ab")  )
-dirs=list(skdir strcat(skdir "/ab") strcat(skdir "/PICMIC") ) ;<= must be done better ;-(
+dirs=list(skdir strcat(skdir "/ab") strcat(skdir "/PICMIC") ) ;<= must be done better ;-()
 dir=skdir
 foreach(mapcar dir  dirs
 when(system(strcat("ls " dir ">/dev/null" ))==0
@@ -33,6 +33,9 @@ ineed('(noiseSummary RmBannerItemByName))
 RmBannerItemByName('trEdPulldownMenu)
 
 files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit" "shout")
+;; TOTHINK LATER : i probably have to user destructuringBind rather than set(concat('caz file) ...)
+;; TOTHINK LATER : although i might not need it at all. TODO LATER : redo the code of this menu.il file
+
 cazfiles=foreach(mapcar file files ;file=car(files)
 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file )))
 concat('caz file))
@@ -62,7 +65,14 @@ cazMyFunction = hiCreateMenuItem(?name 'cazMyFunction ?itemText "Save noise"
 	      edit(sprintf(nil \"%s\" filename))"
    ); end of created Menu item
 
-cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "print noise" ?callback "noiseResult()")
+
+g_menuIcon= list(strcat( env("SKILLDIR") "/mi2i_icon_pixmap.bmp") 16 16)
+;g_menuIcon2= list("/home/ebecheto/Skill/mi2i_logo_text.png" 16 57)
+
+
+
+
+cazPrintNoiseSummary = hiCreateMenuItem(?name 'cazPrintNoiseSummary ?itemText "print noise" ?callback "noiseResult()" ?itemIcon g_menuIcon)
 cazPrettyPrint = hiCreateMenuItem(?name 'cazPrettyPrint ?itemText "pretty print" ?callback "ineed('prettyPrint)")
 cazResize  = hiCreateMenuItem(?name 'cazResize ?itemText "Resize" ?callback "hiResizeWindow( window(1) list(0:0 500:500))")
 cazReload  = hiCreateMenuItem(?name 'cazReload ?itemText "reload_menu" ?callback "load(\"menu.il\")" )
@@ -96,7 +106,9 @@ cmd=sprintf(nil \"echo cd %s\" hiGetCurrentWindow()->cellView->fileName) system(
 IPNLmenuList = list( cazMyFunction cazPrintNoiseSummary cazDeroule cazDeroule2 cazResize cazReload cazPin cazText cazFct cazPrettyPrint cazEmacs cazMarkers cazRegion cazMos2Fet cazGnuplot cazFixAMS cazTuto cazpinAddText cazR90 cazNet cazFreeLCK )
 
 ;;; inserting the pulldown menu in the CIW
-hiCreatePulldownMenu(    'trEdPulldownMenu    "MICRHAU"   IPNLmenuList    )
+
+;hiCreatePulldownMenu(    'trEdPulldownMenu    g_menuIcon   IPNLmenuList   )
+hiCreatePulldownMenu(    'trEdPulldownMenu    "*_MI2I_*"   IPNLmenuList    )
 hiInsertBannerMenu( window(1) trEdPulldownMenu 666 );<== 666 so it would be the last one on the right presumably
 
 
