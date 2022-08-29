@@ -39,7 +39,7 @@ For practical simplicity, i use named label to put pins in a nearby area.
 ![example](./pic/schematic2symbol.png)
 
 
-*vdcGen* function example
+*[vdcGen](../vdcGen.il)* function example
 --------------------------
 From an open schematic, generates an array or a list of analogLib vdc with shifted verilog syntax bit, in order to use the parameter in a simulation (ADE, ADEXL, or whatever new maestro tool).
 
@@ -139,7 +139,7 @@ Take a list of instance and put wire with label on it, but change names of wante
 ![example](./pic/createInstPinsch.png)
 
 
-*[emacs_ipcPipe.il](./emacs_ipcPipe.il)* function example
+*[emacs_ipcPipe.il](../emacs_ipcPipe.il)* function example
 -----------------------------------
 When clicking one menu->emacs_ipcPipe, it creates a named pipe in /tmp/ipcPipe2CAT_$USER
 Then a line in emacs in skillMode can be executed in virtuoso with a shortcut bindkey (C-c-f or C-c-v). The outputed result from virtuoso can be pasted back into emacs with bindkey C-c-s.
