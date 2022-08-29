@@ -139,7 +139,7 @@ Take a list of instance and put wire with label on it, but change names of wante
 ![example](./pic/createInstPinsch.png)
 
 
-*emacs_ipcPipe.il* function example
+*[emacs_ipcPipe.il](./emacs_ipcPipe.il)* function example
 -----------------------------------
 When clicking one menu->emacs_ipcPipe, it creates a named pipe in /tmp/ipcPipe2CAT_$USER
 Then a line in emacs in skillMode can be executed in virtuoso with a shortcut bindkey (C-c-f or C-c-v). The outputed result from virtuoso can be pasted back into emacs with bindkey C-c-s.
@@ -158,5 +158,5 @@ VERY VERY VERY HANDY
 I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
 
 ```diff
-- if you read until here you probaly learnt something.
+- if you read until here you probably learnt something.
 ```
