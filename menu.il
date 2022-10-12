@@ -66,7 +66,8 @@ cazMyFunction = hiCreateMenuItem(?name 'cazMyFunction ?itemText "Save noise"
    ); end of created Menu item
 
 
-g_menuIcon= list(strcat( env("SKILLDIR") "/mi2i_icon_pixmap.bmp") 16 16)
+;g_menuIcon= list(strcat( env("SKILLDIR") "/mi2i_icon_pixmap.bmp") 16 16)
+g_menuIcon= list(strcat( env("SKILLDIR") "/Signe-MI2I.bmp") 16 16)
 ;g_menuIcon2= list("/home/ebecheto/Skill/mi2i_logo_text.png" 16 57)
 
 
