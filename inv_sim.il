@@ -1,6 +1,6 @@
 ;; source /pbs/throng/omme/bin/tsmc65n_grid
-;load("nmos_sim.il")
-; ineed('nmos_sim t)
+;load("inv_sim.il")
+; ineed('inv_sim t)
 ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoint getPropList))
 ;unless(rexFindCell("nmos_sim" '("TSMC65_ebecheto" )) )
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
@@ -9,7 +9,8 @@ ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoin
 ;; CREATE FIRST inv_schematic & symbol instead of inv_sim
 
 ;(setq npmoslib '(("nch" "pch") "tsmcN65"));=> (("nch" "pch") "tsmcN65")
-(setq npmoslib '(("nmos" "pmos") "SG13_dev"));=> (("nch" "pch") "tsmcN65")
+;(setq npmoslib '(("nmos" "pmos") "SG13_dev"));=> (("nch" "pch") "tsmcN65")
+(setq npmoslib '(("nmos1v" "pmos1v") "tsmc13rf"));=> (("nmos1v" "pmos1v") "tsmc13rf")
 
 defun(inv_sim (@optional (cv nil) (npmoslib '(("nch" "pch") "tsmcN65"))
 let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win libname nmos pmos nplib)
@@ -87,4 +88,5 @@ printf("USAGE : identify the transistor you want : nmos nmos4 nch nfet MOS_N3\n"
 printf("USAGE : check correct library you want rexFindCell(\"nmos4\")\n")
 printf("USAGE : if second Find is OK, define libmos=nth(1 rexFindCell(\"nmos4\"))\n")
 printf("USAGE : if second Find is OK, define libmos=nth(0 rexFindCell(\"^nch$\"))\n")
-printf("USAGE : nmos_sim(nil nth(1 libmos) nth(0 libmos) )\n")
+printf("USAGE : inv_sim(nil '((\"nch\" \"pch\") \"tsmcN65\"))\n")
+printf("USAGE : inv_sim(nil '((\"nmos1v\" \"pmos1v\") \"tsmc13rf\"))\n")
