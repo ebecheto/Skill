@@ -7,7 +7,7 @@
 
 defun(rexFindCell (@optional (pattern ".*_sim") (libNames ddGetLibList()~>name) (insensitive nil))
 " commentary "
-let( (ddLibs)
+let((ddLibs cellName)
 unless(listp(libNames) libNames=list(libNames))
 ddLibs=setof(dd ddGetLibList() member(dd~>name libNames))
 assocLib=foreach(mapcan dd ddLibs foreach(mapcan cc dd~>cells list(list(dd~>name cc~>name))))
