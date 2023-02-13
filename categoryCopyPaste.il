@@ -16,10 +16,11 @@ cellNames=ddId1~>cells~>name
 ; ddId1~>name;=> "lojic_130_v1"
 catNames=ddCatGetLibCats(ddId1)
 ; catName=car(catNames);=> "CORE_LOJIC130" ;<= debug
-
+catName
 foreach(mapcar catName catNames
 rw2=if(member(catName ddCatGetLibCats(ddId2)) "a" "w")
 cat2 = ddCatOpenEx(ddId2 catName rw2 1)
+cat2~>??
 ;categoryGet(ddId1~>name cellName)
 cat = ddCatOpenEx(ddId1 catName "a" 1)
 cellsInCat=ddCatGetCatMembers(cat) ;=> (("CORE_LOJIC130" "cell") ("CORE_LOJIC130_simu" "cell") ("OUT_PROBE_OSC" "cell") ("PAD_IN" "cell") ("PAD_OUT" "cell") ("paramset_core_lojic" "cell"))
@@ -36,7 +37,9 @@ else
 printf("FUNCTION %s, does not handle subCategory yet (%s)\n" "categoryCopyPaste" cellp)
 );end if
 ); end cells in category loop
-); end category Names in the original library
 ddCatSave(cat2)
 ddCatClose(cat2)
+); end category Names in the original library
 ))
+
+; first try bug with sos checkin/out stuff
