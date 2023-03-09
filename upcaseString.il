@@ -1,5 +1,18 @@
 ;; copyleft ebecheto
-defun(upcaseString (str) apply('and foreach(mapcar letter parseString(str "") (rexMatchp "[A-Z]" letter))))
+;; Check is a string is only made of UPPER CASE of digits ABCFGH123 => [OK]
+;; 
+
+;defun(upcaseString (str) apply('and foreach(mapcar letter parseString(str "") (rexMatchp "[A-Z]" letter))))
+;defun(upcaseString (str) apply('and foreach(mapcar letter parseString(str "") (rexMatchp "[A-Z]+[0-9]+" letter))))
+defun(upcaseString (str) apply('and foreach(mapcar letter parseString(str "") or((rexMatchp "[A-Z]" letter)(rexMatchp "[0-9]" letter)))))
+
+;; CHECKS to verify
+;; upcaseString("BUFFLVTD24") ;=> t
+;; upcaseString("nmos1v_mis") ;=> nil
+;; upcaseString("nmos")       ;=> nil
+
+
+;; foreach(mapcar letter parseString("BUFFLVTD24" "") printf("%s %L\n" letter (rexMatchp "[A-Z]+[0-9]+" letter))) 
 
 
 ;; https://stackoverflow.com/questions/2129840/check-if-a-string-is-all-caps-in-emacs-lisp
@@ -11,6 +24,19 @@ defun(upcaseString (str) apply('and foreach(mapcar letter parseString(str "") (r
 ;; stringIsCapitalized("Abc");=> nil
 ;; stringIsCapitalized("abc");=> nil
 ;; NOT OK
+
+
+;; (rexMatchp "[A-Z]||[0-9]" "A");=> nil
+;; (rexMatchp "[0-9]" "2");=> t
+;; (rexMatchp "[A-Z]*[0-9]*" "A");=> t
+;; (rexMatchp "[A-Z]*[0-9]*" "A9");=> t
+;; (rexMatchp "[A-Z]*[0-9]*" "9");=> t
+;; (rexMatchp "[A-Z]+[0-9]+" "a");=> nil
+;; (rexMatchp "[A-Z]+[0-9]+" "A");=> nil
+;; or((rexMatchp "[A-Z]" "A") (rexMatchp "[0-9]" "A") );=> t
+
+;; (rexMatchp "[A-Z]+[0-9]*" "A9");=> t
+;; (rexMatchp "[A-Z]+[0-9]*" "9");=> nil
 
 ;; (rexMatchp "[A-Z]" "A");=> t
 ;; (rexMatchp "[A-Z]" "Abc");=> t
