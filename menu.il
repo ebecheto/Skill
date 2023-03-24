@@ -9,9 +9,11 @@
 ; export SKILLDIR=/pbs/home/e/ebecheto/Skill
 ;;; AND
 ;;; in ~/.cdsinit_personnal :
+
 ; setShellEnvVar("SKILLDIR" "~/../ebecheto/Skill") #<= if not defined in ~/.bashrc
 ; setShellEnvVar("SKILLDIR" "/pbs/home/e/ebecheto/Skill") #<= another possible default path
-; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))#<= useless
+; setSkillPath(cons(getShellEnvVar("SKILLDIR") getSkillPath()))#<= not so useless 
+; ;setShellEnvVar("SKILLDIR" strcat(getShellEnvVar("HOME") "/Skill"));<= or that instead of .bashrc
 ; loadi("menu.il")
 ;___^^___ the only thing TODO for new user : ___^^___
 
