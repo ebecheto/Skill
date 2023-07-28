@@ -20,7 +20,7 @@
 setSkillPath(cons("~/../ebecheto/Skill" getSkillPath()))
 load("mos2fet.proc.il")   ;<= defines additional procedures and flipList
 ; load "flipTo_cmos8rf.il"     ;<= defines flipList amsc35->ibm130 ; 
-load("flipTo_tsmc130.il")     ;<= defines flipList amsc35->tsmc130 ; 
+; load("flipTo_tsmc130.il")     ;<= defines flipList amsc35->tsmc130 ; 
 ; load("flipTo_tsmc130-From_lf11is.il")
 ; flip=revertFlip(flip) ;<== permet de faire ibm130->amsc35
 ; flip=removeInFlip(flip '("subc"))
