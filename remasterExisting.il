@@ -1,3 +1,5 @@
+;ineed('remasterExisting t)
+
 ineed('(rexFindCell) )
 
 ; lib~>type=='ddLibType;=> t
@@ -21,7 +23,7 @@ if( newMast=dbOpenCellViewByType(libName inst~>cellName "symbol")
 then
 inst~>master=newMast ;<= remaster instance
 else
-printf("[TODO] %L\n" rexFindCell(strcat("^" cellName "$")))
+printf("[TODO] %L\n" rexFindCell(strcat("^" inst~>cellName "$")))
 )))
 ))
 
