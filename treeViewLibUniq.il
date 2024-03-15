@@ -21,7 +21,7 @@ unless(viewName viewName="symbol")
 ; remove(nil foreach(mapcar inst instances when((and inst~>libName==libName inst~>viewName==viewName) inst~>cellName)))
 ;=> ("nmos1vcap" "mimcap_mis" "rnhpoly_mis")
 
-lib=car(setof(g_lib  ddGetLibList() g_lib~>name=="lojic_130_v2")) ;=> dd:0x297bf250
+lib=car(setof(g_lib  ddGetLibList() g_lib~>name==libName)) ;=> dd:0x297bf250
 
 cell=car(lib~>cells)
 cellNames=foreach(mapcan cell lib~>cells
