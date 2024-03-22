@@ -6,8 +6,20 @@ ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoin
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
 
 defun(nmos_sim (@optional (cv nil) (nmos "nch") (lib "tsmcN65"))
-let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win)
+let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win libName)
 unless(cv cv=geGetWindowCellView())
+
+unless(cv 
+libName=strcat(env("PRJ_NAME")||"design" "_" env("USER"));=> "ihp130_ebecheto"
+if(
+car(setof(lib ddGetLibList() lib~>name==libName))
+then
+cv=dbOpenCellViewByType(strcat(env("PRJ_NAME")||"design" "_" env("USER")) strcat(nmos "_sim") "schematic" "schematic" "w")
+else
+cv=geGetWindowCellView()
+))
+
+
 ;cv=dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "schematic" "w");<= modifiable
 
 XY=0:0
@@ -34,6 +46,7 @@ XY=1:0
 inst=dbCreateInstByMasterName(cv lib nmos "symbol" "M1" rodAddPoints(XY 0:0) "R0")
 ; getPropList(inst)
 pp='(("l" "string" "1u") ("w" "string" "400n"))
+;; WARNING some technology concider 1.0 to be 1.0u in there Pcell
 foreach(mapcar p pp param=cdfFindParamByName(cdfGetInstCDF(inst) car(p)) param~>value=nth(2 p))
 
 itp=getInstTermPoint(inst) ;=> (("S" (1.25 -0.1875) ("pin" "drawing") ((1.225 -0.2125) (1.275 -0.1625))) ("G" (1.0 0.0) ("pin" "drawing") ((0.975 -0.025) (1.025 0.025))) ("B" (1.25 0.0) ("pin" "drawing") ((1.225 -0.025) (1.275 0.025))) ("D" (1.25 0.1875) ("pin" "drawing") ((1.225 0.1625) (1.275 0.2125))))
@@ -62,8 +75,8 @@ win=geOpenOrRaisecv(cv)
 ;libmos=nth(2 rexFindCell("nmos"));=> ("techno_blabla" "nmos")
 ;;libmos=car(rexFindCell("nch"))
 ;libmos=car(rexFindCell("MOS_N3"))
-
-;nmos_sim(nil nth(1 libmos) nth(0 libmos) )
+;; libmos=nth(2 rexFindCell("nmos_18"))
+; nmos_sim(nil nth(1 libmos) nth(0 libmos) )
 
 printf("USAGE : identify the transistor you want : nmos nmos4 nch nfet MOS_N3\n")
 printf("USAGE : check correct library you want rexFindCell(\"nmos4\")\n")
