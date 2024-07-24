@@ -147,8 +147,11 @@ Use it preferably on a bmp 4-bit depth color image (reduce to possible 16 RGB co
 Will generate DRC errors to be wiaved for sure. But you can insert your favourite logo or a tribute to a dear colleague.
 
 shell> python3 ~/Skill/image2layers.py  #<= echo help scipt
+
 shell> python ~/Skill/image2layers.py image.png 1 0.065 0.065 > image.il  
+
 virtuoso> load("image.il")
+
 ![example](./pic/image2layer.png)
 
 
