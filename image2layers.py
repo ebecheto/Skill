@@ -11,6 +11,8 @@ color_lists={
     3: ("Metal3", "Metal2", "Metal1"),
     4: ("MET3", "MET2", "MET1"),
     5: ("TopMetal2", "TopMetal1", "Metal5", "Metal4", "Metal3", "Metal2", "Metal1"),
+    6: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1"),
+    7: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS", "GC"),
 }
 
 tech = int(sys.argv[2]) if len(sys.argv) >2 else 1
@@ -56,13 +58,6 @@ nblayers=len(color_list)
 print("cv=geGetWindowCellView()")
 print("; identify -verbose  {image_path}")
 print(";;RGB_x_x_x=\"M1\"  ;or:")
-## print("RGB_255_255_255=\"M1\"")
-## print("RGB_0_0_0=\"TOP_M\"")
-## print("RGB_0_0_128=\"M5\"")
-## print("RGB_128_0_0=\"M4\"")
-## print("RGB_128_128_0=\"M3\"")
-## print("RGB_128_128_128=\"M2\"")
-## print("RGB_192_192_192=\"M1\"")
 print("; RGB_x_x_x=list(\"M1\" \"drawing\")")
 
 # Histogram:
