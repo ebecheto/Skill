@@ -146,8 +146,8 @@ The script will take the more frequence color of the input image and for every p
 Use it preferably on a bmp 4-bit depth color image (reduce to possible 16 RGB color)
 Will generate DRC errors to be wiaved for sure. But you can insert your favourite logo or a tribute to a dear colleague.
 
-$> python3 ~/Skill/image2layers.py  #<= echo help scipt
-$> python ~/Skill/image2layers.py image.png 1 0.065 0.065 > image.il  
+\$> python3 ~/Skill/image2layers.py  #<= echo help scipt
+\$> python ~/Skill/image2layers.py image.png 1 0.065 0.065 > image.il  
 CIW> load("image.il")
 ![example](./pic/image2layer.png)
 
