@@ -138,6 +138,16 @@ When placing the instance manually in a layout, i generally don't want to place 
 Take a list of instance and put wire with label on it, but change names of wanted pinName.
 ![example](./pic/createInstPinsch.png)
 
+*[image2layers](../image2layers.py)* function example
+--------------------------
+That is a python script that generate pixel reactangle
+The script will take the more frequence color of the input image and for every pixel create a skill command to crerate that rectange. Then finaly merge all the layers.
+Use it preferably on a bmp 4-bit depth color image (reduce to possible 16 RGB color)
+Will generate DRC errors to be wiaved for sure. But you can insert your favourite logo or a tribute to a dear colleague.
+$> python script.py image.png 1 0.065 0.065 > image.il  
+CIW> load("image.il")
+![example](./pic/image2layer.png)
+
 
 *[emacs_ipcPipe.il](../emacs_ipcPipe.il)* function example
 -----------------------------------
