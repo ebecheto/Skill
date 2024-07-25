@@ -154,10 +154,11 @@ virtuoso> load("image.il")
 ![example](./pic/image2layer.png)
 
 *[image2layers.il](../image2layers.il)* function example
-
+--------------------------
+```
 image2layers("~/groupU/Mi2i/pics/wharol2.bmp" 1) ;<= execute image2layers.py and generate the image into the current cellview
 ![example](./pic/wharol_out.png)
-
+```
 
 *[emacs_ipcPipe.il](../emacs_ipcPipe.il)* function example
 -----------------------------------
