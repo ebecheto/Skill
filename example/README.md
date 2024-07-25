@@ -138,7 +138,7 @@ When placing the instance manually in a layout, i generally don't want to place 
 Take a list of instance and put wire with label on it, but change names of wanted pinName.
 ![example](./pic/createInstPinsch.png)
 
-*[image2layers](../image2layers.py)* function example
+*[image2layers.py](../image2layers.py)* function example
 --------------------------
 That is a python script that generate pixels reactangles.
 
@@ -152,6 +152,11 @@ shell> python ~/Skill/image2layers.py image.png 1 0.065 0.065 > image.il
 virtuoso> load("image.il")
 ```
 ![example](./pic/image2layer.png)
+
+*[image2layers.il](../image2layers.il)* function example
+
+image2layers("~/groupU/Mi2i/pics/wharol2.bmp" 1) ;<= execute image2layers.py and generate the image into the current cellview
+![example](./pic/wharol_out.png)
 
 
 *[emacs_ipcPipe.il](../emacs_ipcPipe.il)* function example
