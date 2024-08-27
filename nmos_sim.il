@@ -4,11 +4,12 @@ ineed('(geOpenOrRaisecv rexFindCell terminalGen createInstPinsch getInstTermPoin
 ;unless(rexFindCell("nmos_sim" '("TSMC65_ebecheto" )) )
 ;;unless(dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "" "r")
 
-defun(nmos_sim (@optional (cv nil) (nmos "nch")(lib "tsmcN65"))
+defun(nmos_sim (@optional (cv nil) (nmos "nch")(lib "tsmcN65")(pp nil))
 let((XY v1 param itp Pxy win v2 Sxy Bxy Gxy Dxy win)
 unless(cv 
 cv=geGetWindowCellView()
 )
+unless(pp pp='(("l" "string" "1u") ("w" "string" "400n")))
 ;cv=dbOpenCellViewByType( "TSMC65_ebecheto" "nmos_sim" "schematic" "schematic" "w");<= modifiable
 
 XY=0:0
@@ -34,7 +35,7 @@ schCreateWireLabel(cv car(wid) rodAddPoints(Pxy -0.125:0.125) "vds" "centerCente
 XY=1:0
 inst=dbCreateInstByMasterName(cv lib nmos "symbol" "M1" rodAddPoints(XY 0:0) "R0")
 ; getPropList(inst)
-pp='(("l" "string" "1u") ("w" "string" "400n"))
+
 foreach(mapcar p pp param=cdfFindParamByName(cdfGetInstCDF(inst) car(p)) param~>value=nth(2 p))
 
 itp=getInstTermPoint(inst) ;=> (("S" (1.25 -0.1875) ("pin" "drawing") ((1.225 -0.2125) (1.275 -0.1625))) ("G" (1.0 0.0) ("pin" "drawing") ((0.975 -0.025) (1.025 0.025))) ("B" (1.25 0.0) ("pin" "drawing") ((1.225 -0.025) (1.275 0.025))) ("D" (1.25 0.1875) ("pin" "drawing") ((1.225 0.1625) (1.275 0.2125))))
