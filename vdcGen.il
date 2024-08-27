@@ -52,6 +52,7 @@ printf("vdcGen(\"ZC\" t 1 '(0 5))\n")
 printf("vdcGen(\"TH\" t 1 '(0 5));<==one row from 0 to 5\n")
 printf("vdcGen(\"TH\" t 1 '(0 5) t 3.3 0);<== \n")
 printf("vdcGen(\"ZC\" t 1 '(0 5) t 3.3 0)\n")
+printf("ineed('underscore2bus); if i need  _2bus\n")
 ; bus2_() si on ne veut pas des <1:2> bus, mais des _1 _2
 
 

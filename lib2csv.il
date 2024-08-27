@@ -2,6 +2,7 @@
 ;load("lib2csv.il")
 ;; _______________study a new library : lib2csv
 ;; create a lib : ANALOG_TUT for parameter instanciation viewing
+;libName="SG13S"
 defun( lib2csv (@optional (libName "ts018_prim") (row t) (verb t)) let((masterList file pf cv inst cdfgData srow)
 ddLibName=car(setof(lib ddGetLibList() lib~>name==libName))
 if(row srow="_row" srow="")
@@ -24,7 +25,7 @@ printf("%s||%L\n" cell~>name mast~>??)
 ))
 close(pf) ;sprintf(cmd  "cp %s ~/groupU/RunT2K/." file) system(cmd)
 edit(eval(file))
-)) ; lib2csv("tsl18fs120") lib2csv("ts018_prim") lib2csv("cmos8rf") lib2csv("cmrf8sf") lib2csv("CORELIB")
+)) ; lib2csv("tsl18fs120") lib2csv("ts018_prim") lib2csv("cmos8rf") lib2csv("cmrf8sf") lib2csv("CORELIB") lib2csv("SG13_dev")
 
 printf("lib2csv(%L)\n" "CORELIB")
 printf("lib2csv(%L t nil)   ;=> non verbeux\n" "CORELIB")

@@ -7,7 +7,7 @@
 defun(csvReadFile (@optional (file nil)(separator nil) (comment nil)(skip 0))
 let((list2D line sline myPort)
 unless(comment comment=";") ;comment="#"
-unless(separator separator=" +" );<= one or more space
+unless(separator separator=" +" );<= one or more space ;separator=","
 unless(skip skip=0)
 unless(file file=sprintf(nil "%s/%s" "/xusers/1_profils/linux/ebecheto/Skill" "dataFrame.csv"))
 ;pwd();=> "/xusers/3_projets/fastic/cadence2122/ebecheto_lhcb_ecal2"

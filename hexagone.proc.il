@@ -1,7 +1,7 @@
 ;; copyleft ebecheto
 
 procedure(createHexagon( @optional (x 0) (y 0) (layer "MET1")  (cv geGetWindowCellView()) (r 8/sqrt(3)))
-let( (rot pi i pointList dg)
+let( (rot pi i pointList dg cBox hex)
 pointList='()
 rot=0
 pi=acos(-1)

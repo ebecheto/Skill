@@ -31,6 +31,7 @@ categorySet(libName cellName catName rest)
 ;=> "a"
 
 printf("_USAGE_\n")
+printf("cat = ddCatOpenEx(ddGetObj(\"libName\") \"catName\" \"a\" 1) ;<= \"a\" if exist, \"w\" otherwise ")
 printf("categorySet(libName cellName cat);<== affect category 'cat'\n")
 printf("categorySetLib(libName \"_sim$\" cat);<== affect category 'cat' to all matched cell name '_sim$' to the given library\n")
 printf("categorySetLib();<== affect category 'SIMU' to all matched cell name '_sim$' of the viewing library of the active shematic\n")

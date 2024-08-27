@@ -16,11 +16,12 @@
 ;; DONE : Update Hierarchy when symbol exist ! See function : updateCellviews
 ;; DONE : move the cell out ouf bBox and back to xy, to force the redraw of th wire (if in route mode)
 
-;; load("~/Skill/mos2fet.il")
+; load("~/Skill/mos2fet.il")
 setSkillPath(cons("~/../ebecheto/Skill" getSkillPath()))
 load("mos2fet.proc.il")   ;<= defines additional procedures and flipList
 ; load "flipTo_cmos8rf.il"     ;<= defines flipList amsc35->ibm130 ; 
-load "flipTo_tsmc130.il"     ;<= defines flipList amsc35->tsmc130 ; 
+; load("flipTo_tsmc130.il")     ;<= defines flipList amsc35->tsmc130 ; 
+; load("flipTo_tsmc130-From_lf11is.il")
 ; flip=revertFlip(flip) ;<== permet de faire ibm130->amsc35
 ; flip=removeInFlip(flip '("subc"))
 ; load("flipTo_cmhv7sf.il")    ;<= defines flipList amsc35->amsh18
@@ -133,7 +134,7 @@ when(fig~>points!=mvPoints fig~>points=mvPoints)
 ;; inst~>master=dbOpenCellViewByType("cmrf8sf" "pfet" "symbol")
 ;; B=dbOpenCellViewByType("cmrf8sf" "oprppres" "symbol")
 inst~>master=B  ;<== ####CHANGE MASTER###
-inst~>orient=orient ;<== is it useful ? to update orientation ? Yes surely
+;inst~>orient=orient||"R0" ;<== is it useful ? to update orientation ? Yes surely
 ; printf("-> into  %L ___\n" inst~>cellName)
 
 when(length(fp)>=4 foreach( special nth(3 fp) when(car(special)=="adjust"
@@ -153,6 +154,8 @@ when(replaceWire moveBackAndForth(inst))
 printf("load(\"flipTo_cmos8rf.il\")     ;<= defines flipList amsc35->ibm130\n")
 printf("load(\"flipTo_cmhv7sf.il\")     ;<= defines flipList amsc35->amsh18\n")
 printf("load(\"flipTo_cmrf8sf_t18.il\") ;<= defines flipList ibm130->tower180\n")
+printf("load(\"flipTo_tsmc130_from_ibm130.il\") ;<= defines flipList ibm130->tsmc130\n")
+
 printf("c35toc18\n");
 printf("translateLib(\"T2K_V5\") ;=> create T2K_V5_TRANSLATE\n")
 printf("translateLib(\"afs_ldo_design\") ;=> create afs_ldo_design_TRANSLATE\n")
@@ -164,6 +167,10 @@ printf("; Simple USAGE :\n")
 printf("flipList='((\"INVD4\" \"INVD12\" \"tcb013ghp\" ));<== define change cells INVD4 with INVD12 from tcb013ghp lib\n")
 printf("c35toc18(flipList nil t t);<= viewing cellView is afected\n")
 printf("c35toc18(flip nil t t);<= viewing cellView is afected\n")
+;printf("flip='((\"nmos1v2hvt_4\" \"nmos1vhvtx\" \"tsmc13rf\")   ((\"flipProp\" ((\"wf\" \"fw\")))))\n")
+printf("flip='((\"pmos1v2hvt_4\" \"pmos1vhvtx\" \"tsmc13rf\")(\"nmos1v2hvt_4\" \"nmos1vhvtx\" \"tsmc13rf\")   ((\"flipProp\" ((\"wf\" \"fw\")))))\n")
+printf("c35toc18(flip nil t t);<= viewing cellView is afected\n")
+
 
 
 

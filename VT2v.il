@@ -15,3 +15,7 @@ dnets=foreach(mapcar net cnets buildString( parseString(net "<") "\\\<"))
 
 ; VT2v(list("/I0/FLUSH" "/I0/I17/I17/regIO<5>" "/I0/I17/I17/Ireg<9>/Q<10>"))
 ;=> ("I0.FLUSH" "I0.I17.I17.regIO\\<5\\>" "I0.I17.I17.Ireg\\<9\\>.Q\\<10\\>")
+
+;; Ccnt='("/I0/I47/Q<1>" "/I0/I47/Q<2>" "/I0/I47/Q<3>" "/I0/I47/Q<4>" "/FLUSH_OUT")
+;; foreach(mapcar c Ccnt printf("%s " car(VT2v(c))))
+;; I0.I47.Q\<1\> I0.I47.Q\<2\> I0.I47.Q\<3\> I0.I47.Q\<4\> FLUSH_OUT 
