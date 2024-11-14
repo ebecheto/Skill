@@ -19,8 +19,8 @@
 
 let((dirs skdir) skdir=getShellEnvVar("SKILLDIR")
 unless(skdir skdir="/pbs/home/e/ebecheto/Skill" setShellEnvVar("SKILLDIR" skdir) ) ;<== hardcode default location if any
-;dirs=list(skdir strcat(skdir "/ab")  )
-dirs=list(skdir strcat(skdir "/ab") strcat(skdir "/PICMIC") ) ;<= must be done better ;-()
+dirs=list(skdir strcat(skdir "/ab")  )
+;dirs=list(skdir strcat(skdir "/ab") strcat(skdir "/PICMIC") ) ;<= must be done better ;-()
 dir=skdir
 foreach(mapcar dir  dirs
 when(system(strcat("ls " dir ">/dev/null" ))==0
@@ -31,7 +31,7 @@ printf("[SKILL] Adding %s in getSkillPath()\n" dir||"nilDir?")
 defun(menu () loadi("menu.il"))
 ;load("emacs_ipcPipe.il");<== in the menu or not ...
 load("ineed.il")
-ineed('(noiseSummary RmBannerItemByName))
+ineed('(noiseSummary RmBannerItemByName) t)
 RmBannerItemByName('trEdPulldownMenu)
 
 files='("genBox" "addCell" "schematic2symbol" "getInstTermPoint" "getPropList" "vdcGen" "abBinaryStrToInt" "terminalPinsMap" "terminal2pin" "ocnPrint2list" "createPinLPP" "schCreatePinEd" "generateAllPins" "genPinMaster" "generatePin2place" "updateCellviews" "whereExistCell3" "magAC" "sortOPpattern" "gplinFit" "shout")
@@ -45,7 +45,7 @@ concat('caz file))
 hiCreatePulldownMenu( 'trSubMenuDefun ""  cazfiles)
 cazDeroule = hiCreateSliderMenuItem( ?name 'cazDeroule ?itemText "__ defun() __ -->" ?subMenu trSubMenuDefun)
 ; __ menu __ defun __--> too crowded => second one
-files2='("rexFindCell" "whereIncludeCell" "categorySet" "terminalGen" "bBoxView" "sch2layName" "lpp2Set" "nbSimilarList" "prBoundaryAlign" "wirePinName" "showOnly" "createInstPinsch" "nmos_sim")
+files2='("rexFindCell" "whereIncludeCell" "categorySet" "terminalGen" "bBoxView" "sch2layName" "lpp2Set" "nbSimilarList" "prBoundaryAlign" "wirePinName" "showOnly" "createInstPinsch" "nmos_sim" "image2layers")
 cazfiles2=foreach(mapcar file files2 set(concat('caz file) hiCreateMenuItem(?name concat('caz file) ?itemText file ?callback sprintf(nil "load(\"%s.il\")" file ))) concat('caz file))
 
 hiCreatePulldownMenu( 'trSubMenuDefun2 ""  cazfiles2)

@@ -7,7 +7,7 @@
 
 ;; pv("I1.MP16" "total" ?result "tran_noise-tran_noise") ;=> paramVal 2 si deux actimes  sst2
 
-
+;ineed('noise2pv t)
 ;;ie : noise2pv("summaryNoise.txt")
 procedure( noise2pv( @optional (file "summaryNoise.txt") (verb t) )
 let( (fp fo fs noiseSim rmSlash aList inst)
@@ -17,6 +17,7 @@ printf("noise2pv(\"%s\")... processing\n" file)
 fp=infile(sprintf(nil "%s/%s" pwd() file))
 fo=outfile(sprintf(nil "%s/%s.pv.il" pwd() file))
 fs=outfile(sprintf(nil "%s/%s.sqrtIinteg.il" pwd() file))
+fs2=outfile(sprintf(nil "%s/%s.carre.il" pwd() file))
 
 ; while(fscanf( fp "%/" slash)    print(slash)     )
 while(gets(nextLine fp) when(verb printf("line: %s" nextLine))
@@ -34,15 +35,17 @@ when(verb printf("aList:_%L_\n" aList))
 rexCompile("/") inst=rexReplace(car(aList) "." 0)
 fprintf(fo "plot(pv(%L %L ?result %L))\n" inst cadr(aList) noiseSim )
 fprintf(fs "plot(sqrt(iinteg(pv(%L %L ?result %L)**2)))\n" inst cadr(aList) noiseSim )
+fprintf(fs2 "plot(pv(%L %L ?result %L)**2)\n" inst cadr(aList) noiseSim )
 );cond2
 (t 
 fprintf(fo ";; %s" nextLine)
 fprintf(fs ";; %s" nextLine)
+fprintf(fs2 ";; %s" nextLine)
 );cond default
 );end cond
 );end while
 
-close(fp) close(fo) close(fs)
+close(fp) close(fo) close(fs) close(fs2)
 ;; fo=infile(sprintf(nil "%s/%s.pv.il" pwd() file))
 ;; while(gets(nextLine fo) printf("%s\n" nextLine )) ;; <== lit tout le fichier et l'affiche dans icfb
 ;; close(fo)

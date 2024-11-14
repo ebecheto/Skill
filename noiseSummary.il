@@ -25,6 +25,7 @@ noiseSummary( 'integrated ?result param2 ?noiseUnit "V" ?truncateType 'byNumber 
 ); end procedure "noiseSummary_call"
 
 ;;;                                     nil is the default argument of file
+
 procedure( noiseResult( @optional (file nil ) )
 let( (resultDir pfile pf param paramList )
 

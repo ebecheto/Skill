@@ -1,4 +1,6 @@
 ; load("~/Skill/PICMIC/load-flow.il")
+;; MAIN SKILL SCRIPT ;;
+
 
 ;depuis "~/testColor.txt"  
 ;imadPositionFile="~/testColor.txt"

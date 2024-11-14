@@ -3,7 +3,7 @@ unless(fboundp('a2s) ineed('itos) alias(a2s itos))
 
 ; load("vdcGen.il")
 defun( vdcGen (@optional  (pinName t) (cv t) (N1 4) (N2 8) (bus t)(zero 0)(un 3.3))
-let((XY tmp X0 Y0 dX dY label i v wid Ni2s bug bud)
+let((XY tmp X0 Y0 dX dY label i v wid Ni2s bug bud nwidth labelR0)
 when(cv=='t cv=geGetWindowCellView())
 when(pinName=='t pinName="SDC")
 if(bus then bug="<" bud=">" else bug="_" bud="")
@@ -13,8 +13,10 @@ if(listp(N1) then N1t=cadr(N1)||1 N1f=car(N1) when(N1t<N1f tmp=N1f N1f=N1t N1t=t
 X0=ceiling(caar(cv~>bBox))+0.375
 Y0=ceiling(cadadr(cv~>bBox))
 XY=list(X0 Y0)
-dX=0.5
+dX=0.25 ;0.5
 dY=1
+nwidth=0;  0.0125
+labelR0="R90"
 printf("from to loops :%L\n" list(N1f N1t N1f N2t) )
 for(Ni1 N1f N1t
 for(Ni2 N2f N2t
@@ -32,8 +34,8 @@ param=cdfFindParamByName( cdfGetInstCDF(v) "vdc")
 ;param~>value=sprintf(nil "V%s_%d_%d" pinName Ni1 Ni2)
 varName=if(N1f!=N1t strcat(pinName "_" a2s(Ni1)) pinName)
 param~>value=sprintf(nil "int(%s)&(1<<%d) ? %s:%s" varName Ni2s a2s(zero) a2s(un))
-wid=schCreateWire( cv "draw" "direct" list(XY rodAddPoints(XY 0:0.25)) 0.0625 0.0625 0.0125)
-schCreateWireLabel(cv car(wid) rodAddPoints(XY 0:0.2) label "centerCenter" "R0" "euroStyle" 0.0625 nil)
+wid=schCreateWire( cv "draw" "direct" list(XY rodAddPoints(XY 0:0.25)) 0.0625 0.0625 nwidth)
+schCreateWireLabel(cv car(wid) rodAddPoints(XY -0.0625:0.2) label "centerCenter" labelR0 "euroStyle" 0.0625 nil)
 XY=rodAddPoints(XY dX:0)
 )
 XY=list(X0 cadr(XY)+dY)

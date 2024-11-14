@@ -16,6 +16,7 @@ printf("[SKILL] Adding %s in getSkillPath()\n" dir||"nilDir?")
 ))
 
 
+;; ineed('checkAddSkillPath)
 ;; checkAddSkillPath(list("$HOME/Skill" "$HOME/Skill/PICMIC/V1"))
 ;; ineed('ROnb_xy_v1)
 

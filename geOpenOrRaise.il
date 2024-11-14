@@ -12,6 +12,7 @@ hiRaiseWindow(wini)
 else
 wini=geOpen(?lib lib ?cell cell ?view view)
 )
+wini
 )
 
 
