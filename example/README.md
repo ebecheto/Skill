@@ -111,7 +111,9 @@ In the example, the buffer is not present in the library, so it cannot be update
 *mos2fet* function example
 --------------------------
 update a schematic with all the symbol to be modified. Could be looped easily on the entire library. Update net position except if the net does not touch the center of the pin.
-could be used to translate a design to another techno.
+
+:star: Could be used to translate a design to another techno.
+:star:
 
 ![example](./pic/mos2fet.png)
 See [mos2fet_tuto.il](./pic/mos2fet_tuto.il) example file.
