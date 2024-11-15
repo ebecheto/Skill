@@ -146,7 +146,7 @@ That is a python script that generate pixels reactangles.
 
 The script will take the more frequence color of the input image and for every pixel create a skill command to crerate that rectange. Then finaly merge all the layers.
 Use it preferably on a bmp 4-bit depth color image (reduce to possible 16 RGB color)
-Will generate DRC errors to be wiaved for sure. But you can insert your favourite logo or a tribute to a dear colleague.
+Will generate DRC errors to be waived for sure. But you can insert your favourite logo or a tribute to a dear colleague.
 
 ```
 shell> python3 ~/Skill/image2layers.py  #<= echo help script
@@ -177,7 +177,9 @@ echo 'loadEOF' > /tmp/ipcPipe2CAT_ebecheto
 &#x1F34E;
 VERY VERY VERY HANDY
 &#x1F34E;
-:star: :star: :star: 
+
+
+:star: STAR :star: 
 I could not code anymore without this feature. I came-up with this solution inspired by gnuplot-mode.
 
 ```diff
