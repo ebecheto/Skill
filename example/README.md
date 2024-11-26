@@ -160,7 +160,19 @@ virtuoso> load("image.il")
 ```
 image2layers("~/groupU/Mi2i/pics/wharol2.bmp" 1) ;<= execute image2layers.py and generate the image into the current cellview
 ```
+
 ![example](./pic/wharol_out.png)
+
+--------------------------
+
+![example](./pic/rectangleLabel2pin.jpg)
+
+*[image2layers.il](../rectangleLabel2pin.il)* function example
+Generate pins on top of rectangles with theire label
+
+
+
+
 
 *[emacs_ipcPipe.il](../emacs_ipcPipe.il)* function example
 -----------------------------------

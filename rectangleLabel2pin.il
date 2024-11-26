@@ -4,7 +4,7 @@ ineed('(bBoxHeight isPointInBbox createPinLPPcv))
 ;ineed('( getInstTermPoint geOpenOrRaisecv routePath viaGenerateViasInArea2 addValidVia getNassoc createPinLPPcv getInstTermPointLPP3 routeL routeL_paires ))
 
 defun(rectangleLabel2pin (@optional (cv nil))
-;; i have a layout with ractangle and a label onto it
+;; i have a layout with rectangle and a label onto it
 ;; i want to create a pin at the same place of the rectangle with the label sticked to it
 let((labs rect pairs pinName lpp pinW rot pin)
 unless(cv cv=geGetWindowCellView())
