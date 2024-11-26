@@ -165,10 +165,12 @@ image2layers("~/groupU/Mi2i/pics/wharol2.bmp" 1) ;<= execute image2layers.py and
 
 --------------------------
 
-![example](./pic/rectangleLabel2pin.jpg)
-
 *[image2layers.il](../rectangleLabel2pin.il)* function example
+--------------------------
 Generate pins on top of rectangles with theire label
+
+![example](./pic/rectangleLabel2pin.png)
+
 
 
 
