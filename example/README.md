@@ -48,7 +48,7 @@ From an open schematic, generates an array or a list of analogLib vdc with shift
 
 *menu* function example
 --------------------------
-Add a menu in CIW ( former icfb ), the pull down menus with the function a generally use.
+Add a menu in CIW ( former icfb ), the pull down menus with the function i generally use.
 
 ![example](./pic/menu.png)
 

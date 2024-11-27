@@ -83,6 +83,7 @@ eko=sprintf(nil "\nTODO:\nlp %s/%s.sed_bw.ps\n" pwd() filename)
 eko=sprintf(nil "echo \"%s\"" eko)
 (system eko)
 printf("(system %L)"  sprintf(nil "echo \"%s\"" sprintf(nil "lp %s/%s.sed_bw.ps" pwd() filename)))
+(system sprintf(nil "echo ffmutt \"%s/%s.t_ps.png\" &" pwd() filename))
 );let
 );proc
 
@@ -129,6 +130,11 @@ system("echo $PWD/TOP.pdf")
 )
 
 printf("\nprettyPrintH() ;<== prints the HIERARCHY\n")
+
+;; # source ~/.mail_aliases                                #<= in ~/.muttrc
+;; # alias moi e.bechetoille @ ipnl . in2p3 . fr (Ed BECH) #<= in ~/.mail_aliases
+;; ffmutt() { echo -e "oki\nmutt joe@host.com -s subject -a attached.file"|mutt moi -s "$1 " -a $*; }
+
 
 ;; cmd=sprintf(nil "for file in %s-*ps;do echo $file;done\n" geGetWindowCellView()~>libName )
 ;; system(cmd)
