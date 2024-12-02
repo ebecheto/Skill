@@ -1,5 +1,6 @@
 ;; copyleft ebecheto
-; load "pinAddText.il"
+; load("pinAddText.il")
+; ineed('pinAddText t)
 defun( pinAddText (@optional (purpose "label")(rot "R0")(cv geGetWindowCellView()) )
 let((p1 f1 disp pnil sel)
 unless(purpose pnil=nil)
