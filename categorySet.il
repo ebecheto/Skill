@@ -1,3 +1,4 @@
+;ineed('categorySet)
 ;; copyleft ebecheto
 
 (defun categorySet ( @optional (libName nil) (cellName nil) (catName nil) @rest rest)

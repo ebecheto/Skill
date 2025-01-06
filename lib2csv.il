@@ -7,6 +7,12 @@ defun( lib2csv (@optional (libName "ts018_prim") (row t) (verb t)) let((masterLi
 ddLibName=car(setof(lib ddGetLibList() lib~>name==libName))
 if(row srow="_row" srow="")
 cv=dbOpenCellViewByType( "ANALOG_TUT" "tmp" "schematic" "schematic" "w")
+unless(cv
+tech=techGetTechLibName(ddLibName)
+lib=dbCreateLib("ANALOG_TUT")
+techSetTechLibName(lib tech)
+cv=dbOpenCellViewByType(lib~>name "tmp"  "schematic" "schematic" "w")
+);
 masterList=ddLibName~>cells
 file=strcat( pwd() "/" libName srow ".csv")
 pf=outfile(file)  ; desactive la non creation du fichier, ce n est pas si long que ca.

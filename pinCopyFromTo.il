@@ -1,3 +1,4 @@
+ load("~/Skill/pinCopyFromTo.il")
 ;; copyleft ebecheto
 ;; Select RECTANGLE PIN
 ; LABEL     = got a PARENT which is the RECTANGLE
