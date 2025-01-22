@@ -1,4 +1,5 @@
 ;; copyleft ebecheto
+; ineed('busMemeInst t)
 defun(busMemeInst (@optional (busIn "A<0:1>") (memInst "I6<10:13>"))
 let((memInstList memInstName memInstMin busInList busInName busInMin respIndex netxi nextj noMem noBus)
 ;;; ________ name flattening and compose it back __________ ;;;
@@ -47,7 +48,7 @@ printf("busMemeInst(%L %L)\n" "AQ" "I28")
 printf("busMemeInst(%L %L)\n" "AKOI<1>" "I28")
 
 
-; busMemeInst("A1" "I6<10:13>")
-; busMemeInst("A<0:1>" "I6")
+; busMemeInst("A1" "I6<10:13>");=> (("A1" "I6<10>") ("A1" "I6<11>") ("A1" "I6<12>") ("A1" "I6<13>"))
+; busMemeInst("A<0:1>" "I6");=> (("A<0>" "I6") ("A<1>" "I6"))
 
 

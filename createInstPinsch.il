@@ -4,7 +4,7 @@
 ;; inst=css()
 ;; (setq nlist '(("D" "Zi")("CLK" "Zi")))
 
-ineed('angleBox)
+ineed('(angleBox getInstTermPoint))
 
 defun( createInstPinsch (@optional (insts t) (cv nil)(nlist '(("D" "Zi")("CLK" "Zi")))(inc -1)(skip nil)(inci t)(incL '("A" "B" "C" "D" "E" "F" "H" "I" "J" "K" "L") )(rev nil))
 let(( dx ic terms pinName sbBox bBox os x y orient wid lab label)
@@ -59,6 +59,7 @@ printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() '%L)\n" '(("A"
 printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() nil %L)\n" "name")
 printf("createInstPinsch(geGetSelectedSet() cv nil t)\n")
 printf("createInstPinsch(list(css()) nil '%L t)\n" '(("instpin_A" "netToPut_Z_")))
+printf("createInstPinsch(t nil '%L t)\n" '(("instpin_A" "netToPut_Z_")))
 printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() nil -1 nil nil);<= last one in use\n")
 printf("createInstPinsch(geGetSelectedSet() geGetWindowCellView() '%L -1 nil t '%L)\n" '(("A" "Zi_")) '("L" "1" "2" "3" "4" "6" "8"))
 printf("schCheck(cv) dbSave(cv) : CHECK AND SAVE BEFORE USING : createInstPinsch\n")
