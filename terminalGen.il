@@ -9,7 +9,7 @@ when(pinName=='t pinName="OUT")
 when(listp(pinName) labels=pinName)
 when(Ys=='t Ys=0.125)
 when(Xs=='t Xs=0.125*3)
-when(not(listp(io)) dirs=list(io2dir(io)) printf("io:%L pas une list=> %L\n" io dirs))
+when(not(listp(io)) dirs=list(io2dir(io)) printf("io:%L pas une list=> %L\n" io dirs)) ;inputoutput default
 when(listp(io) dirs=foreach(mapcar d io io2dir(d)))
 unless(XY XY=car(cv~>bBox))
 XY=foreach(mapcar xy XY round(xy/grid)*grid)

@@ -13,4 +13,6 @@ caadr(bBox)-caar(bBox)
 ;; bBoxWidth(css()~>bBox);=> 5.24
 ;; ineed('bBoxHeight)
 ;; bBoxHeight(css()~>bBox);=> 4.54
-
+;; css()~>bBox;=> ((0.0 70.0) (199.92 140.0))
+;; upperRight(css()~>bBox);=> (199.92 140.0)
+;; lowerLeft(css()~>bBox);=> (0.0 70.0)

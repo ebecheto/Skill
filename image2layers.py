@@ -1,5 +1,6 @@
 #! /usr/bin/python3
-import sys
+# -*- coding: utf-8 -*-
+import sys,os
 from PIL import Image
 from collections import Counter
 ## ad you own if missing, or if stack have various options
@@ -16,8 +17,8 @@ color_lists={
 }
 
 tech = int(sys.argv[2]) if len(sys.argv) >2 else 1
-sx   = int(sys.argv[3]) if len(sys.argv) >3 else 0.065
-sy   = int(sys.argv[4]) if len(sys.argv) >4 else sx
+sx   = float(sys.argv[3]) if len(sys.argv) >3 else 0.065
+sy   = float(sys.argv[4]) if len(sys.argv) >4 else sx
 
 if len(sys.argv) <= 1:
     print(f"{col}USAGE: {_col}\npython script.py <image_path> <tech_number>")
@@ -71,6 +72,20 @@ print("; RGB_x_x_x=list(\"M1\" \"drawing\")")
 #    49740: (128,128,128) #808080 fractal
 #      183: (192,192,192) #C0C0C0 silver
 #    63494: (255,255,255) #FFFFFF white
+
+
+if os.path.splitext(image_path)[1] != ".bmp":
+    # Open the image file
+    with Image.open(image_path) as img:
+        # Convert the image to 8-bit grayscale
+        grayscale_img = img.convert("L")
+        # Change the extension to .bmp for the output file
+        output_bitmap_path = os.path.splitext(image_path)[0] + "_8b.bmp"
+        # Save the image in bitmap format
+        grayscale_img.save(output_bitmap_path, format="BMP")
+        image_path = output_bitmap_path
+
+
 def main():
 
     try:
@@ -112,3 +127,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
