@@ -4,6 +4,7 @@
 ;; inst=css()
 ;; (setq nlist '(("D" "Zi")("CLK" "Zi")))
 
+;; No limitation of 80000 chararcter or so for string label from boxFiled
 ineed('(angleBox getInstTermPoint))
 
 defun( createInstPinsch (@optional (insts t) (cv nil)(nlist '(("D" "Zi")("CLK" "Zi")))(inc -1)(skip nil)(inci t)(incL '("A" "B" "C" "D" "E" "F" "H" "I" "J" "K" "L") )(rev nil))

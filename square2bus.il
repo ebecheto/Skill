@@ -1,8 +1,9 @@
+;ineed('square2bus t)
 ;net="io<2:3>"
 
-defun(bus2square (@optional (net "io<2:3>")) let((pa)
-pa=parseString(net "<>");=> ("io" "2:3")
-if(length(pa)>= 2 strcat(car(pa) "[" cadr(pa) "]") net)
+defun(square2bus (@optional (net "io[2:3]")) let((pa)
+pa=parseString(net "[]");=> ("io" "2:3")
+if(length(pa)>= 2 strcat(car(pa) "<" cadr(pa) ">") net)
 ;=> "io[2:3]"
 ))
 
