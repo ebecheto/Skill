@@ -1,19 +1,24 @@
+;ineed('stackViasDef t)
 ineed('xy2bBox)
 
 ; xy=1:1
 ; vName="M3_M2_S"
-defun( stackViasDef (viasDef @optional (xy 0:0) (cv nil)(tj t))
-let((tech met bBox) 
+defun(stackViasDef (viasDef @optional (xy 0:0) (cv nil)(tj t)(rc 1:1))
+let((tech met bBox via) 
+;printf("NAME : %L \n" list(cv~>cellName rc xy))
 unless(cv cv=geGetWindowCellView())
 tech = techGetTechFile(cv)
-;printf("NAME : %L \n" cv~>cellName)
+row=car(rc) col=cadr(rc)
 foreach(mapcar vName viasDef v=techFindViaDefByName(tech vName) 
-dbCreateVia(cv v xy "R0")
+via=dbCreateVia(cv v xy "R0")
+dbReplaceProp(via "cutRows" 'int row)
+dbReplaceProp(via "cutColumns" 'int col)
+
 when(tj
 met=cadr(parseString(vName "_"))
 bBox=xy2bBox(xy 0.24)
 dbCreateRect(cv list(met "drawing") bBox))
-)))
+via)))
 ;0.13+0.06;=> ;=> 0.19
 
 ; 
@@ -21,6 +26,7 @@ dbCreateRect(cv list(met "drawing") bBox))
 ;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 )
 ;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 cv)
 ;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 cv nil) ;<= si autre techno pour pas bugger
+;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 cv nil 1:2) ; no suround 2 column
 
 ; M4.A.1: M4 area must be min 0.202 sq.um  ( M4.A.1 ). 
 ; sqrt(0.202);=> 0.4494441
