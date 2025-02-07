@@ -2,6 +2,7 @@
 
 ; ineed('wirePinName t)
 ; corrected : schCreatePin(cv iop term~>name term~>direction nil XYw rot ) [OK]
+ineed('terminal2pin) ;=> define pinOrient2
 
 defun(wirePinName (@optional (genConn 'io)(pat nil)(wl nil)(gss geGetSelectedSet())(verb t))
 (let (olist ori XYt rot wid nocRot i nocName cv tlist XYL)
