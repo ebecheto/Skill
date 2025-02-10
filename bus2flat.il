@@ -1,26 +1,37 @@
+;ineed('bus2flat t)
 ;; copyleft ebecheto
 
 ;; TODO : correct bus2flat("MULT<3:0>") see instBusMatch  MSB_first variant
+;; dbProduceMemName("MULT<3:0>") ;<<= allready created by cadence though
+
+;; dbProduceMemName("dac<0>,dac<2:6>")
+;; ;=> ("dac<0>" "dac<2>" "dac<3>" "dac<4>" "dac<5>" "dac<6>")
+;; net=tn~>name;=> "dac<0>,dac<2:6>"
+;; bus2flat(
+;; tn~>name
+;; )
 
 ineed('netMakeBus)
 
 unless(fboundp('a2s) ineed('itos) alias(a2s itos))
 
+defun(bus2flat (@optional (net "Q<1:10>") ) dbProduceMemName(net))
 
-defun(bus2flat (@optional (net "Q<1:10>"))
-let((netb)
-netb=parseString(net ":<>" )
-if(length(netb)==3 
+;; defun(bus2flat (@optional (net "Q<1:10>"))
+;; let((netb)
+;; netb=parseString(net ":<>" )
+;; if(length(netb)==3 
 
-netMakeBus(car(netb) list(atoi(cadr(netb)) atoi(caddr(netb)))) 
-net)
-))
+;; netMakeBus(car(netb) list(atoi(cadr(netb)) atoi(caddr(netb)))) 
+;; net)
+;; ))
 
 
 ; bus2flat();=> ("Q<1>" "Q<2>" "Q<3>" "Q<4>" "Q<5>" "Q<6>" "Q<7>" "Q<8>" "Q<9>" "Q<10>")
 ; bus2flat("in<1:16>");=> ("in<1>" "in<2>" "in<3>" "in<4>" "in<5>" "in<6>" "in<7>" "in<8>" "in<9>" "in<10>" "in<11>" "in<12>" "in<13>" "in<14>" "in<15>" "in<16>")
 
 
+printf("obsolete, this function wrap : dbProduceMemName ;<= write new code with this one\n")
 printf("obsolete, prefer >>> bus2list <<< function\n")
 printf("see also functions _bus2()  and bus2_() in terminal2pin.il\n")
 printf("ineed('terminal2pin)\n")
