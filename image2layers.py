@@ -8,22 +8,24 @@ col="\033[0;32m"; _col="\033[0m"; purp="\033[0;35m"; green='\033[0;32m'; red='\0
 print(";; copyleft ebecheto")
 color_lists={
     1: ("TOP_M", "M5", "M4", "M3", "M2", "M1"),
-    2: ("M9", "M8", "M7", "M6", "M5", "M4", "M3", "M2", "M1"),
+    2: ("AP", "M9", "M8", "M7", "M6", "M5", "M4", "M3", "M2", "M1"),
     3: ("Metal3", "Metal2", "Metal1"),
     4: ("MET3", "MET2", "MET1"),
     5: ("TopMetal2", "TopMetal1", "Metal5", "Metal4", "Metal3", "Metal2", "Metal1"),
     6: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1"),
     7: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS", "GC"),
-    8: ("AP" "M9" "VIA8" "M8" "VIA7" "M7" "VIA6" "M6" "VIA5" "M5" "VIA4" "M4" "VIA3" "M3" "VIA2" "M2" "VIA1" "M1")
+    8: ("AP", "M9", "VIA8", "M8", "VIA7", "M7", "VIA6", "M6", "VIA5", "M5", "VIA4", "M4", "VIA3", "M3", "VIA2", "M2", "VIA1", "M1")
 }
 
 tech = int(sys.argv[2]) if len(sys.argv) >2 else 1
 sx   = float(sys.argv[3]) if len(sys.argv) >3 else 0.065
 sy   = float(sys.argv[4]) if len(sys.argv) >4 else sx
+YMAX = float(sys.argv[5]) if len(sys.argv) >5 else False
 
 if len(sys.argv) <= 1:
     print(f"{col}USAGE: {_col}\npython script.py <image_path> <tech_number>")
-    print(         "python script.py <image_path> <tech_number> <sx> <sy>")
+    print(         "python script.py <image_path> <tech_number> <sx> <sy> <Height_in_um>")
+    print(         "if fourth argument <Height_in_um> is given, sx and sy useless. final Heigth Size fix pixel")
     print(        f"python script.py image.png {tech} {sx} {sy} > image.il  #{purp}<= default{_col}")
     print(f"STEP (1): Choose your image, a tech number [1-{len(color_lists)}] a step-pixel in x or y.")
     print(f"STEP (2): load(\"image.il\") into CIW, with an open empty layout view")
@@ -88,7 +90,7 @@ if os.path.splitext(image_path)[1] != ".bmp":
 
 
 def main():
-
+    global sx, sy  # Use the global variables
     try:
         # Open the image file
         with Image.open(image_path) as img:
@@ -97,6 +99,9 @@ def main():
             # Get image dimensions
             width, height = img.size
             # Get the list of all pixels in the image
+            if YMAX :
+                sx=sx*round(YMAX/(sx*height)) #; YMAX in 100 [um] /526 => 
+                sy=sx
             pixels = list(img.getdata())
             # Count the frequency of each RGB color
             color_counter = Counter(pixels)
