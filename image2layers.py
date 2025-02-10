@@ -14,6 +14,7 @@ color_lists={
     5: ("TopMetal2", "TopMetal1", "Metal5", "Metal4", "Metal3", "Metal2", "Metal1"),
     6: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1"),
     7: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS", "GC"),
+    8: ("AP" "M9" "VIA8" "M8" "VIA7" "M7" "VIA6" "M6" "VIA5" "M5" "VIA4" "M4" "VIA3" "M3" "VIA2" "M2" "VIA1" "M1")
 }
 
 tech = int(sys.argv[2]) if len(sys.argv) >2 else 1
