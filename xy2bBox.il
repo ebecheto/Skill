@@ -7,10 +7,10 @@ list(list(x-d y-d) list(x+d y+d))
 ))
 
 ;; xy point to a square bBox at this point
-;;
-;;  +-----+
-;;  |     |
-;;  |  xy |
-;;  |     |
-;;  +-----+
+;;  <-2d->
+;;  +-----+ ^
+;;  |     | |
+;;  |  xy | 2d
+;;  |     | |
+;;  +-----+ v
 ;; return bounding Box around the point

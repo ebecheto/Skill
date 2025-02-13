@@ -15,6 +15,10 @@ wini=geOpen(?lib lib ?cell cell ?view view)
 wini
 )
 
+; TODO :
+; include ?viewType  ? or not
+; geOpenOrRaise(?cell "IOPINS_RING" ?lib "Ed_IC6" ?view "layout" ?viewType "maskLayout")
+
 
 ; geOpenOrRaise(?cell "IOPINS_RING" ?lib "Ed_IC6" ?view "layout")
 printf("geOpenOrRaise(?cell \"IOPINS_RING\" ?lib \"Ed_IC6\" ?view \"layout\")\n")

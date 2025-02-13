@@ -2,3 +2,7 @@ ineed('geOpenOrRaise)
 
 defun(geOpenOrRaisecv (@optional (cv geGetWindowCellView()))
 geOpenOrRaise(?cell cv~>cellName ?lib cv~>libName ?view cv~>viewName))
+
+
+;cv~>cellViewType
+;=> (db:0x43dcd01a cellView db:0x43dcd01a objType "cellView" prop nil bBox ((0.0 0.0) (0.0 0.0)) lib dd:0x2d7112c0 libName "PICMIC1_ebecheto" cellName "tetris_dummy" cell dd:0x39920620 cellViewType "schematic" cellType "none" conns nil constraintGroups nil DBUPerUU 160.0 fileName "/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/PICMIC1_ebecheto/tetris_dummy/schematoc/sch.oa" createTime "Feb 11 18:22:56 2025" fileTimeStamp "Feb 12 11:49:24 2025" groupMembers nil groups nil instHeaders nil instHeaderRefs nil instRefs nil instanceMasters nil instances nil isParamCell nil layerHeaders nil layerPurposePairs nil lpps nil memInsts nil mode "w" modifiedButNotSaved nil modifiedCounter 0 mosaics nil markers nil trackPatterns nil rowHeaders nil rows nil nets nil shapes nil signals nil sigNames nil subMasters nil superMaster nil terminals nil userUnits "inch" viewName "schematoc" view dd:0x39920f50 textDisplays nil assocTextDisplays nil needRefresh nil netCount 0 anyInstCount 0 termCount 0 clusters nil prBoundary nil snapBoundary nil viaHeaders nil viaMasters nil routes nil steiners nil blockages nil vias nil viaVariants nil guides nil sitePattern nil areaBoundaries nil figGroups nil gCellPatterns nil)

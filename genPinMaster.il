@@ -1,3 +1,4 @@
+;ineed('genPinMaster t)
 ;; copyleft ebecheto
 ineed('(getInstTermPointLPP createPinLPP) )
 
@@ -38,16 +39,16 @@ bBox=nth(3 apn)
 lpp=nth(2 apn); 
 dir=nth(4 apn)~>pin~>term~>direction
 printf("createPinLPP%L\n" list(sigName bBox lpp dir))
-if(bBox&&lpp then createPinLPP(sigName bBox lpp dir) else printf("NO LPP or bBox for:%L\n" list(sigName bBox lpp dir)))
+if(bBox&&lpp then createPinLPP(sigName bBox lpp dir) else printf("NO LPP or bBox for:%L\n" list(sigName bBox lpp dir pn inst~>cellName inst~>baseName)))
 
 ); end insts loop
 ))
 
 
-defun(genPinsMaster (@optional (pns list(list("vdd!" "vdd!") list("gnd!" "gnd!") )) (cv t) )
+defun(genPinsMaster (@optional (pns list(list("vdd!" "vdd!") list("gnd!" "gnd!") )) (cv t) (instances nil))
 ; printf("|%L|\n" pns)
 foreach(mapcar pn pns
-genPinMaster(car(pn) cadr(pn) nil nil cv)
+genPinMaster(car(pn) cadr(pn) instances nil cv)
 )
 )
 

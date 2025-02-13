@@ -35,3 +35,6 @@ pin))
 
 ; createPinLPPcv("GND" list(0:0 1:1) '("M1" "drawing") nil geGetWindowCellView() nil )
 ; createPinLPPcv("GND" list(0:0 1:1.0) '("M1" "drawing") nil geGetWindowCellView() t )
+;createPinLPPcv(name "GND")(bBox list(0:0 0.2:0.2))(lpp '("M1" "pin"))(dir nil) (cv geGetWindowCellView()) (tj nil) (justify nil)(height nil)(orient nil)(font nil)(accessDir nil))
+;createPinLPPcv(name bBox lpp dir cv tj justify height orient font accessDir)
+;createPinLPPcv( "GND" list(0:0 0.2:0.2) '("M1" "pin")  nil  geGetWindowCellView()  nil  nil  nil nil  nil nil)
