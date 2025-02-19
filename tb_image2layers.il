@@ -21,7 +21,7 @@ ifile="~/PICMIC/PRESENTATION/in2p3_web_0.bmp"
 
 ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.bmp"
 ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.jpg"
-
+/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION
 
 filename=car(last(parseString(ifile "/")));=> "Signe-MI2I.png"
 basename=car(parseString(filename "."));=> "Signe-MI2I"

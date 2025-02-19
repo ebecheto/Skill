@@ -10,9 +10,9 @@
 ; global power supply vdd!/gnd! treated separately with :  genPinMaster.il
 
 
-ineed('(getInstTermPointLPP createPinLPP textDisplay2label metalPin2pinDrawing bus2flat createPinLPPcv) )
+ineed('(getInstTermPointLPP getInstTermPointLPP createPinLPP textDisplay2label metalPin2pinDrawing bus2flat createPinLPPcv) )
 
-
+; getInstTermPointLPP  getInstTermPointLPP3 which one to use i do not remember
 
 ;; cv~>??
 ;; setof(c cv~>conns rexMatchp("!$" c~>name));=>(db:0x6609b81a db:0x6609b81b db:0x6609b82c db:0x6609b82d) ;=> doublons
@@ -79,7 +79,7 @@ if(inst=car(setof(inst cv~>instances inst~>name==iname))
 ;car(getInstTermPointLPP(inst));=> ("VsourcepREF" (404.3 120.56) ("M5" "drawing") ((404.11 120.37) (404.49 120.75)) db:0x46767e4c)
 ;pn="VsourcepREF"
 then
-apn=assoc(pn getInstTermPointLPP(inst))
+apn=assoc(pn getInstTermPointLPP3(inst))
 ;=>("Z" (5.1 22.71) ("M1" "pin") ((5.0 22.41) (5.2 23.01)) db:0x1495141d)
 ; createPinLPP(name bBox lpp dir)
 bBox=nth(3 apn) lpp=nth(2 apn)
