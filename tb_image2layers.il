@@ -21,7 +21,8 @@ ifile="~/PICMIC/PRESENTATION/in2p3_web_0.bmp"
 
 ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.bmp"
 ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.jpg"
-/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION
+;/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION/hung_id.bmp"
 
 filename=car(last(parseString(ifile "/")));=> "Signe-MI2I.png"
 basename=car(parseString(filename "."));=> "Signe-MI2I"
@@ -30,6 +31,11 @@ basename=buildString(parseString(basename "-") "_")
 ;cv2  =dbOpenCellViewByType(cv~>libName strcat("logo_" basename) "layout" "maskLayout" "w")
 cv2  =dbOpenCellViewByType(cv~>libName strcat("logo_" basename "_100") "layout" "maskLayout" "w") ;=> modif python size
 win=geOpenOrRaisecv(cv2) ;=> now get the active one for python ; cv=geGetWindowCellView() default command
+
+
+
+image2layers(ifile 7 0.195 100 "PICMIC1_ebecheto")
+;/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION/hung_id.il
 
 5*0.065;=> 0.325
 100/30*0.065;=> 0.325;=> 0.195
@@ -66,6 +72,8 @@ width=3000
 sx=0.065
 H=width*sx;=> ;=> 195.0 in um in layout
 ;if y want a H size => sx=H/width
+tf=techGetTechFile(CV)
+foreach(mapcar lpp '(("LOGO" "drawing")("DEV_AREA" "ext")("AREA10" "opc")) when(leIsLayerValid(lpp tf) dbCreateRect(cv lpp CV~>bBox)))
 
 win=geOpenOrRaisecv(cv=geGetWindowCellView()) ; cv~>bBox;=> ((0.0 32.565) (46.605 46.605))
 
