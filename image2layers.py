@@ -59,7 +59,7 @@ nblayers=len(color_list)
 ## RGB_64_96_128=  "M1"   
 
 
-print("cv=geGetWindowCellView()")
+print("; CV=geGetWindowCellView()")
 print("; identify -verbose  {image_path}")
 print(";;RGB_x_x_x=\"M1\"  ;or:")
 print("; RGB_x_x_x=list(\"M1\" \"drawing\")")
@@ -122,10 +122,12 @@ def main():
             for y in range(height):
                 for x in range(width):
                     r, g, b = img.getpixel((x, y))
-                    print(f"dbCreateRect(cv if(boundp('RGB_{r}_{g}_{b}) RGB_{r}_{g}_{b})||\"text\" ", end="")
+                    print(f"dbCreateRect(CV if(boundp('RGB_{r}_{g}_{b}) RGB_{r}_{g}_{b})||\"text\" ", end="")
                     print(f"list({x*sx}:{(height-y)*sy} {(x+1)*sx}:{(height-y-1)*sy} ))")
+                    print(f"tf=techGetTechFile(CV)")
             
-            print(f"geSelectAll() leMergeShapes(geGetSelectedSet()) dbSave(cv)")
+            print(f"leMergeShapes(CV~>shapes) dbSave(CV)")
+            print(f"foreach(mapcar lpp '((\"LOGO\" \"drawing\")(\"DEV_AREA\" \"ext\")(\"AREA10\" \"opc\")) when(leIsLayerValid(lpp tf) dbCreateRect(CV lpp CV~>bBox)))")
 
     except Exception as e:
         print(f"Error: {e}")
