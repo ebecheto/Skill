@@ -1,3 +1,4 @@
+; ineed('bBoxShrink t)
 ;; copyleft ebecheto
 ineed('(bBoxHeight bBoxWidth))
 

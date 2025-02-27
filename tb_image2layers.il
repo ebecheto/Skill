@@ -80,6 +80,8 @@ win=geOpenOrRaisecv(cv=geGetWindowCellView()) ; cv~>bBox;=> ((0.0 32.565) (46.60
 cv=geGetWindowCellView() foreach(mapcar lpp '(("LOGO" "drawing")) dbCreateRect(cv lpp cv~>bBox)
 
 cv=geGetWindowCellView() foreach(mapcar lpp '(("DEV_AREA" "ext")("AREA10" "opc")) dbCreateRect(cv lpp cv~>bBox)
+cv=geGetWindowCellView() foreach(mapcar lpp '("NODUMMY" ("DEV_AREA" "ext")("AREA10" "opc")) dbCreateRect(cv lpp cv~>bBox)
+; shoul i add NODUMMY drawing too ? To prevent dummy filling inside logos ?
 ;; load("/winhome/validmgr/ebecheto/PROJETS/IMADs/PICMIC/DEMANDES/FCPPL/snake10.il")
 ;; load("/winhome/validmgr/ebecheto/PROJETS/IMADs/PICMIC/DEMANDES/FCPPL/snake2p5.il")
 ;; load("/winhome/validmgr/ebecheto/Mi2i/WP5_1_comm/logos_MI2I/Tous_logos_png/Logo-MI2I-horiz-black-base_3p4.il")
