@@ -1,5 +1,6 @@
 ineed('(geOpenOrRaisecv))
 defun(copyFromToPurge (dbFrom libName cellName viewName @optional (raise t)) let((INTO viewType)
+"erase create copy of a cell into another one and purge if existe, warning, dangerous erase forced"
 ;dbFrom=dbOpenCellViewByType( "picmic0_master" "VFE_CAP" "schematic" "schematic" "r");<= open read
 viewType=case(viewName ("layout" "maskLayout" ) ("schematic" "schematic") ("symbol" "schematicSymbol") ( t "netlist"));=> "schematicSymbol"
 INTO=dbOpenCellViewByType(libName cellName viewName viewType "w");<= open write
