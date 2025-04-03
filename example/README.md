@@ -116,9 +116,10 @@ update a schematic with all the symbol to be modified. Could be looped easily on
 :star:
 
 ![example](./pic/mos2fet.png)
-See [mos2fet_tuto.il](./pic/mos2fet_tuto.il) example file.
+See [mos2fet_tuto.il](./mos2fet_tuto.il) example file.
 The cell 'buffer_HM...' does not exist in the library, an so, is not updated.
 
+c35toc18('(("nd02d2" "my_nd02d2" "PICMIC1_ksabra"))) ;<= replace nd02d2 for fcking Duplicate declaration with v2lvs/cdl not permiting hierarchycal naming lib1_cellSameName lib2_cellSameName LVS MATCH
 
 *genBox* function example
 --------------------------
