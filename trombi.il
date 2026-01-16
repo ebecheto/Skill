@@ -1,8 +1,10 @@
 ;ineed('trombi)
+1+1
 ineed('(image2layers geOpenOrRaisecv my_modf bBoxWidth pgTextCB) t)
 ;cv=geGetWindowCellView()
 libName="APICS"
 libName="PICMIC1_ebecheto"
+libName="180_ebecheto"
 cv=dbOpenCellViewByType(libName "trombi_200px" "layout" "maskLayout" "w") ;now routing is manual, do not "w" it
 cv=dbOpenCellViewByType(libName "trombi_200px" "layout" "maskLayout" "r") ;now routing is manual, do not "w" it
 geOpenOrRaisecv(cv)
@@ -20,10 +22,15 @@ images=setof(image images not(rexMatchp(".sh~$" image)))
 ;; image=nth(length(images)-2 images)
 ;; image="matthieu_id.bmp"
 ;; ifile=strcat(dir image);=> "/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION/henso_id.bmp"
-;; ;CV=image2layers(ifile 7 0.195 50 libName)
+ifile="/share/Mi2i/logo/logo_home_web_xsmall.png"
+CV=image2layers(ifile 10 0.195 50 libName)
+CV=image2layers("/share/Mi2i/logo/lpccaen.bmp" 10 0.195 50 libName)
 ;; db=image2layers(ifile 7 0.195 100 libName)
 ;; ;geOpenOrRaisecv(CV)
 ;; 1+1
+
+;; python ~/Skill/image2layers.py image.png 1 0.065 0.065 #<== check if nothing appends
+
 
 foreach(mapcar image images ifile=strcat(dir image) image2layers(ifile 7 0.195 100 libName))
 

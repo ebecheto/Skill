@@ -86,7 +86,7 @@ ret)) ; whereExistCell("INV0")
 
 ;________USING c35toc18 procedure________________________________________________
 
-defun( translateLib (oldLib @optional (flip flip) newLib) let((ddLib cellName newCV oldCV cvSym TRANSLATE)
+defun( translateLib (oldLib @optional (flip flip) newLib  ) let((ddLib cellName newCV oldCV cvSym TRANSLATE)
 ; TRANSLATE="TRANSLATE"
 TRANSLATE=nth(2 car(last(flip)));=> ie.PRIMLIB
 when(!newLib newLib=sprintf(nil "%s_%s" oldLib TRANSLATE ))

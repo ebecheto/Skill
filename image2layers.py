@@ -15,8 +15,9 @@ color_lists={
     6: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1"),
     7: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS", "GC"),
     8: ("AP", "M9", "VIA8", "M8", "VIA7", "M7", "VIA6", "M6", "VIA5", "M5", "VIA4", "M4", "VIA3", "M3", "VIA2", "M2", "VIA1", "M1"),
-    9: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS")
-
+    9: ("TOP_M", "TOP_V", "M5", "V5", "M4","V4", "M3", "V3", "M2", "V2", "M1", "CS"),
+    10: ("METTP", "MET3", "MET2", "MET1"),
+    11: ("TopMetal2", "TopVia2", "TopMetal1", "TopVia1", "Metal5", "Via4", "Metal4", "Via3", "Metal3", "Via2", "Metal2", "Via1", "Metal1")
 }
 
 tech = int(sys.argv[2]) if len(sys.argv) >2 else 1
