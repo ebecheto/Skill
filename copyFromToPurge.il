@@ -3,6 +3,7 @@ defun(copyFromToPurge (dbFrom libName cellName viewName @optional (raise t)) let
 "erase create copy of a cell into another one and purge if existe, warning, dangerous erase forced"
 ;dbFrom=dbOpenCellViewByType( "picmic0_master" "VFE_CAP" "schematic" "schematic" "r");<= open read
 viewType=case(viewName ("layout" "maskLayout" ) ("schematic" "schematic") ("symbol" "schematicSymbol") ( t "netlist"));=> "schematicSymbol"
+;^ could be modified later with rexMatchp Schematic cmos_sch.., layout_one layoutxx match
 INTO=dbOpenCellViewByType(libName cellName viewName viewType "w");<= open write
 ;; libName=INTO~>libName;=> "picmic0_master"
 ;; cellName=INTO~>cellName;=> "RO_B"

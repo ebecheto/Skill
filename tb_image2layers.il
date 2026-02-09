@@ -1,15 +1,14 @@
-
 ;"/group/validmgr/PROJET/TSMC/LOGO/ebecheto/cds_V1.7A_1/cds.lib"
 
 ineed('(image2layers geOpenOrRaisecv my_modf) t)
 cv=geGetWindowCellView()
-cv~>libName ;=> "PICMIC1_ebecheto"
+cv~>libName ;=> "PICMIC1_ebecheto";=> "APICS"
 
 ifile="Signe-MI2I.png"
 ifile="/winhome/validmgr/ebecheto/Mi2i/WP5_1_comm/logos_MI2I/Tous_logos_png/Signe-MI2I.png"
 ifile="/winhome/validmgr/ebecheto/Mi2i/WP5_1_comm/logos_MI2I/Tous_logos_png/Logo-MI2I-horiz-black-base.png"
 ;ifile="/winhome/validmgr/ebecheto/Administratif/SERVICE/IP2I/logo_IP2I_big.jpg" ; too big
-ifile="/winhome/validmgr/ebecheto/Administratif/SERVICE/IP2I/logo_IP2I_3508x2480.png"
+ifile="/winhome/validmgr/ebecheto/Administratif/SERVICE/IP2pI/logo_IP2I_3508x2480.png"
 ifile="~/groupU/Mi2i/pics/MICRHAU/Sam.jpg"
 ifile="~/groupU/Mi2i/pics/MICRHAU/Sami_idcrop_grey.jpg"
 ;; TODO vvv
@@ -23,18 +22,53 @@ ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.bmp"
 ifile="~/groupU/Mi2i/pics/MICRHAU/SAMUEL.jpg"
 ;/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION
 ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION/hung_id.bmp"
+ifile="~/logo_iphc.bmp"
+ifile="~/Guillaume_noel.bmp"~/toutou.bmp
+ifile="~/logo_micrhau_200px.bmp"
+ifile="~/Logo_MI2I_200px.bmp"
+
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/snake_bw200px.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/snake_bw156px_dig.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/iphc_bw200px.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/logo_shandong_bw.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/logo_nankai_bw.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/logo_nankai_bw.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/herve_mathez.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/HM.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/imad_laktineh.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/gregory_bertolone.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/claude_colledani.bmp"
+ifile="/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION4/Andrew_Beckett2.bmp"
+libName="APICS2"
+;image2layers(ifile 1 0.195 100 "APICS")
+image2layers(ifile 1 0.195 100 "APICS2")
+0.195/2;=> 0.0975
+;image2layers(ifile 7 0.195 100 "APICS")
+;; END 
+
+image2layers("~/IN2P3_50ans_2.bmp" 7 0.195 100 "APICS")
+image2layers("~/logo_micrhau_200px.bmp" 7 0.195 80 "APICS")
+image2layers("~/logo_IP2I_200px.bmp" 7 0.195 100 "APICS")
+image2layers("~/CC_explode.bmp" 7 0.195 100 "APICS")
+image2layers("~/LBL_logo.png" 7 0.195 100 "APICS")
+image2layers("~/toutou.bmp" 7 0.195 100 "APICS")
+image2layers("~/NODM_page74_vol21_w.bmp" 7 0.195 100 "APICS")
+image2layers("~/NEWTON.bmp" 7 0.195 100 "APICS")
+;; END 
 
 filename=car(last(parseString(ifile "/")));=> "Signe-MI2I.png"
 basename=car(parseString(filename "."));=> "Signe-MI2I"
 basename=buildString(parseString(basename "-") "_")
 1+1
 ;cv2  =dbOpenCellViewByType(cv~>libName strcat("logo_" basename) "layout" "maskLayout" "w")
-cv2  =dbOpenCellViewByType(cv~>libName strcat("logo_" basename "_100") "layout" "maskLayout" "w") ;=> modif python size
+cv2  =dbOpenCellViewByType(libName strcat("logo_" basename "_100") "layout" "maskLayout" "w") ;=> modif pycv2  =dbOpenCellViewByType(cv~>libName strcat("logo_" basename "_100") "layout" "maskLayout" "w") ;=> modif python size
 win=geOpenOrRaisecv(cv2) ;=> now get the active one for python ; cv=geGetWindowCellView() default command
 
 
+image2layers(ifile 7 0.195 100 "APICS")
+image2layers(ifile 7 0.195 80 "APICS")
 
-image2layers(ifile 7 0.195 100 "PICMIC1_ebecheto")
+;image2layers(ifile 7 0.195 100 "PICMIC1_ebecheto")
 ;/uelec/Projets/Picmic/TOWER/TS18IS/picmic1/work_libs/ebecheto/cds/trombi/SELECTION/hung_id.il
 
 5*0.065;=> 0.325
@@ -96,3 +130,7 @@ buildString(lays ",\"")
 load("/winhome/validmgr/ebecheto/Mi2i/WP5_1_comm/logos_MI2I/Tous_logos_png/Logo-MI2I-horiz-black-base.il")
 shape=car(cv~>shapes)
 foreach(mapcar shape cv~>shapes shape~>lpp=list(car(shape~>lpp) "dummy") )
+
+X=0 Y=0 SPACE=40 PLUSX=5
+ineed('(image2layers geOpenOrRaisecv my_modf bBoxWidth pgTextCB) t)
+pgTextCBs(buildString(parseString(basename "_") "\n") X:-40 5.0 "TOP_M" cv2 t)

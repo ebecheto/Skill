@@ -1,5 +1,5 @@
 ;; copyleft : ebecheto
-
+; ineed('underscore2bus)
 ineed('string2bus)
 
 defun( _2bus (@optional (gss geGetSelectedSet())) underscore2bus(gss))

@@ -15,6 +15,11 @@
 ;(setq libNames ddGetLibList()~>name)
 ;(setq libNames '("analogLib"))
 
+;; ;; MAYBE THIS IS ALLREADY ACCESSIBLE IN THE INSTANCE db itself => USELESS FUNCTION
+;; cellView~>instHeaderRefs~>cellView~>cellName
+;=> ("fill_PICMIC1" "fill_matrix_top" "fill_slow_ctrl")
+
+
 defun(whereIncludeCell (@optional (pattern "inv") (libNames nil) (views nil) (open nil)(short t))
 " check in views schematic cmos_sch, in cells, in libs, if a cell is instanciated  "
 let( (ddLibs libCellView libName cellName viewName cells)

@@ -28,7 +28,7 @@ ddDeleteObj(ddGetObj(cellView~>lib~>name cell~>name cellView~>viewName))
 );when layout
 ); foreach cells
 
-;; second loop to save and close all, instead of yousing multiple times instHeaderRefs, althoug would have been more clean
+;; second loop to save and close all, instead of yousing multiple times instHeaderRefs, althought would have been more clean
 foreach(mapcar cell cells 
 when(member("layout" cell~>views~>name) cellName=cell~>name
 cellView = dbOpenCellViewByType(libName cellName "layout" "maskLayout" "a")

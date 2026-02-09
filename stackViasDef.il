@@ -3,8 +3,8 @@ ineed('xy2bBox)
 
 ; xy=1:1
 ; vName="M3_M2_S"
-defun(stackViasDef (viasDef @optional (xy 0:0) (cv nil)(tj t)(rc 1:1))
-let((tech met bBox via) 
+defun(stackViasDef (viasDef @optional (xy 0:0) (cv nil)(tj t)(rc 1:1)(grid nil))
+let((tech met bBox via rec) 
 ;printf("NAME : %L \n" list(cv~>cellName rc xy))
 unless(cv cv=geGetWindowCellView())
 tech = techGetTechFile(cv)
@@ -16,12 +16,14 @@ dbReplaceProp(via "cutColumns" 'int col)
 
 when(tj
 met=cadr(parseString(vName "_"))
+when(grid xy=foreach(mapcar x xy round(x/grid)*grid))
 bBox=xy2bBox(xy 0.24)
-dbCreateRect(cv list(met "drawing") bBox))
+rec=dbCreateRect(cv list(met "drawing") bBox))
+rec~>parent=via
 via)))
 ;0.13+0.06;=> ;=> 0.19
 
-; 
+; grid=0.005
 
 ;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 )
 ;stackViasDef( list("M3_M2_S" "M2_M1_S") 0:0 cv)

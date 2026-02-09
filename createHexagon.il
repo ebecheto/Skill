@@ -1,7 +1,7 @@
 ;; copyleft ebecheto
 ;ineed('createHexagon t)
 
-procedure(createHexagon( @optional (x 0) (y 0) (layer "MET1")  (cv nil) (r 8/sqrt(3)) (orient "R0")(fixGrid t))
+procedure(createHexagon( @optional (x 0) (y 0) (layer "MET1")  (cv nil) (r 8/sqrt(3)) (orient "R0")(fixGrid t)(fix2 t))
 let( (rot pi i pointList dg grid)
 unless(cv cv=geGetWindowCellView())
 grid=0.005
@@ -21,6 +21,7 @@ pList=car(pointList)
 hex=dbCreatePolygon( cv dg pList)
 cBox=centerBox(hex~>bBox)
 dbMoveFig(hex nil list(0.5*r:-r*sqrt(3)/2 orient))
+(when fix2 pts=foreach(mapcar xy hex~>points list(round(car(xy)/grid)*grid round(cadr(xy)/grid)*grid)) hex~>points=pts)
 hex
 );let
 );proc
