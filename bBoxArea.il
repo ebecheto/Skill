@@ -1,4 +1,4 @@
-ineed('bBoxArea t)
+;ineed('bBoxArea t)
 ineed('(bBoxWidth bBoxHeight))
 
 defun(bBoxArea (bBox) 

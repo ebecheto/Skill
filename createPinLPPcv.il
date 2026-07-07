@@ -17,7 +17,11 @@ unless(accessDir accessDir='("top" "bottom" "left" "right"))
 ;printf("bBox:%L, center %L \n" bBox centerBox(bBox))
 pin=leCreatePin(cv lpp "rectangle" bBox name dir accessDir)
 term=pin~>term
-when(tj lpp=list(car(lpp) "label"))
+;when(tj lpp=list(car(lpp) "label"))
+cond(
+(tj==t  lpp=list(car(lpp) "label")); tj=t
+(tj lpp=list(car(lpp) tj) ) ;not null
+)
 ; TODO : chose between LABEL and TEXTDISPLAY :
 ;disp=dbCreateTextDisplay(term term lpp t centerBox(bBox) justify orient font height)
 disp=dbCreateLabel(cv lpp centerBox(bBox) name justify orient font height)
@@ -29,6 +33,7 @@ pin))
 
 ; createPinLPPcv(name bBox lpp dir cv)
 ; createPinLPPcv(name bBox "M1" nil cv t) ;=>create label as label for towerJ
+; createPinLPPcv(name bBox "MET1" nil cv "TEXT") ;=>create label as label for xfa
 
 ; textDisplay oki for IBM but not for AMS : label !
 

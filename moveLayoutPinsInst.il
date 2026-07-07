@@ -8,13 +8,13 @@ ineed('(getInstTermPointLPP3 getInstTermPointLPP  textDisplay2label metalPin2pin
 
 ;; QUICK AND DIRTY JOB ...
 
-defun(moveLayoutPinsInst (@optional (cv nil)(updatelpp t))
+defun(moveLayoutPinsInst (@optional (cv nil)(shapes geGetSelectedSet())(updatelpp t))
 let((rect labs pairs ppins lpin pins2move cvs pin sigName mits mit itds iname inst its ins pn apn bBox lpp dir REC point justify height orient font)
 unless(cv cv=geGetWindowCellView()) ;<= should be layout active view freshly gerneratedFromSource but with cells placed as wishes
-
+unless(shapes shapes=cv~>shapes) ;<= take selected set if any, else all shapes from cellview
 ;; LIST OF PINS '((PIN1 LABEL) (PIN2 LABEL2)) to move
-rect=setof(c cv~>shapes c~>objType=="rect")
-labs=setof(c cv~>shapes c~>objType=="label")
+rect=setof(c shapes c~>objType=="rect")
+labs=setof(c shapes c~>objType=="label")
 labs~>theLabel
 rect~>pin~>name
 lab=car(labs)
@@ -82,7 +82,7 @@ printf("MV %L\n" list(Apin relativemovexy ))
 dbMoveFig(Apin nil list(relativemovexy "R0"))
 printf("DONE \n" list(pn  bBox lpp dir))
 
-updatelpp=t
+;updatelpp=t
 when(updatelpp Apin~>lpp=lpp cadr(pinlab)~>layerName=car(lpp)) ; update of the label can be techno dependent (met pin) or (met TEXT) versus ("pin" "metal") ...
 );end when pin is connecter to an instance (netSet on VSS is not taken into account or global! net)
 );end foreach pins2move

@@ -1,6 +1,6 @@
 ;; copyleft ebecheto
 
-ineed('geOpenOrRaise 'padRing )
+ineed('(geOpenOrRaise padRing) )
 
 defun(genBox (@optional (cv nil)(dummy t)(PWR t)(MAS t) @rest rest)
 let( (pinName lib cell padName name pfile i terms globals amsopt1 amsopt2 SUB)
@@ -50,6 +50,17 @@ METAL="METAL3"
 ;; GNDCELL="PVSS2CDG_with_PAD"
 ;; VDDCELL="PVDD3A_with_PAD"
 ) ; AMS ?
+(member("TECH_XH018" ddGetLibList()~>name)
+IOCELL="AP3VNR00BFJA"
+PERICELL="FILLER10FJA";<== donner aussi la pcell !!
+COMPCELL="PWRCUT"
+CORNERCELL="ACORNERFJAP1";<== dans les shortio du cern...
+GNDCELL="GNDO3VPADNFJA"
+VDDCELL="VDDO3VPADNFJA"
+SUBCELL="HVCELLS_SUB3A"
+METAL="MET3"
+) ;  ?
+
 (t; member("IOLIB_ANA_3B_4M" ddGetLibList()~>name)
 IOCELL		=strcat("APRIO" amsopt1 amsopt2)
 PERICELL	=strcat("PERI_SPACER_100_" amsopt1 amsopt2)

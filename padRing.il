@@ -18,7 +18,7 @@ load("padRing.sch.il")
 defun(padRing (@rest rest) apply('createPadRing rest))
 
 procedure(createPadRing( l_pins @optional (spaceL 5) (spaceH 5) (libname getEditRep()~>libName) (cellname getEditRep()~>cellName)  @rest rest)
-let( (cv nPad nMiss cList rList tmp tmpList tmpLib tLib sx sy pinBox epinBox textBox etextBox x0 x1 y0 y1 step  norient lay l_mapPins  padLength cornerH cornerW pinList X Y inst METAL sign termSkip loop XP inter opt I padLib padCap IO fill price fillFirst fillLast VDD GND shortList lr interLib comp compLib layBox fillPar fillOffset fPar cmt xymisc xn plp skipSch fillFirstX fillFirstY llr fillLastX fillLastY addPar fillAddX fillAddY verb ipad)
+let( (cv nPad nMiss cList rList tmp tmpList tmpLib tLib sx sy pinBox epinBox textBox etextBox x0 x1 y0 y1 step  norient lay l_mapPins  padLength cornerH cornerW pinList X Y inst METAL sign termSkip loop XP inter opt I padLib padCap IO fill price fillFirst fillLast VDD GND shortList lr interLib comp compLib layBox fillPar fillOffset fPar cmt xymisc xn plp skipSch fillFirstX fillFirstY llr fillLastX fillLastY addPar fillAddX fillAddY verb ipad lpppad lpppad1 lpppad2 lpppad3)
 ; nb of pads, missingPads, currentListElement,  remainingList, step in x, step in y
 (setq lay "layout")  I=0 fillFirstX=0 ipad=0
 
@@ -246,6 +246,8 @@ lpppad1='("PIN" "pad")
 when(member(lpppad1 leGetValidLayerList(techGetTechFile(geGetWindowCellView()))) lpppad=lpppad1)
 lpppad2='("AP" "pin")
 when(member(lpppad2 leGetValidLayerList(techGetTechFile(geGetWindowCellView()))) lpppad=lpppad2)
+lpppad3='("PAD" "drawing")
+unless(lpppad lpppad=lpppad3)
 
 leCreatePin(  cvp lpppad "rectangle" pBox termName "inputOutput" list("left" "right") ) ; pin for TOP cell
 dbCreateLabel(cvp lpppad centerBox(pBox)  termName "centerCenter" "R0" "roman" 10))     ;

@@ -10,6 +10,9 @@ tuple=car(tuples);=> (GND "GND")
 ; Default Net GND!
 ; Evaluated Name GND!
 
+;netSetAdd(nil nil '((ground_gnd3i "gnd!") (power_vdd3i "vdd!")))
+
+
 defun( netSetAdd (@optional (cv nil) (insts nil) (tuples '((GND VSSA)(PWR VDDA)(SUB sub))))
 
 let((prop pName nName)
